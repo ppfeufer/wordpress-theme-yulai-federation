@@ -55,7 +55,7 @@ $stringHelper = new WordPress\Themes\YulaiFederation\Helper\String();
 					<div class="entry-content">
 						<?php
 						echo \wpautop(\do_shortcode($stringHelper->cutString(\get_the_content(), '140')));
-						\_e('<span class="read-more">Read more</span>', 'yulai-federation');
+						\printf('<a href="%1$s"><span class="read-more">' . \__('Read more', 'yulai-federation') . '</span></a>', \get_the_permalink());
 
 //						if(isset($options['excerpts'])) {
 //							echo \the_excerpt();
