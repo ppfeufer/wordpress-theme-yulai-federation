@@ -247,9 +247,11 @@ jQuery(function($) {
 	 */
 	$('a').on('click', function(event) {
 		/**
-		 * Make sure this.hash has a value before overriding default behavior
+		 * Make sure it's not the comment reply cancel
+		 * link ('cancel-comment-reply-link') and this.hash has
+		 * a value before overriding default behavior
 		 */
-		if(this.hash !== '') {
+		if($(this).attr('id') !== 'cancel-comment-reply-link' && this.hash !== '') {
 			// Prevent default anchor click behavior
 			event.preventDefault();
 
@@ -269,9 +271,12 @@ jQuery(function($) {
 				}, 500, function() {
 					/**
 					 * Add hash (#) to URL when done scrolling
-					 * (default click behavior) as long as it's not #pagetop
+					 * (default click behavior) as long as it's not
+					 * one of the following:
+					 *		#pagetop	=> to-top link
+					 *		#respond	=> comment form respond
 					 */
-					if(hash !== '#pagetop') {
+					if(hash !== '#pagetop' && hash !== '#respond') {
 						window.location.hash = hash;
 					} // END if(hash !== '#pagetop')
 				});
