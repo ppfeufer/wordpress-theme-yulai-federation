@@ -111,7 +111,7 @@ class ThemeSettings {
 			),
 			'navigation_even_cells' => array(
 				'type' => 'checkbox',
-				'title' => \__('Navigation', 'eve-online'),
+				'title' => \__('Navigation', 'yulai-federation'),
 				'choices' => array(
 					'yes' => \__('Even navigation cells in main navigation', 'yulai-federation')
 				),
