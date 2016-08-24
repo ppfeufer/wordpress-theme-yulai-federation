@@ -76,6 +76,11 @@ require_once(\get_stylesheet_directory() . '/plugins/widgets/KillboardWidget.php
 require_once(\get_stylesheet_directory() . '/plugins/Killboard.php');
 
 /**
+ * Encode Emails Addresses
+ */
+require_once(\get_stylesheet_directory() . '/plugins/EncodeEmailAddresses.php');
+
+/**
  * WP Security
  */
 require_once(\get_stylesheet_directory() . '/security/WordPressSecurity.php');
