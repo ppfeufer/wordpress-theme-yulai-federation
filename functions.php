@@ -1242,17 +1242,17 @@ function yf_get_theme_custom_style() {
 	// background image
 	$backgroundImage = yf_get_theme_background_image();
 
-	if(!empty($backgroundImage) && isset($themeSettings['use_background_image']['yes'])) {
+	if(!empty($backgroundImage) && (isset($themeSettings['use_background_image']['yes']) && $themeSettings['use_background_image']['yes'] === 'yes')) {
 		$themeCustomStyle .= 'body {background-image: url("' . $backgroundImage . '")}' . "\n";
-	} // END if(!empty($backgroundImage) && isset($themeSettings['use_background_image']['yes']))
+	} // END if(!empty($backgroundImage) && (isset($themeSettings['use_background_image']['yes']) && $themeSettings['use_background_image']['yes'] === 'yes'))
 
 	// main navigation
-	if(isset($themeSettings['navigation_even_cells']['yes'])) {
+	if(isset($themeSettings['navigation_even_cells']['yes']) && $themeSettings['navigation_even_cells']['yes'] === 'yes') {
 		$themeCustomStyle .= '@media all and (min-width: 768px) {' . "\n";
 		$themeCustomStyle .= '	ul.main-navigation {display:table; width:100%;}' . "\n";
 		$themeCustomStyle .= '	ul.main-navigation > li {display:table-cell; text-align:center; float:none;}' . "\n";
 		$themeCustomStyle .= '}' . "\n";
-	} // END if(isset($themeSettings['navigation_even_cells']['yes']))
+	} // END if(isset($themeSettings['navigation_even_cells']['yes']) && $themeSettings['navigation_even_cells']['yes'] === 'yes')
 
 	\wp_add_inline_style('yulai-federation', $themeCustomStyle);
 } // END function yf_get_theme_custom_style()
