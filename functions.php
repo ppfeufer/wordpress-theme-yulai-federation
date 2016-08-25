@@ -463,13 +463,13 @@ function yf_update_options($optionsName, $dbVersionFieldName, $newDbVersion, $de
 
 	// Check if the DB needs to be updated
 	if($currentDbVersion !== $newDbVersion) {
-		$currentOptions = \get_option('yulai_theme_options');
+		$currentOptions = \get_option($optionsName);
 
 		if(\is_array($currentOptions)) {
 			$newOptions = \array_merge($defaultOptions, $currentOptions);
 		} else {
 			$newOptions = $defaultOptions;
-		} // END if(is_array($currentOptions))
+		} // END if(\is_array($currentOptions))
 
 		// Update the options
 		\update_option($optionsName, $newOptions);
