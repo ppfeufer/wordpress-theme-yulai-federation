@@ -466,7 +466,7 @@ function yf_update_options($optionsName, $dbVersionFieldName, $newDbVersion, $de
 		$currentOptions = \get_option('yulai_theme_options');
 
 		if(is_array($currentOptions)) {
-			$newOptions = array_merge($defaultOptions, $currentOptions);
+			$newOptions = \array_merge($defaultOptions, $currentOptions);
 		} else {
 			$newOptions = $defaultOptions;
 		} // END if(is_array($currentOptions))
