@@ -98,6 +98,22 @@ if(!isset($content_width)) {
 	$content_width = 1680;
 } // END if(!isset($content_width))
 
+/**
+ * Return the current DB version used for the themes settings
+ *
+ * @return string
+ */
+function yf_get_current_db_version() {
+	return '20160825';
+} // END function yf_get_current_db_version()
+
+/**
+ * Returns the default theme options.
+ * If you change something here, do not forget to increase the DB Version Number
+ * in yf_get_current_db_version()
+ *
+ * @return array Default Theme Options
+ */
 function yf_get_options_default() {
 	$defaultOptions = array(
 		// generel settings tab
@@ -114,7 +130,7 @@ function yf_get_options_default() {
 		'use_background_image' => array(
 			'yes' => 'yes'
 		),
-		'background_image' => 'eve-online-citadel.jpg',
+		'background_image' => 'eve-citadel.jpg',
 		'background_image_upload' => '',
 		'background_color' => '',
 
@@ -374,6 +390,11 @@ if(!\function_exists('yf_enqueue_admin_styles')) {
  */
 function yf_theme_setup() {
 	/**
+	 * Check if options have to be updated
+	 */
+	yf_update_options('yulai_theme_options', 'yulai_theme_db_version', yf_get_current_db_version(), yf_get_options_default());
+
+	/**
 	 * Loading out textdomain
 	 */
 	\load_theme_textdomain('yulai-federation', \get_stylesheet_directory() . '/l10n');
@@ -428,6 +449,35 @@ function yf_theme_setup() {
  * style in css.
  */
 \add_filter('gallery_style', \create_function('$a', 'return "<div class=\'gallery\'>";'));
+
+/**
+ * Update the options array for our theme, if needed
+ *
+ * @param string $optionsName
+ * @param string $dbVersionFieldName
+ * @param string $newDbVersion
+ * @param array $defaultOptions
+ */
+function yf_update_options($optionsName, $dbVersionFieldName, $newDbVersion, $defaultOptions) {
+	$currentDbVersion = \get_option($dbVersionFieldName);
+
+	// Check if the DB needs to be updated
+	if($currentDbVersion !== $newDbVersion) {
+		$currentOptions = \get_option('yulai_theme_options');
+
+		if(is_array($currentOptions)) {
+			$newOptions = array_merge($defaultOptions, $currentOptions);
+		} else {
+			$newOptions = $defaultOptions;
+		} // END if(is_array($currentOptions))
+
+		// Update the options
+		\update_option($optionsName, $newOptions);
+
+		// Update the DB Version
+		\update_option($dbVersionFieldName, $newDbVersion);
+	} // END if($currentDbVersion !== $newDbVersion)
+} // END function yf_update_options($dbVersionName, $optionsName, $newDbVersion, $defaultOptions)
 
 /**
  * Return the Google font stylesheet URL, if available.
