@@ -13,7 +13,7 @@
 
 		function getCurrentUl() {
 			return 'ul[data-bsp-ul-id="' + clicked.ulId + '"][data-bsp-ul-index="' + clicked.ulIndex + '"]';
-		}
+		} // END function getCurrentUl()
 
 		function generateId() {
 			//http://fiznool.com/blog/2014/11/16/short-id-generation-in-javascript/
@@ -23,15 +23,15 @@
 
 			for(var i = 0; i < ID_LENGTH; i++) {
 				out += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
-			}
+			} // END for(var i = 0; i < ID_LENGTH; i++)
 
 			return 'bsp-' + out;
-		}
+		} // END function generateId()
 
 		function createModalWrap() {
 			if($('#bootstrapGalleryModal-' + id).length !== 0) {
 				return false;
-			}
+			} // END if($('#bootstrapGalleryModal-' + id).length !== 0)
 
 			var modal = '';
 				modal += '<div class="modal fade modal-bootstrap-photo-gallery" id="bootstrapGalleryModal-' + id + '" tabindex="-1" role="dialog"';
@@ -40,7 +40,7 @@
 				modal += '<div class="modal-body"></div></div></div></div>';
 
 			$('body').append(modal);
-		}
+		} // END function createModalWrap()
 
 		function showHideControls() {
 			var total = $(getCurrentUl() + ' li[data-bsp-li-index]').length;
@@ -49,14 +49,14 @@
 				$('a.next').hide();
 			} else {
 				$('a.next').show()
-			}
+			} // END if(total === clicked.nextImg)
 
 			if(clicked.prevImg === -1) {
 				$('a.previous').hide();
 			} else {
 				$('a.previous').show()
-			}
-		}
+			} // END if(clicked.prevImg === -1)
+		} // END function showHideControls()
 
 		function showModal() {
 			var src = $(this).find('img').attr('src');
@@ -65,14 +65,14 @@
 			var lazySource = $(this).find('img').attr('data-lazy-src') || '';
 			if(lazySource !== '') {
 				src = lazySource;
-			}
+			} // END if(lazySource !== '')
 
 			var largeImg = $(this).find('img').attr('data-bsp-large-src');
 			var caption = $(this).find('figcaption').text();
 
 			if(typeof largeImg === 'string') {
 				src = largeImg;
-			}
+			} // END if(typeof largeImg === 'string')
 
 			var index = $(this).attr('data-bsp-li-index');
 			var ulIndex = $(this).parent('ul').attr('data-bsp-ul-index');
@@ -96,7 +96,7 @@
 					html += clicked.caption;
 					html += '<a href="' + clicked.img + '" title="Open Image in a new Window" class="modal-gallery open-modal-image link-external" target="_blank"><span class="glyphicon glyphicon-link"></span></a>';
 					html += '</figcaption>';
-				}
+				} // END if(clicked.caption !== '')
 
 			html += '</figure>';
 				html += '<span class="glyphicon glyphicon-remove-circle modal-close-icon"></span>';
@@ -109,11 +109,11 @@
 			$('.glyphicon-remove-circle').on('click', closeModal);
 
 			showHideControls();
-		}
+		} // END function showModal()
 
 		function closeModal() {
 			$('#bootstrapGalleryModal-' + id).modal('hide');
-		}
+		} // END function closeModal()
 
 		function nextPrevHandler() {
 			var ul = $(getCurrentUl());
@@ -125,13 +125,13 @@
 			var lazySource = ul.find('li[data-bsp-li-index="' + index + '"] img').attr('data-lazy-src') || '';
 			if(lazySource !== '') {
 				src = lazySource;
-			}
+			} // END if(lazySource !== '')
 
 			var largeImg = ul.find('li[data-bsp-li-index="' + index + '"] img').attr('data-bsp-large-src');
 
 			if(typeof largeImg === 'string') {
 				src = largeImg;
-			}
+			} // END if(typeof largeImg === 'string')
 
 			$('.modal-body img').attr('src', src);
 
@@ -140,7 +140,7 @@
 			$('.modal-body figcaption').remove();
 			if(caption !== '') {
 				$('.modal-body figure').append('<figcaption>' + caption + '<a href="' + src + '" title="Open Image in a new Window" class="modal-gallery open-modal-image link-external" target="_blank"><span class="glyphicon glyphicon-link"></span></a></figcaption>');
-			}
+			} // END if(caption !== '')
 
 			clicked.prevImg = parseInt(index) - 1;
 			clicked.nextImg = parseInt(clicked.prevImg) + 2;
@@ -151,155 +151,155 @@
 			} else {
 				$(this).attr('href', clicked.nextImg);
 				$('a.previous').attr('href', clicked.prevImg);
-			}
+			} // END if($(this).hasClass('previous'))
 
 			// console.log(clicked);
 			showHideControls();
 
 			return false;
-		}
+		} // END function nextPrevHandler()
 
 		function clearModalContent() {
 			$('#bootstrapGalleryModal-' + id + ' .modal-body').html('');
 
 			clicked = {};
-		}
+		} // END function clearModalContent()
 
 		function insertClearFix(el, x) {
 			var index = (x + 1);
 
-			$.each(classesArray, function (e) {
-				switch (classesArray[e]) {
+			$.each(classesArray, function(e) {
+				switch(classesArray[e]) {
 					//large
 					case "col-lg-1":
 						if($(el).next('li.clearfix').length == 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
-						}
+						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
 					case "col-lg-2":
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
-						}
+						} // END if(index % 6 === 0)
 						break;
 
 					case "col-lg-3":
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
-						}
+						} // END if(index % 4 === 0)
 						break;
 
 					case "col-lg-4":
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
-						}
+						} // END if(index % 3 === 0)
 						break;
 
 					case "col-lg-5":
 					case "col-lg-6":
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
-						}
+						} // END if(index % 2 === 0)
 						break;
 
 					//medium
 					case "col-md-1":
 						if($(el).next('li.clearfix').length == 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
-						}
+						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
 					case "col-md-2":
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
-						}
+						} // END if(index % 6 === 0)
 						break;
 
 					case "col-md-3":
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
-						}
+						} // END if(index % 4 === 0)
 						break;
 
 					case "col-md-4":
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
-						}
+						} // END if(index % 3 === 0)
 						break;
 
 					case "col-md-5":
 					case "col-md-6":
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
-						}
+						} // END if(index % 2 === 0)
 						break;
 
 					//small
 					case "col-sm-1":
 						if($(el).next('li.clearfix').length == 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
-						}
+						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
 					case "col-sm-2":
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
-						}
+						} // END if(index % 6 === 0)
 						break;
 
 					case "col-sm-3":
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
-						}
+						} // END if(index % 4 === 0)
 						break;
 
 					case "col-sm-4":
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
-						}
+						} // END if(index % 3 === 0)
 						break;
 
 					case "col-sm-5":
 					case "col-sm-6":
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
-						}
+						} // END if(index % 2 === 0)
 						break;
 
 					//x-small
 					case "col-xs-1":
 						if($(el).next('li.clearfix').length == 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
-						}
+						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
 					case "col-xs-2":
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
-						}
+						} // END if(index % 6 === 0)
 						break;
 
 					case "col-xs-3":
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
-						}
+						} // END if(index % 4 === 0)
 						break;
 
 					case "col-xs-4":
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
-						}
+						} // END if(index % 3 === 0)
 						break;
 
 					case "col-xs-5":
 					case "col-xs-6":
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
-						}
+						} // END if(index % 2 === 0)
 						break;
-				}
-			});
-		}
+				} // END switch(classesArray[e])
+			}); // END $.each(classesArray, function(e) {})
+		} // END function insertClearFix(el, x)
 
 		this.each(function(i) {
 			//ul
@@ -308,7 +308,7 @@
 			$(this).attr('data-bsp-ul-id', id);
 			$(this).attr('data-bsp-ul-index', i);
 
-			items.each(function (x) {
+			items.each(function(x) {
 				insertClearFix(this, x);
 
 				$(this).addClass(classesString);
@@ -316,12 +316,11 @@
 				$(this).find('img').addClass('img-responsive');
 
 				if(settings.hasModal === true) {
-//					$(this).addClass('bspHasModal');
 					$(this).addClass('bootstrap-gallery-modal');
 					$(this).on('click', showModal);
-				}
-			});
-		});
+				} // END if(settings.hasModal === true)
+			}); // END items.each(function(x) {})
+		}); // END this.each(function(i) {})
 
 		if(settings.hasModal === true) {
 			//this is for the next / previous buttons
@@ -330,7 +329,7 @@
 			//start init methods
 
 			createModalWrap();
-		}
+		} // END if(settings.hasModal === true)
 
 		return this;
 	};
