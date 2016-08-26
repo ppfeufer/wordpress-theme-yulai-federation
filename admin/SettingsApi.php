@@ -1,25 +1,47 @@
 <?php
 /**
- * Settings API ( http://www.wp-load.com/register-settings-api/ )
+ * Inspired by http://www.wp-load.com/register-settings-api/
+ *
+ * Usage:
+ *		$settingsApi = new SettingsApi($settingsFilterName, $defaultOptions);
+ *		$settingsApi->init();
  */
 
 namespace WordPress\Themes\YulaiFederation\Admin;
 
+/**
+ * Only call this class from within WordPress
+ */
 \defined('ABSPATH') or die();
 
 class SettingsApi {
 	/**
-	 * Init private variables
+	 * @var array
 	 */
 	private $args = null;
+
+	/**
+	 * @var array
+	 */
 	private $settingsArray = null;
+
+	/**
+	 * @var string
+	 */
 	private $settingsFilter = null;
+
+	/**
+	 * @var array
+	 */
 	private $optionsDefault = null;
 
 	/**
 	 * Constructor
+	 *
+	 * @param string $settingsFilter The name of your settingsfilter
+	 * @param array $defaultOptions Your default options array
 	 */
-	public function __construct($settingsFilter = null, $defaultOptions = null) {
+	public function __construct($settingsFilter, $defaultOptions) {
 		$this->settingsFilter = $settingsFilter;
 		$this->optionsDefault = $defaultOptions;
 	} // END public function __construct()
@@ -55,11 +77,11 @@ class SettingsApi {
 	public function menuPage() {
 		foreach($this->settingsArray as $menu_slug => $options) {
 			if(!empty($options['page_title']) && !empty($options['menu_title']) && !empty($options['option_name'])) {
-				$options['capability'] = (!empty($options['capability']) ) ? $options['capability'] : 'manage_options';
+				// set default capabilities to 'manage_options'
+				$options['capability'] = (!empty($options['capability'])) ? $options['capability'] : 'manage_options';
 
-				if(empty($options['type'])) {
-					$options['type'] = 'plugin';
-				} // END if(empty($options['type']))
+				// set default type to 'plugin'
+				$options['type'] = (!empty($options['type'])) ? $options['type'] : 'plugin';
 
 				switch($options['type']) {
 					case 'theme':
@@ -102,7 +124,7 @@ class SettingsApi {
 						'menu_page' => $page_id . '_' . $sanitized_tab_id
 					);
 
-				\add_settings_section(
+					\add_settings_section(
 						$section_args['id'], $section_args['title'], array($this, $section_args['callback']), $section_args['menu_page']
 					);
 
@@ -325,6 +347,7 @@ class SettingsApi {
 
 	/**
 	 * Get themes from WordPress, used by the select field type
+	 */
 	public function get_themes() {
 		$items = array();
 		$args = (!empty($this->args['args'])) ? $this->args['args'] : null;
@@ -493,8 +516,6 @@ class SettingsApi {
 
 	/**
 	 * Return the html name of the field
-	 *
-	 * @since 1.4
 	 */
 	public function name($slug = '') {
 		$option_name = \sanitize_title($this->args['option_name']);
