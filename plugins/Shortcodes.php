@@ -9,7 +9,7 @@ namespace WordPress\Themes\YulaiFederation\Plugins;
 
 class Shortcodes {
 	public function __construct() {
-		$this->changeWpAuto();
+//		$this->changeWpAuto();
 		$this->addShortcodesToWidgets();
 		$this->registerShortcodes();
 	}
