@@ -488,6 +488,10 @@ ins {
 	margin-right: 0.9375rem;
 }
 
+.post-header-image .wp-post-image {
+	margin-right: 0;
+}
+
 .content-index {
 	margin-top: 16px;
 	margin-top: 1rem;
