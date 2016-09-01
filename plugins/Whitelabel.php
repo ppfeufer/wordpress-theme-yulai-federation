@@ -105,7 +105,7 @@ class Whitelabel {
 			background-attachment: fixed;
 		}
 		h1 a {
-			background-image:url(' . \get_stylesheet_directory_uri() . '/img/yulai-logo-320.png) !important;
+			background-image:url(' . \get_template_directory_uri() . '/img/yulai-logo-320.png) !important;
 			background-size: 320px 320px !important;
 			background-size: 20rem 20rem !important;
 			height: 320px !important;
