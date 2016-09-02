@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6  {
 }
 
 .content-index h2.entry-title, .video-gallery-title, .corporationlist-title,
-.content-archive h2.entry-title {
+.content-archive h2.entry-title, .bootstrap-latest-post-loop h2.entry-title {
 	font-size: 18px;
 	font-size: 1.125rem;
 }

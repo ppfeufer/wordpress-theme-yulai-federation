@@ -76,6 +76,11 @@ require_once(\get_stylesheet_directory() . '/plugins/widgets/KillboardWidget.php
 require_once(\get_stylesheet_directory() . '/plugins/Killboard.php');
 
 /**
+ * Latest Blog Posts
+ */
+require_once(\get_stylesheet_directory() . '/plugins/LatestBlogPosts.php');
+
+/**
  * Encode Emails Addresses
  */
 require_once(\get_stylesheet_directory() . '/plugins/EncodeEmailAddresses.php');
@@ -1086,6 +1091,20 @@ function yf_get_loopContentClasses($echo = false) {
 	} // END if($echo === true)
 } // END function yf_get_loopContentClasses($echo = false)
 
+function yf_get_contentColumnCount($echo = false) {
+	if(yf_has_sidebar('sidebar-page') || yf_has_sidebar('sidebar-general') || yf_has_sidebar('sidebar-post')) {
+		$columnCount = 3;
+	} else {
+		$columnCount = 4;
+	} // END if(eve_has_sidebar('sidebar-page'))
+
+	if($echo === true) {
+		echo $columnCount;
+	} else {
+		return $columnCount;
+	} // END if($echo === true)
+}
+
 /**
  * Returning some theme related data
  *
@@ -1306,3 +1325,20 @@ function yf_move_comment_field_to_bottom($fields) {
 	return $fields;
 } // END function yf_move_comment_field_to_bottom($fields)
 \add_filter('comment_form_fields', '\\WordPress\Themes\YulaiFederation\yf_move_comment_field_to_bottom');
+
+function get_excerpt_by_id($postID, $excerptLength = 35) {
+	$the_post = \get_post($postID); //Gets post ID
+	$the_excerpt = $the_post->post_content; //Gets post_content to be used as a basis for the excerpt
+	$the_excerpt = \strip_tags(\strip_shortcodes($the_excerpt)); //Strips tags and images
+	$words = \explode(' ', $the_excerpt, $excerptLength + 1);
+
+	if(\count($words) > $excerptLength) {
+		\array_pop($words);
+		\array_push($words, '…');
+		$the_excerpt = \implode(' ', $words);
+	}
+
+	$the_excerpt = '<p>' . $the_excerpt . '</p>';
+
+	return $the_excerpt;
+} // END function get_excerpt_by_id($postID, $excerptLength = 35)

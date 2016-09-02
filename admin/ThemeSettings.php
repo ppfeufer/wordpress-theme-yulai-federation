@@ -1,6 +1,6 @@
 <?php
 /**
- * THeme Settings
+ * Theme Settings
  */
 
 namespace WordPress\Themes\YulaiFederation\Admin;
