@@ -19,7 +19,7 @@ class LatestBlogPosts {
 		\add_shortcode('latestblogposts', array($this, 'shortcodeLatestBlogPosts'));
 	} // END public function registerShortcodes()
 
-	public function shortcodeLatestBlogPosts($attributes, $content = null) {
+	public function shortcodeLatestBlogPosts($attributes) {
 		$args = \shortcode_atts(
 			array(
 				'number' => YulaiFederation\yf_get_contentColumnCount(),
