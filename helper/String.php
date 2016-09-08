@@ -9,7 +9,7 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 
 \defined('ABSPATH') or die();
 
-class String {
+class StringHelper {
 	public function cutString($string, $pos) {
 		$string = strip_tags($string);
 
@@ -25,4 +25,4 @@ class String {
 
 		return $string;
 	} // END function cutString($string, $pos)
-} // END class String
+} // END class StringHelper

@@ -15,7 +15,7 @@ class Corppage {
 
 	public function __construct() {
 		$this->eveApi = new YulaiFederation\Helper\EveApi;
-		$this->string = new YulaiFederation\Helper\String;
+		$this->string = new YulaiFederation\Helper\StringHelper;
 
 		$this->registerMetaBoxes();
 		$this->registerShortcodes();

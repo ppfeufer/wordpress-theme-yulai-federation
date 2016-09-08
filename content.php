@@ -1,7 +1,7 @@
 <?php
 defined('ABSPATH') or die();
 
-$stringHelper = new WordPress\Themes\YulaiFederation\Helper\String();
+$stringHelper = new WordPress\Themes\YulaiFederation\Helper\StringHelper;
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php \post_class('clearfix'); ?>>
