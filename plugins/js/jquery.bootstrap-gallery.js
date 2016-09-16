@@ -48,13 +48,13 @@
 			if(total === clicked.nextImg) {
 				$('a.next').hide();
 			} else {
-				$('a.next').show()
+				$('a.next').show();
 			} // END if(total === clicked.nextImg)
 
 			if(clicked.prevImg === -1) {
 				$('a.previous').hide();
 			} else {
-				$('a.previous').show()
+				$('a.previous').show();
 			} // END if(clicked.prevImg === -1)
 		} // END function showHideControls()
 
@@ -171,128 +171,128 @@
 			$.each(classesArray, function(e) {
 				switch(classesArray[e]) {
 					//large
-					case "col-lg-1":
-						if($(el).next('li.clearfix').length == 0) {
+					case 'col-lg-1':
+						if($(el).next('li.clearfix').length === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
 						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
-					case "col-lg-2":
+					case 'col-lg-2':
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
 						} // END if(index % 6 === 0)
 						break;
 
-					case "col-lg-3":
+					case 'col-lg-3':
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
 						} // END if(index % 4 === 0)
 						break;
 
-					case "col-lg-4":
+					case 'col-lg-4':
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
 						} // END if(index % 3 === 0)
 						break;
 
-					case "col-lg-5":
-					case "col-lg-6":
+					case 'col-lg-5':
+					case 'col-lg-6':
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-lg-block"></li>');
 						} // END if(index % 2 === 0)
 						break;
 
 					//medium
-					case "col-md-1":
-						if($(el).next('li.clearfix').length == 0) {
+					case 'col-md-1':
+						if($(el).next('li.clearfix').length === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
 						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
-					case "col-md-2":
+					case 'col-md-2':
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
 						} // END if(index % 6 === 0)
 						break;
 
-					case "col-md-3":
+					case 'col-md-3':
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
 						} // END if(index % 4 === 0)
 						break;
 
-					case "col-md-4":
+					case 'col-md-4':
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
 						} // END if(index % 3 === 0)
 						break;
 
-					case "col-md-5":
-					case "col-md-6":
+					case 'col-md-5':
+					case 'col-md-6':
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-md-block"></li>');
 						} // END if(index % 2 === 0)
 						break;
 
 					//small
-					case "col-sm-1":
-						if($(el).next('li.clearfix').length == 0) {
+					case 'col-sm-1':
+						if($(el).next('li.clearfix').length === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
 						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
-					case "col-sm-2":
+					case 'col-sm-2':
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
 						} // END if(index % 6 === 0)
 						break;
 
-					case "col-sm-3":
+					case 'col-sm-3':
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
 						} // END if(index % 4 === 0)
 						break;
 
-					case "col-sm-4":
+					case 'col-sm-4':
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
 						} // END if(index % 3 === 0)
 						break;
 
-					case "col-sm-5":
-					case "col-sm-6":
+					case 'col-sm-5':
+					case 'col-sm-6':
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-sm-block"></li>');
 						} // END if(index % 2 === 0)
 						break;
 
 					//x-small
-					case "col-xs-1":
-						if($(el).next('li.clearfix').length == 0) {
+					case 'col-xs-1':
+						if($(el).next('li.clearfix').length === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
 						} // END if($(el).next('li.clearfix').length == 0)
 						break;
 
-					case "col-xs-2":
+					case 'col-xs-2':
 						if(index % 6 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
 						} // END if(index % 6 === 0)
 						break;
 
-					case "col-xs-3":
+					case 'col-xs-3':
 						if(index % 4 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
 						} // END if(index % 4 === 0)
 						break;
 
-					case "col-xs-4":
+					case 'col-xs-4':
 						if(index % 3 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
 						} // END if(index % 3 === 0)
 						break;
 
-					case "col-xs-5":
-					case "col-xs-6":
+					case 'col-xs-5':
+					case 'col-xs-6':
 						if(index % 2 === 0) {
 							$(el).after('<li class="clearfix visible-xs-block"></li>');
 						} // END if(index % 2 === 0)
@@ -302,7 +302,7 @@
 		} // END function insertClearFix(el, x)
 
 		this.each(function(i) {
-			//ul
+			// ul
 			var items = $(this).find('li');
 
 			$(this).attr('data-bsp-ul-id', id);
@@ -338,5 +338,5 @@
 	$.fn.bootstrapGallery.defaults = {
 		'classes': 'col-lg-2 col-md-2 col-sm-3 col-xs-4',
 		'hasModal': true
-	}
+	};
 }(jQuery));

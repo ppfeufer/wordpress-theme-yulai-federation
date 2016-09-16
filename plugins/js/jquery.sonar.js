@@ -154,7 +154,7 @@
 	$.fn.sonar = function(distance, full) {
 		// No callbacks, return the results from Sonar for
 		// the first element in the stack.
-		if(typeof distance === "boolean") {
+		if(typeof distance === 'boolean') {
 			full = distance;
 			distance = undefined;
 		}
@@ -164,8 +164,8 @@
 
 	var body = doc.body,
 		$win = $(win),
-		onScreenEvent = "scrollin",
-		offScreenEvent = "scrollout",
+		onScreenEvent = 'scrollin',
+		offScreenEvent = 'scrollout',
 
 		detect = function(elem, distance, full) {
 			if(elem) {
@@ -336,7 +336,7 @@
 
 			// Activate the poll if not currently activated.
 			if(!pollActive) {
-				$win.bind("scroll", poll);
+				$win.bind('scroll', poll);
 				pollActive = 1;
 			}
 
@@ -394,4 +394,4 @@
 			}
 		};
 //		console.log(pollQueue);
-})( jQuery, window, document );
+})(jQuery, window, document);
