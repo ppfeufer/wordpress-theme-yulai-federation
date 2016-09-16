@@ -16,7 +16,7 @@ class EncodeEmailAddresses {
 		 * comments and text widgets.
 		 */
 		foreach(array('the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt') as $filter) {
-			add_filter($filter, array($this, 'encodeMails'), $this->filterPriority);
+			\add_filter($filter, array($this, 'encodeMails'), $this->filterPriority);
 		} // END foreach(array('the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt') as $filter)
 	} // END public function __construct()
 
@@ -63,7 +63,7 @@ class EncodeEmailAddresses {
 		);
 	} // END public function encodeMails($content)
 
-	public static function encodeString($string) {
+	public function encodeString($string) {
 		$chars = \str_split($string);
 		$seed = \mt_rand(0, (int) \abs(\crc32($string) / \strlen($string)));
 

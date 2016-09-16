@@ -6,7 +6,6 @@
 namespace WordPress\Themes\YulaiFederation\Plugins\Widgets;
 
 use WordPress\Themes\YulaiFederation;
-use WordPress\Themes\YulaiFederation\Plugins;
 
 class KillboardWidget extends \WP_Widget {
 	/**
@@ -34,12 +33,12 @@ class KillboardWidget extends \WP_Widget {
 	private $pluginHelper = null;
 	private $pluginSettings = null;
 
-	private $eveApi = null;
+//	private $eveApi = null;
 
 	public function __construct() {
-		$this->plugin = new Plugins\Killboard(false);
-		$this->pluginHelper = new Plugins\Helper\KillboardHelper;
-		$this->eveApi = new YulaiFederation\Helper\EveApi;
+		$this->plugin = new YulaiFederation\Plugins\Killboard(false);
+		$this->pluginHelper = new YulaiFederation\Plugins\Helper\KillboardHelper;
+//		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
 //		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());

@@ -16,11 +16,11 @@ use WordPress\Themes\YulaiFederation;
 
 class BootstrapMenuWalker extends \Walker_Nav_Menu {
 	private $themeOptions = null;
-	private $eveApi = null;
+//	private $eveApi = null;
 
 	public function __construct() {
 		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
-		$this->eveApi = new YulaiFederation\Helper\EveApi;
+//		$this->eveApi = new YulaiFederation\Helper\EveApi;
 	}
 
 	/**
@@ -153,7 +153,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 			$yf_page_corp_eve_ID = \get_post_meta($item->object_id, 'yf_page_corp_eve_ID', true);
 			if($yf_page_corp_eve_ID) {
 				if(isset($this->themeOptions['show_corp_logos']['show'])) {
-					$corpLogoPath = $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png';
+					$corpLogoPath = YulaiFederation\Helper\EveApiHelper::getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png';
 
 					$item_output .= '<a' . $attributes . '><span class="corp-' . \sanitize_title($item->title) . ' ' . \esc_attr($item->attr_title) . ' corp-eveID-' . $yf_page_corp_eve_ID . '"><img src="' . $corpLogoPath . '" width="24" height="24" alt="' . $item->title . '"></span>&nbsp;';
 				} else {

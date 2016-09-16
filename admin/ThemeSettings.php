@@ -18,7 +18,7 @@ class ThemeSettings {
 	private $settingsFilter = null;
 
 	public function __construct() {
-		$this->eveApi = new YulaiFederation\Helper\EveApi;
+		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 		$this->metaSlider = new YulaiFederation\Plugins\Metaslider(false);
 		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
 

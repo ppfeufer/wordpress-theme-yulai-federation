@@ -23,14 +23,14 @@ namespace WordPress\Themes\YulaiFederation;
 require_once(\get_stylesheet_directory() . '/admin/SettingsApi.php');
 
 /**
- * EVE API Class
+ * EVE API Helper
  */
-require_once(\get_stylesheet_directory() . '/helper/EveApi.php');
+require_once(\get_stylesheet_directory() . '/helper/EveApiHelper.php');
 
 /**
  * String Helper
  */
-require_once(\get_stylesheet_directory() . '/helper/String.php');
+require_once(\get_stylesheet_directory() . '/helper/StringHelper.php');
 
 /**
  * Metaslider Plugin

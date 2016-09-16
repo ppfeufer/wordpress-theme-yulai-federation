@@ -59,7 +59,7 @@
 							$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\yf_get_options_default());
 
 							if(!empty($options['name'])) {
-								$eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApi;
+								$eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
 								$siteLogo = $eveApi->getEntityLogoByName($options['name']);
 
 								if($siteLogo !== false) {

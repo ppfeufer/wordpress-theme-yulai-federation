@@ -48,11 +48,7 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class BootstrapVideoGallery {
-	private $string = null;
-
 	public function __construct() {
-		$this->string = new YulaiFederation\Helper\StringHelper;
-
 		$this->registerShortcode();
 		$this->registerMetabox();
 	} // END public function __construct()
@@ -93,7 +89,7 @@ class BootstrapVideoGallery {
 				$videoGalleryHtml .= '<header><h2 class="video-gallery-title"><a href="' . \get_permalink($child->ID) . '">' . $child->post_title . '</a></h2></header>';
 
 				if($child->post_content) {
-					$videoGalleryHtml .= '<p>' . $this->string->cutString($child->post_content, '140') . '</p>';
+					$videoGalleryHtml .= '<p>' . YulaiFederation\Helper\StringHelper::cutString($child->post_content, '140') . '</p>';
 				} // END if($child->post_content)
 
 				$videoGalleryHtml .= '</li>';

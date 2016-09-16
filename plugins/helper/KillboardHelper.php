@@ -18,7 +18,7 @@ class KillboardHelper {
 
 	public function __construct() {
 		$this->plugin = new Plugins\Killboard(false);
-		$this->eveApi = new YulaiFederation\Helper\EveApi;
+		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
 
