@@ -88,7 +88,7 @@ class BootstrapVideoGallery {
 			if($childPages) {
 				foreach($childPages as $child) {
 					$videoGalleryHtml .= '<li>';
-					$videoGalleryHtml .= $child->eve_page_video_oEmbed_code;
+					$videoGalleryHtml .= $child->yf_page_video_oEmbed_code;
 					$videoGalleryHtml .= '<header><h2 class="video-gallery-title"><a href="' . \get_permalink($child->ID) . '">' . $child->post_title . '</a></h2></header>';
 
 					if($child->post_content) {
