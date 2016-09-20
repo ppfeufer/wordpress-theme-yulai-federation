@@ -283,6 +283,15 @@ if(!\function_exists('yf_enqueue_styles')) {
 
 function yf_get_stylesheets() {
 	$enqueue_style = array(
+		/* Normalize CSS */
+		'Normalize CSS' => array(
+			'handle' => 'normalize',
+			'source' => \get_template_directory_uri() . '/css/normalize.min.css',
+			'source-development' => \get_template_directory_uri() . '/css/normalize.css',
+			'deps' => array(),
+			'version' => '3.0.3',
+			'media' => 'all'
+		),
 		/* Bootstrap */
 		'Bootstrap' => array(
 			'handle' => 'bootstrap',
