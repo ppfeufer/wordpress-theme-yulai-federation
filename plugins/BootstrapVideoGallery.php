@@ -64,12 +64,14 @@ class BootstrapVideoGallery {
 		$args = \shortcode_atts(
 			array(
 				'id' => '',
-				'videolist' => ''
+				'videolist' => '',
+				'classes' => ''
 			),
 			$attributes
 		);
 		$id = $args['id'];
 		$videoList = $args['videolist'];
+		$classes = $args['classes'];
 		$idList = null;
 
 		if(!empty($id)) {
@@ -104,10 +106,16 @@ class BootstrapVideoGallery {
 			$videos = \explode(',', $videoList);
 			$youtubePattern = '/(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/';
 //			$vimeoPattern = '';
+
 			foreach($videos as $video) {
 				if(\preg_match($youtubePattern, $video)) {
+					$oEmbed = new \WP_oEmbed();
+					$provider = $oEmbed->get_provider($video);
+					$videoData = $oEmbed->fetch($provider, $video);
 					$videoGalleryHtml .= '<li>';
-					$videoGalleryHtml .= \wp_oembed_get($video);
+//					$videoGalleryHtml .= '<pre>' . htmlentities(print_r($videoData, true)) . '</pre>';
+					$videoGalleryHtml .= $videoData->html;
+					$videoGalleryHtml .= '<header><h2 class="video-gallery-title"><a href="' . $video . '" rel="external">' . $videoData->title . '</a></h2><span class="bootstrap-video-gallery-video-author small">' . sprintf(\__('&copy %1$s', 'yulai-federation'), $videoData->author_name) . ' (<a href="' . $videoData->author_url . '" rel=external">' . \__('Channel', 'yulai-federation') . '</a>)</span></header>';
 					$videoGalleryHtml .= '</li>';
 				} // END if(\preg_match($youtubePattern, $video))
 			} // END foreach($videos as $video)
@@ -116,10 +124,14 @@ class BootstrapVideoGallery {
 		$videoGalleryHtml .= '</ul>';
 		$videoGalleryHtml .= '</div>';
 
+		if(empty($classes)) {
+			$classes = YulaiFederation\yf_get_loopContentClasses();
+		} // END if(empty($classes))
+
 		$videoGalleryHtml .= '<script type="text/javascript">
 								jQuery(document).ready(function() {
 									jQuery("ul.bootstrap-video-gallery-' . $uniqueID . '").bootstrapGallery({
-										"classes" : "' . YulaiFederation\yf_get_loopContentClasses() . '",
+										"classes" : "' . $classes . '",
 										"hasModal" : false
 									});
 								});
