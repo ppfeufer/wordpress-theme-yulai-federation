@@ -207,9 +207,11 @@ class BootstrapVideoGallery {
 	 * @return boolean
 	 */
 	function saveMetaboxData($postID) {
-		if(empty($_POST['_yf_video_page_nonce']) || !\wp_verify_nonce($_POST['_yf_video_page_nonce'], 'save')) {
+		$postNonce = \filter_input(\INPUT_POST, '_yf_video_page_nonce');
+
+		if(empty($postNonce) || !\wp_verify_nonce($postNonce, 'save')) {
 			return false;
-		} // END if(empty($_POST['_yf_video_page_nonce']) || !wp_verify_nonce($_POST['_yf_video_page_nonce'], 'save'))
+		} // END if(empty($postNonce) || !\wp_verify_nonce($postNonce, 'save'))
 
 		if(!\current_user_can('edit_post', $postID)) {
 			return false;
@@ -219,7 +221,7 @@ class BootstrapVideoGallery {
 			return false;
 		} // END if(defined('DOING_AJAX'))
 
-		\update_post_meta($postID, 'yf_page_video_url', $_POST['yf_page_video_url']);
+		\update_post_meta($postID, 'yf_page_video_url', \filter_input(\INPUT_POST, 'yf_page_video_url'));
 
 		$isVideoPage = \filter_input(\INPUT_POST, 'yf_page_is_video_gallery_page') == "on";
 		\update_post_meta($postID, 'yf_page_is_video_gallery_page', $isVideoPage);
