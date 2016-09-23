@@ -69,6 +69,7 @@ class BootstrapVideoGallery {
 			),
 			$attributes
 		);
+
 		$id = $args['id'];
 		$videoList = $args['videolist'];
 		$classes = $args['classes'];
