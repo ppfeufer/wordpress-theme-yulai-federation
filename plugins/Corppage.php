@@ -33,7 +33,11 @@ class Corppage {
 			),
 			$attributes
 		);
-		$type = $args['type'];
+
+		/**
+		 * Not used at this moment
+		 */
+//		$type = $args['type'];
 
 		$corpPages = $this->getCorporationPages();
 		$corplistHTML = null;
