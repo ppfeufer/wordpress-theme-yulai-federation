@@ -27,6 +27,7 @@ class LatestBlogPosts {
 			),
 			$attributes
 		);
+
 		$number = $args['number'];
 		$classes = $args['classes'];
 
@@ -77,6 +78,7 @@ class LatestBlogPosts {
 					</script>';
 
 			$articleLoop = \ob_get_contents();
+
 			\ob_end_clean();
 		} // END if($the_query->have_posts())
 
