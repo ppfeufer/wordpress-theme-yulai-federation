@@ -33,7 +33,7 @@ class BootstrapImageGallery {
 			} // END if(!$attr['orderby'])
 		} // END if(isset($attr['orderby']))
 
-		\extract(\shortcode_atts(array(
+		$attributes = \shortcode_atts(array(
 			'order' => 'ASC',
 			'orderby' => 'menu_order ID',
 			'id' => $post->ID,
@@ -41,10 +41,21 @@ class BootstrapImageGallery {
 			'icontag' => 'div',
 			'captiontag' => 'figcaption',
 			'columns' => 3,
-			'size' => 'thumbnail',
+			'size' => 'post-loop-thumbnail',
 			'include' => '',
 			'exclude' => ''
-		), $attr));
+		), $attr);
+
+		$order = $attributes['order'];
+		$orderby = $attributes['orderby'];
+		$id = $attributes['id'];
+		$itemtag = $attributes['itemtag'];
+		$icontag = $attributes['icontag'];
+		$captiontag = $attributes['captiontag'];
+//		$columns = $attributes['columns'];
+		$size = $attributes['size'];
+		$include = $attributes['include'];
+		$exclude = $attributes['exclude'];
 
 		$id = \intval($id);
 
@@ -100,7 +111,7 @@ class BootstrapImageGallery {
 			$output = "\n";
 
 			foreach($attachments as $att_id => $attachment) {
-				$output .= \wp_get_attachment_link($att_id, 'post-loop-thumbnail', true) . "\n";
+				$output .= \wp_get_attachment_link($att_id, $size, true) . "\n";
 			} // END foreach($attachments as $att_id => $attachment)
 
 			return $output;
@@ -222,14 +233,12 @@ class BootstrapImageGallery {
 					 * images in its gallery
 					 */
 					if(\is_array($atts) && \array_key_exists('ids', $atts)) {
-						$images = new \WP_Query(
-							array(
-								'post_type' => 'attachment',
-								'post_status' => 'inherit',
-								'post__in' => \explode( ',', $atts['ids'] ),
-								'orderby' => 'post__in'
-							)
-						);
+						$images = new \WP_Query(array(
+							'post_type' => 'attachment',
+							'post_status' => 'inherit',
+							'post__in' => \explode( ',', $atts['ids'] ),
+							'orderby' => 'post__in'
+						));
 
 						if($images->have_posts()) {
 							foreach($images->posts as $image) {
