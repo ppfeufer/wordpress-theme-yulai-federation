@@ -54,15 +54,18 @@ class Shortcodes {
 	}
 
 	public function shortcodeButton($atts, $content = null) {
-		\extract(\shortcode_atts(array(
+		$attributes = \shortcode_atts(array(
 			'type' => 'standard',
 			'link' => '#',
 			'target' => '_self',
 			'size' => '',
-		), $atts));
+		), $atts);
 
-		$type = ($type) ? ' btn-' . $type : '';
-		$size = ($size) ? ' btn-' . $size : '';
+		$type = (!empty($attributes['type'])) ? ' btn-' . $attributes['type'] : '';
+		$link = $attributes['link'];
+		$target = $attributes['target'];
+		$size = (!empty($attributes['size'])) ? ' btn-' . $attributes['size'] : '';
+
 		$output = '<a class="btn ' . $type . $size . '" href="' . $link . '" target="' . $target . '"><span>' . \do_shortcode($content) . '</span></a>';
 
 		return $output;
