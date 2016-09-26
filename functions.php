@@ -33,6 +33,11 @@ require_once(\get_stylesheet_directory() . '/helper/EveApiHelper.php');
 require_once(\get_stylesheet_directory() . '/helper/StringHelper.php');
 
 /**
+ * Imae Helper
+ */
+require_once(\get_stylesheet_directory() . '/helper/ImageHelper.php');
+
+/**
  * Metaslider Plugin
  */
 require_once(\get_stylesheet_directory() . '/plugins/Metaslider.php');
@@ -1345,9 +1350,28 @@ function get_excerpt_by_id($postID, $excerptLength = 35) {
 		\array_pop($words);
 		\array_push($words, '…');
 		$the_excerpt = \implode(' ', $words);
-	}
+	} // END if(\count($words) > $excerptLength)
 
 	$the_excerpt = '<p>' . $the_excerpt . '</p>';
 
 	return $the_excerpt;
 } // END function get_excerpt_by_id($postID, $excerptLength = 35)
+
+/**
+ * Getting the "on the fly" image URLs for Meta Slider
+ *
+ * @global object $fly_images
+ * @param string $cropped_url
+ * @param string $orig_url
+ * @return string
+ */
+function yf_metaslider_fly_image_urls($cropped_url, $orig_url) {
+	global $fly_images;
+
+	$attachmentImage = $fly_images->get_attachment_image_src(Helper\ImageHelper::getAttachmentId($orig_url), array(1680, 500), true);
+
+	return str_replace('http://', '//', $attachmentImage['src']);
+} // END function yf_metaslider_fly_image_urls($cropped_url, $orig_url)
+if(\function_exists('\fly_get_attachment_image')) {
+	\add_filter('metaslider_resized_image_url', '\\WordPress\Themes\YulaiFederation\yf_metaslider_fly_image_urls', 10, 2);
+} // END if(\function_exists('\fly_get_attachment_image'))
