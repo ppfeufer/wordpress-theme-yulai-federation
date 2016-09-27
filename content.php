@@ -12,7 +12,7 @@ defined('ABSPATH') or die();
 			<figure class="post-loop-thumbnail">
 				<?php
 				if(\function_exists('\fly_get_attachment_image')) {
-					echo \fly_get_attachment_image(\get_post_thumbnail_id(), array(705, 395), true);
+					echo \fly_get_attachment_image(\get_post_thumbnail_id(), 'post-loop-thumbnail');
 				} else {
 					\the_post_thumbnail('post-loop-thumbnail');
 				} // END if(\function_exists('\fly_get_attachment_image'))

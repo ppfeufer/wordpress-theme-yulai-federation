@@ -66,7 +66,7 @@ require_once(\get_stylesheet_directory() . '/plugins/Corppage.php');
 /**
  * Lazy Loading
  */
-require_once(\get_stylesheet_directory() . '/plugins/LazyLoadImages.php');
+//require_once(\get_stylesheet_directory() . '/plugins/LazyLoadImages.php');
 
 /**
  * Whitelabel
@@ -443,10 +443,18 @@ function yf_theme_setup() {
 	 * Add two additional image sizes.
 	 */
 	\set_post_thumbnail_size(1680, 500);
-	\add_image_size('bootstrap-small', 300, 200);
-	\add_image_size('bootstrap-medium', 360, 270);
-	\add_image_size('header-image', 1680, 500, true);
-	\add_image_size('post-loop-thumbnail', 705, 395, true);
+
+	/**
+	 * Thumbnails used for the theme
+	 * Compatibilty with Fly Dynamic Image Resizer plugin
+	 */
+	if(\function_exists('\fly_add_image_size')) {
+		\fly_add_image_size('header-image', 1680, 500, true);
+		\fly_add_image_size('post-loop-thumbnail', 705, 395, true);
+	} else {
+		\add_image_size('header-image', 1680, 500, true);
+		\add_image_size('post-loop-thumbnail', 705, 395, true);
+	} // END if(\function_exists('\fly_add_image_size'))
 
 	// Register Custom Navigation Walker
 	require_once(\get_stylesheet_directory() .'/addons/BootstrapMenuWalker.php');
@@ -1366,9 +1374,7 @@ function get_excerpt_by_id($postID, $excerptLength = 35) {
  * @return string
  */
 function yf_metaslider_fly_image_urls($cropped_url, $orig_url) {
-	global $fly_images;
-
-	$attachmentImage = $fly_images->get_attachment_image_src(Helper\ImageHelper::getAttachmentId($orig_url), array(1680, 500), true);
+	$attachmentImage = \fly_get_attachment_image_src(Helper\ImageHelper::getAttachmentId($orig_url), 'header-image');
 
 	return str_replace('http://', '//', $attachmentImage['src']);
 } // END function yf_metaslider_fly_image_urls($cropped_url, $orig_url)
