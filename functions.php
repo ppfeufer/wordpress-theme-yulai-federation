@@ -33,7 +33,7 @@ require_once(\get_template_directory() . '/helper/EveApiHelper.php');
 require_once(\get_template_directory() . '/helper/StringHelper.php');
 
 /**
- * Imae Helper
+ * Image Helper
  */
 require_once(\get_template_directory() . '/helper/ImageHelper.php');
 
