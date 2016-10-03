@@ -804,8 +804,8 @@ code {
 
 /* responsive stuff
 ----------------------------------------------------------------------------- */
-/* Small devices (tablets, 769px and up) */
-@media all and (min-width: 769px) {
+/* Small devices (tablets, 768px and up) */
+@media all and (min-width: 768px) {
 	#top-header {
 		display: block;
 	}
@@ -838,7 +838,7 @@ code {
 	}
 }
 
-@media only screen and (min-width:769px) {
+@media only screen and (min-width:768px) {
 	.dropdown > .dropdown-menu {
 		display: block;
 
