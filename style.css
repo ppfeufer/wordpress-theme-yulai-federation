@@ -101,6 +101,11 @@ img.alignleft, .wp-caption.alignleft {
 	margin: 0.857142857rem 1.714285714rem 0.857142857rem 0;
 }
 
+img.alignleft {
+	margin-top: 8px;
+	margin-top: 0.5rem;
+}
+
 .alignright {
 	/*display: block;*/
 	float: right;
@@ -109,6 +114,11 @@ img.alignleft, .wp-caption.alignleft {
 img.alignright, .wp-caption.alignright {
 	margin: 12px 0 12px 24px;
 	margin: 0.857142857rem 0 0.857142857rem 1.714285714rem;
+}
+
+img.alignright {
+	margin-top: 8px;
+	margin-top: 0.5rem;
 }
 
 /* general theme styling
