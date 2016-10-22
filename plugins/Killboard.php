@@ -23,7 +23,7 @@ class Killboard {
 	public function __construct($init = true) {
 		if($init === true) {
 			$this->initPlugin();
-		}
+		} // END if($init === true)
 	} // END public function __construct()
 
 	private function initPlugin() {
@@ -42,7 +42,7 @@ class Killboard {
 
 		// common actions
 		$this->initWidget();
-	}
+	} // END private function initPlugin()
 
 	public function initWidget() {
 		\add_action('widgets_init', \create_function('', 'return register_widget("WordPress\Themes\YulaiFederation\Plugins\Widgets\KillboardWidget");'));

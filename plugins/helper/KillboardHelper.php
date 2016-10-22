@@ -75,16 +75,10 @@ class KillboardHelper {
 			$kill->isk_loss_formatted = $this->sanitizeIskLoss($kill->isk_loss);
 
 			/**
-			 * Overwrite Victim Image if its a Citadel
+			 * Overwrite Victim Image if its a Structure
 			 */
-			$citadelNames = array(
-				'Astrahus',
-				'Fortizar',
-				'Keepstar'
-			);
-
-			if(\in_array($kill->shp_name, $citadelNames)) {
-				$kill->victimImage = $this->getCitadelImage($kill->shp_id);
+			if(\in_array($kill->shp_name, $this->getStructureNames())) {
+				$kill->victimImage = $this->getStructureImage($kill->shp_id);
 			} else {
 				$kill->victimImage = $this->getVictimImage($kill->plt_name, $kill->shp_id);
 			} // END if(\in_array($kill->shp_name, $citadelNames))
@@ -103,11 +97,48 @@ class KillboardHelper {
 		return $victimImage;
 	} // END private function getVictimImage($victimName, $shipID, $size = 512)
 
-	private function getCitadelImage($shipID, $size = 512) {
+	private function getStructureImage($shipID, $size = 512) {
 		$victimImage = "http://image.eveonline.com/Render/" . $shipID . "_" . $size . ".png";
 
 		return $victimImage;
 	} // END private function getCitadelImage($shipID, $size = 512)
+
+	private function getStructureNames() {
+		return array(
+			// Citadels
+			'Astrahus',
+			'Fortizar',
+			'Keepstar',
+
+			// POS Tower
+			'Amarr Control Tower',
+			'Amarr Control Tower Small',
+			'Amarr Control Tower Medium',
+			'Caldari Control Tower',
+			'Caldari Control Tower Small',
+			'Caldari Control Tower Medium',
+			'Gallente Control Tower',
+			'Gallente Control Tower Small',
+			'Gallente Control Tower Medium',
+			'Minmatar Control Tower',
+			'Minmatar Control Tower Small',
+			'Minmatar Control Tower Medium',
+
+			// POS Modules
+			'Domination Small AutoCannon Battery',
+			'Medium Artillery Battery',
+			'Medium AutoCannon Battery',
+			'Moon Harvesting Array',
+			'Phase Inversion Battery',
+			'Small Artillery Battery',
+			'Small AutoCannon Battery',
+			'Silo',
+			'Spatial Destabilization Battery',
+			'Stasis Webification Battery',
+			'Warp Disruption Battery',
+			'Warp Scrambling Battery',
+		);
+	} // END private function getStructureNames()
 
 	private function getKillboardLinkToKill($killID) {
 		return $this->killboardUri . '?a=kill_detail&kll_id=' . $killID;
@@ -122,7 +153,7 @@ class KillboardHelper {
 			$isk = \number_format(($isk/1000/1000), 0) . 'M';
 		} else {
 			$isk = \number_format(($isk/1000/1000/1000), 0, '.', ',') . 'B';
-		}
+		} // END if($isk < 1000)
 
 		return $isk;
 	} // END private function sanitizeIskLoss($isk)
