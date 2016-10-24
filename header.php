@@ -39,11 +39,6 @@
 		<meta name="msapplication-wide310x150logo" content="<?php echo \get_template_directory_uri(); ?>/_icons/win8-tile-310x150.png">
 		<meta name="msapplication-square310x310logo" content="<?php echo \get_template_directory_uri(); ?>/_icons/win8-tile-310x310.png">
 
-		<!--[if lt IE 9]>
-		<script src="<?php echo \get_template_directory_uri(); ?>/js/html5.min.js" type="text/javascript"></script>
-		<script src="<?php echo \get_template_directory_uri(); ?>/js/respond.min.js" type="text/javascript"></script>
-		<![endif]-->
-
 		<?php \wp_head(); ?>
 	</head>
 

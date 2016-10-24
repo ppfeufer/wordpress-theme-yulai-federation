@@ -162,6 +162,26 @@ function yf_get_options_default() {
  */
 if(!\function_exists('yf_enqueue_scripts')) {
 	function yf_enqueue_scripts() {
+		/**
+		 * Html5Shiv
+		 */
+		\wp_enqueue_script('html5shiv', \get_template_directory_uri() . '/js/html5.min.js');
+		\wp_script_add_data('html5shiv', 'conditional', 'lt IE 9');
+
+		/**
+		 * Respond JS
+		 */
+		\wp_enqueue_script('respondJS', \get_template_directory_uri() . '/js/respond.min.js');
+		\wp_script_add_data('respondJS', 'conditional', 'lt IE 9');
+
+		/**
+		 * Adds JavaScript to pages with the comment form to support
+		 * sites with threaded comments (when in use).
+		 */
+		if(\is_singular() && \comments_open() && \get_option('thread_comments')) {
+			\wp_enqueue_script('comment-reply');
+		} // END if(\is_singular() && \comments_open() && \get_option('thread_comments'))
+
 		$enqueue_script = yf_get_javascripts();
 
 		/**
