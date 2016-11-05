@@ -127,6 +127,7 @@ class KillboardHelper {
 			// POS Modules
 			'Domination Small AutoCannon Battery',
 			'Ion Field Projection Battery',
+			'Jump Bridge',
 			'Medium Artillery Battery',
 			'Medium AutoCannon Battery',
 			'Moon Harvesting Array',
