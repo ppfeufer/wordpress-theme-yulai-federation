@@ -452,6 +452,17 @@ function yf_theme_setup() {
 		'chat'
 	));
 
+	/**
+	 * Switch default core markup for search form, comment form, and comments
+	 * to output valid HTML5.
+	 */
+	add_theme_support('html5', array(
+		'comment-form',
+		'comment-list',
+		'gallery',
+		'caption',
+	));
+
 	\register_nav_menus(array(
 		'main-menu' => __('Main Menu', 'yulai-federation'),
 		'footer-menu' => __('Footer Menu', 'yulai-federation'),
