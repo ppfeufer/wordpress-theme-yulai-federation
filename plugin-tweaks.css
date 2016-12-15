@@ -669,3 +669,14 @@
 	margin-top: 8px;
 	margin-top: 0.5rem;
 }
+
+/* latest article on front page
+----------------------------------------------------------------------------- */
+/*li.latest-post-article article section .entry-content {
+	position: relative;
+}
+
+li.latest-post-article article section .entry-content a {
+	position: absolute;
+	bottom: -3rem;
+}*/
