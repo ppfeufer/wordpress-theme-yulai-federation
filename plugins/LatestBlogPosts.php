@@ -64,7 +64,7 @@ class LatestBlogPosts {
 			echo '</div>';
 			echo '<div>'
 				. '	<a class="news-more-link" href="' . \esc_url(\get_permalink($blogPage)) . '">'
-				. '		<span class="news-show-all read-more">' . \__('Show all article', 'thamm-it') . '</span>'
+				. '		<span class="news-show-all read-more">' . \__('Show all article', 'yulai-federation') . '</span>'
 				. '	</a>'
 				. '</div>';
 
