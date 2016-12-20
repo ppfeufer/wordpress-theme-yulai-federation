@@ -118,6 +118,15 @@
 	width: 100%;
 }
 
+/* shortcode [credits] (theme own shortcode)
+----------------------------------------------------------------------------- */
+.article-credits header {
+	margin-bottom: 16px;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid rgb(238,238,238);
+	max-width: 50%;
+}
+
 /* bootstrap col-xxs and col-xxxs support
 ----------------------------------------------------------------------------- */
 .col-xxs-1, .col-xxs-10, .col-xxs-11, .col-xxs-12, .col-xxs-2, .col-xxs-3,

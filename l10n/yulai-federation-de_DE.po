@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yulai Federation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Jun 02 2016 23:18:11 GMT+0200 (CEST)\n"
-"PO-Revision-Date: Tue Jul 12 2016 17:45:55 GMT+0200 (CEST)\n"
-"Last-Translator: Rounon Dax <rounon.dax@terra-nanotech.de>\n"
-"Language-Team: \n"
-"Language: German\n"
+"POT-Creation-Date: 2016-12-20 11:12+0000\n"
+"PO-Revision-Date: 2016-12-20 11:12+0000\n"
+"Last-Translator: ppfeufer <p.pfeufer@thamm-it.de>\n"
+"Language-Team: German\n"
+"Language: de-DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,199 +22,335 @@ msgstr ""
 "X-Loco-Target-Locale: de_DE\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: ../search.php:44
+#: archive.php:27
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+#: archive.php:29
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: content.php:62
+msgid "Read more"
+msgstr ""
+
+#: footer.php:35
+msgid "Proudly powered by "
+msgstr ""
+
+#: functions.php:676 functions.php:678
+msgid "Home Column 1"
+msgstr ""
+
+#: functions.php:688 functions.php:690
+msgid "Home Column 2"
+msgstr ""
+
+#: functions.php:700 functions.php:702
+msgid "Home Column 3"
+msgstr ""
+
+#: functions.php:712 functions.php:714
+msgid "Home Column 4"
+msgstr ""
+
+#: functions.php:724 functions.php:726
+msgid "Footer Column 1"
+msgstr ""
+
+#: functions.php:736 functions.php:738
+msgid "Footer Column 2"
+msgstr ""
+
+#: functions.php:748 functions.php:750
+msgid "Footer Column 3"
+msgstr ""
+
+#: functions.php:760 functions.php:762
+msgid "Footer Column 4"
+msgstr ""
+
+#: functions.php:879
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: functions.php:999
+msgid "Home"
+msgstr ""
+
+#: functions.php:1025
+msgid "Archive by category "
+msgstr ""
+
+#: functions.php:1087
+msgid "Posts tagged \""
+msgstr ""
+
+#: functions.php:1094
+msgid "Articles posted by "
+msgstr ""
+
+#: header.php:128
+msgid "Toggle navigation"
+msgstr ""
+
+#: search.php:44
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps you "
 "should try again with a different search term."
 msgstr ""
 
-#: ../footer.php:37
-msgid "Proudly powered by "
+#: admin/ThemeSettings.php:64
+msgid "Meta Slider Warning"
 msgstr ""
 
-#: ../header.php:144
-msgid "Toggle navigation"
-msgstr ""
-
-#: ../functions.php:479 ../functions.php:481
-msgid "Home Column 1"
-msgstr ""
-
-#: ../functions.php:491 ../functions.php:493
-msgid "Home Column 2"
-msgstr ""
-
-#: ../functions.php:503 ../functions.php:505
-msgid "Home Column 3"
-msgstr ""
-
-#: ../functions.php:515 ../functions.php:517
-msgid "Home Column 4"
-msgstr ""
-
-#: ../functions.php:527 ../functions.php:529
-msgid "Footer Column 1"
-msgstr ""
-
-#: ../functions.php:539 ../functions.php:541
-msgid "Footer Column 2"
-msgstr ""
-
-#: ../functions.php:551 ../functions.php:553
-msgid "Footer Column 3"
-msgstr ""
-
-#: ../functions.php:563 ../functions.php:565
-msgid "Footer Column 4"
-msgstr ""
-
-#: ../functions.php:682
-#, php-format
-msgid "%1$s at %2$s"
-msgstr ""
-
-#: ../functions.php:802
-msgid "Home"
-msgstr ""
-
-#: ../functions.php:828
-msgid "Archive by category "
-msgstr ""
-
-#: ../functions.php:890
-msgid "Posts tagged \""
-msgstr ""
-
-#: ../functions.php:897
-msgid "Articles posted by "
-msgstr ""
-
-#: ../archive.php:27
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr ""
-
-#: ../archive.php:29
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr ""
-
-#: ../admin/configuration-page.php:45
+#: admin/ThemeSettings.php:101
 msgid "Your Logo"
 msgstr ""
 
-#: ../admin/configuration-page.php:59 ../admin/configuration-page.php:60
+#: admin/ThemeSettings.php:114
+msgid "Navigation"
+msgstr ""
+
+#: admin/ThemeSettings.php:116
+msgid "Even navigation cells in main navigation"
+msgstr ""
+
+#: admin/ThemeSettings.php:118
+msgid ""
+"Transforms the main navigation into even cells instead of random width cells."
+" (only looks good with enough navigation items though ...)"
+msgstr ""
+
+#: admin/ThemeSettings.php:125 admin/ThemeSettings.php:126
+msgid "Background Settings"
+msgstr ""
+
+#: admin/ThemeSettings.php:135
+msgid "Use Background Image"
+msgstr ""
+
+#: admin/ThemeSettings.php:137
+msgid "Yes, I want to use background images on this website."
+msgstr ""
+
+#: admin/ThemeSettings.php:139
+msgid ""
+"If this option is checked, the website will use your selected (down below) "
+"background image instead of a simple colored background."
+msgstr ""
+
+#: admin/ThemeSettings.php:145
+msgid "Background Image"
+msgstr ""
+
+#: admin/ThemeSettings.php:146
+msgid "Select one of the default Background images ..."
+msgstr ""
+
+#: admin/ThemeSettings.php:152
+msgid "... or upload your own"
+msgstr ""
+
+#: admin/ThemeSettings.php:159 admin/ThemeSettings.php:160
 msgid "Slider Settings"
 msgstr ""
 
-#: ../admin/configuration-page.php:76
+#: admin/ThemeSettings.php:181
 msgid "Pages with Slider"
 msgstr ""
 
-#: ../admin/configuration-page.php:78
-msgid "Show only on fron page."
+#: admin/ThemeSettings.php:183
+msgid "Show only on front page."
 msgstr ""
 
-#: ../admin/configuration-page.php:80
+#: admin/ThemeSettings.php:185
 msgid "Show this slider only on front page in case no other slider is defined."
 msgstr ""
 
-#: ../admin/configuration-page.php:89
+#: admin/ThemeSettings.php:192 plugins/Killboard.php:179
 msgid "Development Infos"
 msgstr ""
 
-#: ../admin/configuration-page.php:90
+#: admin/ThemeSettings.php:193 plugins/Killboard.php:180
 msgid "Delevopment Information"
 msgstr ""
 
-#: ../admin/configuration-page.php:95
+#: admin/ThemeSettings.php:203 plugins/Killboard.php:190
 msgid "Options Array<br>(sane from functions.php)"
 msgstr ""
 
-#: ../admin/configuration-page.php:97
+#: admin/ThemeSettings.php:205
 msgid ""
-"This are the sane options defined in functions.php via "
-"<code>YulaiFederation\\yf_get_options_default()</code>"
+"This are the sane options defined in functions.php via <code>"
+"YulaiFederation\\yf_get_options_default()</code>"
 msgstr ""
 
-#: ../admin/configuration-page.php:102
+#: admin/ThemeSettings.php:210 plugins/Killboard.php:197
 msgid "Options Array<br>(from DB)"
 msgstr ""
 
-#: ../admin/configuration-page.php:104
+#: admin/ThemeSettings.php:212
 msgid ""
-"This are the options from our database via "
-"<code>\\get_option('yulai_theme_options')</code>"
+"This are the options from our database via <code>"
+"\\get_option('yulai_theme_options')</code>"
 msgstr ""
 
-#: ../admin/configuration-page.php:109
+#: admin/ThemeSettings.php:217 plugins/Killboard.php:204
 msgid "Options Array<br>(merged / used for Theme)"
 msgstr ""
 
-#: ../admin/configuration-page.php:111
+#: admin/ThemeSettings.php:219
 msgid ""
-"This are the options used for the theme via "
-"<code>\\get_option('yulai_theme_options', "
-"YulaiFederation\\yf_get_options_default())</code>"
+"This are the options used for the theme via <code>"
+"\\get_option('yulai_theme_options', "
+"\\WordPress\\Themes\\YulaiFederation\\yf_get_options_default())</code>"
 msgstr ""
 
-#: ../admin/settings-api.php:671 ../admin/settings-api.php:690
-msgid "Upload"
-msgstr "Hochladen"
-
-#: ../admin/settings-api.php:675 ../admin/settings-api.php:698
-msgid "Remove"
-msgstr "Entfernen"
-
-#: ../plugins/corppage.php:98
-msgid "Corp Page?"
+#: plugins/BootstrapVideoGallery.php:119
+#, php-format
+msgid "&copy %1$s"
 msgstr ""
 
-#: ../plugins/corppage.php:106
-msgid "Corp Page Settings"
+#: plugins/BootstrapVideoGallery.php:119
+msgid "Channel"
 msgstr ""
 
-#: ../plugins/corppage.php:109
-msgid "Is Corp Page?"
-msgstr ""
-
-#: ../plugins/metaslider.php:55
-msgid "Display Page Meta Slider"
-msgstr ""
-
-#: ../plugins/metaslider.php:69
-msgid "Stretch Page Meta Slider"
-msgstr ""
-
-#: ../plugins/metaslider.php:105
-msgid "None"
-msgstr ""
-
-#: ../plugins/bootstrap-video-gallery.php:132
-msgid "Video Gallery Page?"
-msgstr "Video Gallery Seite?"
-
-#: ../plugins/bootstrap-video-gallery.php:141
-msgid "Video Gallery Settings"
-msgstr "Video Gallery Einstellungen"
-
-#: ../plugins/bootstrap-video-gallery.php:144
-msgid "Is Video Gallery Page?"
-msgstr "Ist dies eine Video Seite?"
-
-#: ../plugins/bootstrap-video-gallery.php:148
+#: plugins/BootstrapVideoGallery.php:173
 msgid "Only list in it's parent gallery"
 msgstr ""
 
-#: ../plugins/bootstrap-video-gallery.php:158
+#: plugins/BootstrapVideoGallery.php:183
 msgid "Your Video"
 msgstr ""
 
-#: ../404.php:32
+#: plugins/Corppage.php:104
+msgid "Corp Page?"
+msgstr ""
+
+#: plugins/Corppage.php:112
+msgid "Corp Page Settings"
+msgstr ""
+
+#: plugins/Corppage.php:115
+msgid "Is Corp Page?"
+msgstr ""
+
+#: plugins/Killboard.php:96 plugins/Killboard.php:97
+msgid "Killboard Settings"
+msgstr ""
+
+#: plugins/Killboard.php:122
+msgid "Killboard General Settings"
+msgstr ""
+
+#: plugins/Killboard.php:131
+msgid "Number Of Kills"
+msgstr ""
+
+#: plugins/Killboard.php:132 plugins/widgets/KillboardWidget.php:88
+msgid "Number of kills to show"
+msgstr ""
+
+#: plugins/Killboard.php:149
+msgid "Database Settings"
+msgstr ""
+
+#: plugins/Killboard.php:150
+msgid "Killboard Database Settings"
+msgstr ""
+
+#: plugins/Killboard.php:159
+msgid "DB Host"
+msgstr ""
+
+#: plugins/Killboard.php:164
+msgid "DB Name"
+msgstr ""
+
+#: plugins/Killboard.php:168
+msgid "DB User"
+msgstr ""
+
+#: plugins/Killboard.php:172
+msgid "DB Password"
+msgstr ""
+
+#: plugins/Killboard.php:192
+msgid ""
+"This are the sane options defined in plugin file via <code>$this->"
+"getDefaultPluginOptions()</code>"
+msgstr ""
+
+#: plugins/Killboard.php:199
+msgid ""
+"This are the options from our database via <code>"
+"\\get_option('yulai_federation_theme_killboard_plugin_options')</code>"
+msgstr ""
+
+#: plugins/Killboard.php:206
+msgid ""
+"This are the options used for the theme via <code>"
+"\\get_option('eve_theme_killboard_plugin_options', $this->"
+"getDefaultPluginOptions())</code>"
+msgstr ""
+
+#: plugins/LatestBlogPosts.php:67
+msgid "Show all article"
+msgstr ""
+
+#: plugins/Metaslider.php:56
+msgid "Display Page Meta Slider"
+msgstr ""
+
+#: plugins/Metaslider.php:70
+msgid "Stretch Page Meta Slider"
+msgstr ""
+
+#: plugins/Metaslider.php:108
+msgid "None"
+msgstr ""
+
+#: plugins/Shortcodes.php:83
+msgid "Credits:"
+msgstr ""
+
+#: security/WordPressCoreUpdateCleaner.php:81
+msgid "Removing"
+msgstr ""
+
+#: plugins/widgets/KillboardWidget.php:49
+msgid ""
+"Displaying the latest kills (and maybe losses if you are tough enough) in "
+"your sidebar."
+msgstr ""
+
+#: plugins/widgets/KillboardWidget.php:54
+msgid "EVE Killboard Widget"
+msgstr ""
+
+#: plugins/widgets/KillboardWidget.php:78
+msgid "Database Warning / Not Configured"
+msgstr ""
+
+#: plugins/widgets/KillboardWidget.php:79
+#, php-format
+msgid ""
+"Please make sure you have your Killboard Database configured in your %1$s."
+msgstr ""
+
+#: plugins/widgets/KillboardWidget.php:83
+msgid "Title"
+msgstr ""
+
+#: 404.php:32
 msgid "This is Embarrassing"
 msgstr "Das ist peinlich"
 
-#: ../404.php:36
+#: 404.php:36
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching, or one of the links below, can help."
@@ -222,88 +358,110 @@ msgstr ""
 "Sieht so aus als könnten wir nicht finden was Du erhofft hast. Vielleicht "
 "hilft die Suche weiter?"
 
-#: ../404.php:43
+#: 404.php:43
 msgid "All Pages"
 msgstr "Alle Seiten"
 
-#: ../404.php:50
+#: 404.php:50
 msgid "Categories"
 msgstr "Kategorien"
 
-#: ../search.php:25
+#: archive.php:25
 #, php-format
-msgid "Search Results for: %s"
-msgstr "Suchergebnis für: %s"
+msgid "Daily Archives: %s"
+msgstr "Tagesarchiv: %s"
 
-#: ../search.php:31
-msgid "No Results Found"
-msgstr "Nichts gefunden"
+#: archive.php:27
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr "Monatsarchiv: %s"
 
-#. Name of the template
-msgid "Default Page (With Sidebar)"
-msgstr "Default Page (Mit Sidebar)"
+#: archive.php:29
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr "Jahresarchiv: %s"
 
-#: ../content.php:6 ../content-single.php:6
+#: archive.php:31
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Schlagwortarchiv: %s"
+
+#: archive.php:38
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Kategoriearchiv: %s"
+
+#: archive.php:40
+msgid "Blog Archives"
+msgstr "Blogarchiv"
+
+#: comments.php:26
+msgid "&larr; Older Comments"
+msgstr "&larr; Ältere Kommentare"
+
+#: comments.php:29
+msgid "Newer Comments &rarr;"
+msgstr "Neuere kommentare &rarr;"
+
+#: comments.php:36
+msgid "Comments are closed."
+msgstr "Kommentare sind geschlossen"
+
+#: content-aside.php:6 content-audio.php:6 content-chat.php:6
+#: content-gallery.php:6 content-image.php:6 content-link.php:6
+#: content-quote.php:6 content-single.php:6 content-status.php:6
+#: content-video.php:6 content.php:28
 #, php-format
 msgid "Permalink to %s"
 msgstr "Permalink zu %s"
 
-#: ../content.php:15 ../content-single.php:15
+#: content-aside.php:15 content-audio.php:15 content-chat.php:15
+#: content-gallery.php:15 content-image.php:15 content-link.php:15
+#: content-quote.php:15 content-single.php:15 content-status.php:15
+#: content-video.php:15 content.php:37
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../footer.php:37
+#: content-single.php:43
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: content-single.php:61
+msgid "Posted by "
+msgstr "Geschrieben von"
+
+#: footer.php:35
 msgid "http://wordpress.org/"
 msgstr "http://wordpress.org/"
 
-#: ../footer.php:37
+#: footer.php:35
 msgid "WordPress"
 msgstr "WordPress"
 
-#: ../footer.php:38
+#: footer.php:36
 msgid "Design and Programming by Rounon Dax"
 msgstr "Design und Programmierung: Rounon Dax"
 
-#: ../footer.php:80
+#: footer.php:78
 msgid "back to top"
 msgstr "Nach oben"
 
-#: ../header.php:149
-msgid "Menu"
-msgstr "Menü"
-
-#: ../comments.php:26
-msgid "&larr; Older Comments"
-msgstr "&larr; Ältere Kommentare"
-
-#: ../comments.php:29
-msgid "Newer Comments &rarr;"
-msgstr "Neuere kommentare &rarr;"
-
-#: ../comments.php:36
-msgid "Comments are closed."
-msgstr "Kommentare sind geschlossen"
-
-#: ../searchform.php:5 ../searchform.php:6
-msgid "Search"
-msgstr "Suche"
-
-#: ../functions.php:308
+#: functions.php:467
 msgid "Main Menu"
 msgstr "Hauptmenü"
 
-#: ../functions.php:309
+#: functions.php:468
 msgid "Footer Menu"
 msgstr "Fußmenü"
 
-#: ../functions.php:310
+#: functions.php:469
 msgid "Header Menu"
 msgstr "Kopfmenü"
 
 #. Translators: If there are characters in your language that are not
 #. supported by Source Sans Pro, translate this to 'off'. Do not translate
 #. into your own language.
-#: ../functions.php:362
+#: functions.php:559
 msgctxt "Source Sans Pro font: on or off"
 msgid "on"
 msgstr "on"
@@ -311,24 +469,24 @@ msgstr "on"
 #. Translators: If there are characters in your language that are not
 #. supported by Bitter, translate this to 'off'. Do not translate into your
 #. own language.
-#: ../functions.php:369
+#: functions.php:566
 msgctxt "Bitter font: on or off"
 msgid "on"
 msgstr "on"
 
-#: ../functions.php:445
+#: functions.php:642
 msgid "Page Sidebar"
 msgstr "Page Sidebar"
 
-#: ../functions.php:456
+#: functions.php:653
 msgid "Post Sidebar"
 msgstr "Post Sidebar"
 
-#: ../functions.php:467
+#: functions.php:664
 msgid "General Sidebar"
 msgstr "Generelle Sidebar"
 
-#: ../functions.php:469
+#: functions.php:666
 msgid ""
 "General sidebar that is always right from the topic, below the side specific "
 "sidebars"
@@ -336,162 +494,167 @@ msgstr ""
 "Generelle Sidebar welche immer unter den seitenspezifischen Sidebars "
 "angezeigt wird."
 
-#: ../functions.php:576 ../functions.php:578
+#: functions.php:773 functions.php:775
 msgid "Header Widget Area"
 msgstr "Header Widget Bereich"
 
-#: ../functions.php:592
+#: functions.php:789
 msgid "Read More"
 msgstr "Weiterlesen"
 
-#: ../functions.php:616
+#: functions.php:813
 msgid "Post navigation"
 msgstr "Atrikelnavigation"
 
-#: ../functions.php:618
+#: functions.php:815
 msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
 msgstr "<span class=\"meta-nav\">&larr;</span> Ältere Artikel"
 
-#: ../functions.php:621
+#: functions.php:818
 msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Neuere Artikel <span class=\"meta-nav\">&rarr;</span>"
 
-#: ../functions.php:643
+#: functions.php:840
 msgid "Pingback:"
 msgstr "Pingback"
 
-#: ../functions.php:662
+#: functions.php:859
 msgid "Post author"
 msgstr "Artikelautor"
 
-#: ../functions.php:670
+#: functions.php:867
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar befindet sich in Moderation"
 
-#: ../functions.php:689
+#: functions.php:886
 msgid "Reply <span>&darr;</span>"
 msgstr "Antwort <span>&darr;</span>"
 
-#: ../functions.php:710
+#: functions.php:907
 #, php-format
 msgid ""
 "Posted on <time class=\"entry-date\" datetime=\"%3$s\">%4$s</time><span "
 "class=\"byline\"> <span class=\"sep\"> by </span> <span class=\"author "
 "vcard\">%7$s</span></span>"
 msgstr ""
-"Veröffentlich am <time class=\"entry-date\" datetime=\"%3$s\">%4$s</time><span "
-"class=\"byline\"> <span class=\"sep\"> von </span> <span class=\"author "
-"vcard\">%7$s</span></span>"
+"Veröffentlich am <time class=\"entry-date\" datetime=\"%3$s\">%4$s</time>"
+"<span class=\"byline\"> <span class=\"sep\"> von </span> <span "
+"class=\"author vcard\">%7$s</span></span>"
 
-#: ../functions.php:716
+#: functions.php:913
 #, php-format
 msgid "View all posts by %s"
 msgstr "Alle Artikel von %s anschauen"
 
-#: ../functions.php:791
+#: functions.php:988
 #, php-format
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: ../functions.php:886
+#: functions.php:1083
 msgid "Search results for \""
 msgstr "Suchergebnis für \""
 
-#: ../functions.php:901
+#: functions.php:1098
 msgid "Error 404"
 msgstr "Fehler 404"
 
-#: ../functions.php:960 ../content-single.php:76
-msgid "Pages:"
-msgstr "Seiten:"
-
-#: ../archive.php:25
-#, php-format
-msgid "Daily Archives: %s"
-msgstr "Tagesarchiv: %s"
-
-#: ../archive.php:27
-#, php-format
-msgid "Monthly Archives: %s"
-msgstr "Monatsarchiv: %s"
-
-#: ../archive.php:29
-#, php-format
-msgid "Yearly Archives: %s"
-msgstr "Jahresarchiv: %s"
-
-#: ../archive.php:31
-#, php-format
-msgid "Tag Archives: %s"
-msgstr "Schlagwortarchiv: %s"
-
-#: ../archive.php:38
-#, php-format
-msgid "Category Archives: %s"
-msgstr "Kategoriearchiv: %s"
-
-#: ../archive.php:40
-msgid "Blog Archives"
-msgstr "Blogarchiv"
+#: header.php:133
+msgid "Menu"
+msgstr "Menü"
 
 #. Name of the template
 msgid "Default Page (Full Width)"
 msgstr "Default Page (Volle Breite)"
 
-#: ../content-single.php:94
-msgid "Posted by "
-msgstr "Geschrieben von"
+#. Name of the template
+msgid "Default Page (With Sidebar)"
+msgstr "Default Page (Mit Sidebar)"
 
-#: ../admin/configuration-page.php:22
+#: search.php:25
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Suchergebnis für: %s"
+
+#: search.php:31
+msgid "No Results Found"
+msgstr "Nichts gefunden"
+
+#: searchform.php:5 searchform.php:6
+msgid "Search"
+msgstr "Suche"
+
+#: addons/BootstrapMenuWalker.php:140
+msgid "(No description available)"
+msgstr "(Keine beschreibung verfügbar)"
+
+#: addons/BootstrapMenuWalker.php:263
+msgid "Add a menu"
+msgstr "Menü hinzufügen"
+
+#: admin/SettingsApi.php:669 admin/SettingsApi.php:700
+msgid "Upload"
+msgstr "Hochladen"
+
+#: admin/SettingsApi.php:680 admin/SettingsApi.php:713
+msgid "Remove"
+msgstr "Entfernen"
+
+#: admin/ThemeSettings.php:40
 msgid "Options"
 msgstr "Optionen"
 
-#: ../admin/configuration-page.php:23
+#: admin/ThemeSettings.php:41
 msgid "Yulai Federation Theme Settings"
 msgstr "Yulai Federation Theme Einstellungen"
 
-#: ../admin/configuration-page.php:28
+#: admin/ThemeSettings.php:65 admin/ThemeSettings.php:177
+#, php-format
+msgid "Please make sure you have the %1$s plugin installed and activated."
+msgstr "Stelle dicher, dass das %1$s Plugin installiert und aktiviert ist."
+
+#: admin/ThemeSettings.php:79 plugins/Killboard.php:121
 msgid "General Settings"
 msgstr "Generelle Einstellungen"
 
-#: ../admin/configuration-page.php:29
+#: admin/ThemeSettings.php:80
 msgid "General Theme Settings"
 msgstr "Generelle Theme Einstellungen"
 
-#: ../admin/configuration-page.php:34
+#: admin/ThemeSettings.php:90
 msgid "Alliance"
 msgstr "Allianz"
 
-#: ../admin/configuration-page.php:35
+#: admin/ThemeSettings.php:91
 msgid "Corporation"
 msgstr "Corporation"
 
-#: ../admin/configuration-page.php:37
+#: admin/ThemeSettings.php:93 admin/ThemeSettings.php:144
 msgid "Please Select"
 msgstr "Bitte wählen"
 
-#: ../admin/configuration-page.php:38
+#: admin/ThemeSettings.php:94
 msgid "Entity Type"
 msgstr "Typ"
 
-#: ../admin/configuration-page.php:43
+#: admin/ThemeSettings.php:99
 msgid "Entity Name"
 msgstr "Name"
 
-#: ../admin/configuration-page.php:44
+#: admin/ThemeSettings.php:100
 #, php-format
 msgid "The Name of your Corp/Alliance %1$s"
 msgstr "Der Name Deine Corp/Allianz %1$s"
 
-#: ../admin/configuration-page.php:50
+#: admin/ThemeSettings.php:106
 msgid "Corp Logos"
 msgstr "Corp Logos"
 
-#: ../admin/configuration-page.php:52
+#: admin/ThemeSettings.php:108
 msgid "Show corp logos in menu for corp pages."
 msgstr "Zeige Corp Logos im Menü für Corp Seiten."
 
-#: ../admin/configuration-page.php:54
+#: admin/ThemeSettings.php:110
 msgid ""
 "Only available if you are running an alliance website, so you can have the "
 "corp logos in your \"Our Corporations\" menu."
@@ -499,64 +662,64 @@ msgstr ""
 "Nur verfügbar, wenn dies eine Allianzseite ist. Somit können die Corp Logos "
 "im Untermenü \"Unsere Corporationen\" angezeigt werden."
 
-#: ../admin/configuration-page.php:70
+#: admin/ThemeSettings.php:175
 msgid "Default Slider on Front Page"
 msgstr "Standard Slider auf der Startseite"
 
-#: ../admin/configuration-page.php:72
+#: admin/ThemeSettings.php:177
 msgid "Select the default slider for your front page"
 msgstr "Wähle den Standard Slider für die Startseite"
 
-#: ../admin/configuration-page.php:72
-#, php-format
-msgid "Please make sure you have the %1$s plugin installed and activated."
-msgstr "Stelle dicher, dass das %1$s Plugin installiert und aktiviert ist."
+#: plugins/BootstrapVideoGallery.php:157
+msgid "Video Gallery Page?"
+msgstr "Video Gallery Seite?"
 
-#: ../plugins/corppage.php:112
-msgid "Corporation Name:"
-msgstr "Corporation Name:"
+#: plugins/BootstrapVideoGallery.php:166
+msgid "Video Gallery Settings"
+msgstr "Video Gallery Einstellungen"
 
-#: ../plugins/corppage.php:119
-msgid "Corporation ID"
-msgstr "Corporation ID"
+#: plugins/BootstrapVideoGallery.php:169
+msgid "Is Video Gallery Page?"
+msgstr "Ist dies eine Video Seite?"
 
-#: ../plugins/corppage.php:123
-msgid "Corporation Logo"
-msgstr "Corporation Logo"
-
-#: ../plugins/metaslider.php:29
-msgid "Page Meta Slider"
-msgstr "Page Meta Slider"
-
-#: ../plugins/metaslider.php:114
-msgid "Slider: "
-msgstr "Slider: "
-
-#: ../plugins/bootstrap-video-gallery.php:151
+#: plugins/BootstrapVideoGallery.php:176
 msgid "Video URL:"
 msgstr "Video URL:"
 
-#: ../addons/menu-walker.php:140
-msgid "(No description available)"
-msgstr "(Keine beschreibung verfügbar)"
+#: plugins/Corppage.php:118
+msgid "Corporation Name:"
+msgstr "Corporation Name:"
 
-#: ../addons/menu-walker.php:263
-msgid "Add a menu"
-msgstr "Menü hinzufügen"
+#: plugins/Corppage.php:125
+msgid "Corporation ID"
+msgstr "Corporation ID"
+
+#: plugins/Corppage.php:129
+msgid "Corporation Logo"
+msgstr "Corporation Logo"
+
+#: plugins/Metaslider.php:30
+msgid "Page Meta Slider"
+msgstr "Page Meta Slider"
+
+#: plugins/Metaslider.php:117
+msgid "Slider: "
+msgstr "Slider: "
 
 #. Name of the theme
 msgid "Yulai Federation"
 msgstr "Yulai Federation"
 
-#. Theme URI of the theme
-msgid "http://yulaifederation.net"
-msgstr "http://yulaifederation.net"
-
 #. Description of the theme
-msgid "A beatyfull WordPress Theme for the Provibloc Alliance \"Yulai Federation\""
+msgid ""
+"A beatyfull WordPress Theme for the Provibloc Alliance \"Yulai Federation\""
 msgstr ""
 "Ein wunderschönes WordPress Theme für die Provibloc Allianz \"Yulai "
 "Federation\""
+
+#. Theme URI of the theme
+msgid "http://yulaifederation.net"
+msgstr "http://yulaifederation.net"
 
 #. Author of the theme
 msgid "YF [TN-NT] Rounon Dax"
