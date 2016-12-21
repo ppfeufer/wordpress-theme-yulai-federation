@@ -1411,4 +1411,21 @@ function yf_metaslider_fly_image_urls($cropped_url, $orig_url) {
 } // END function yf_metaslider_fly_image_urls($cropped_url, $orig_url)
 if(\function_exists('\fly_get_attachment_image')) {
 	\add_filter('metaslider_resized_image_url', '\\WordPress\Themes\YulaiFederation\yf_metaslider_fly_image_urls', 10, 2);
-} // END if(\function_exists('\fly_get_attachment_image'))
+} // END if(\function_exists('\fly_get_attachment_image'))re
+
+/**
+ * Adding some usefull parameters to the Youtube link when using oEmbed
+ *
+ * @param string $html
+ * @param string $url
+ * @param array $args
+ * @return string
+ */
+function yf_enable_youtube_jsapi($html, $url, $args) {
+	if(\strstr($html, 'youtube.com/embed/')) {
+		$html = \str_replace('?feature=oembed', '?feature=oembed&enablejsapi=1&origin=' . \get_bloginfo('url') . '&rel=0', $html);
+	} // END if(\strstr($html, 'youtube.com/embed/'))
+
+	return $html;
+} // END function yf_enable_youtube_jsapi($html, $url, $args)
+add_filter('oembed_result', '\\WordPress\Themes\YulaiFederation\yf_enable_youtube_jsapi');
