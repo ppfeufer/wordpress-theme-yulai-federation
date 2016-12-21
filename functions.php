@@ -1411,7 +1411,7 @@ function yf_metaslider_fly_image_urls($cropped_url, $orig_url) {
 } // END function yf_metaslider_fly_image_urls($cropped_url, $orig_url)
 if(\function_exists('\fly_get_attachment_image')) {
 	\add_filter('metaslider_resized_image_url', '\\WordPress\Themes\YulaiFederation\yf_metaslider_fly_image_urls', 10, 2);
-} // END if(\function_exists('\fly_get_attachment_image'))re
+} // END if(\function_exists('\fly_get_attachment_image'))
 
 /**
  * Adding some usefull parameters to the Youtube link when using oEmbed
