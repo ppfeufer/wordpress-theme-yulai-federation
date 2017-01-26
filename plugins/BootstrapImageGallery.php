@@ -260,5 +260,3 @@ class BootstrapImageGallery {
 		return $galleryImages;
 	} // END public function getGalleryImages($postID)
 } // END class BootstrapImageGallery
-
-new BootstrapImageGallery();

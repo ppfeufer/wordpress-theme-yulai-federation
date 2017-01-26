@@ -8,7 +8,7 @@ namespace WordPress\Themes\YulaiFederation\Plugins\Helper;
 use WordPress\Themes\YulaiFederation;
 use WordPress\Themes\YulaiFederation\Plugins;
 
-class KillboardHelper {
+class EdkKillboardHelper {
 	private $plugin = null;
 	private $pluginSettings = null;
 	private $eveApi = null;
@@ -17,7 +17,7 @@ class KillboardHelper {
 	public $db = null;
 
 	public function __construct() {
-		$this->plugin = new Plugins\Killboard(false);
+		$this->plugin = new Plugins\Killboard;
 		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());

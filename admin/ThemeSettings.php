@@ -221,10 +221,3 @@ class ThemeSettings {
 		);
 	} // END private function getDevelopmentSettingsFields()
 } // END class ThemeSettings
-
-/**
- * only if we are in backend
- */
-if(\is_admin()) {
-	new ThemeSettings;
-} // END if(\is_admin())

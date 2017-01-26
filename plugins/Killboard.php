@@ -208,5 +208,3 @@ class Killboard {
 		);
 	} // END private function getDevelopmentTabFields()
 } // END class Killboard
-
-new Killboard;

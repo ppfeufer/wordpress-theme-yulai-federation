@@ -102,5 +102,3 @@ class Shortcodes {
 		return $content;
 	} // END public function removeAutopInShortcode($content)
 } // END class Shortcodes
-
-new Shortcodes();

@@ -936,9 +936,3 @@ class SettingsApi {
 		} // END if($this->isSettingsPage() === true)
 	} // END public function adminScripts()
 } // END class SettingsApi
-
-/**
- * We fire the API class from within the settings itself ...
- */
-//$settingsApi = new SettingsApi();
-//$settingsApi->init();

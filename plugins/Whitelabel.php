@@ -136,5 +136,3 @@ class Whitelabel {
 		</style>';
 	} // END public function customLoginLogoStyle()
 } // END class Whitelabel
-
-new Whitelabel;

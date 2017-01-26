@@ -123,5 +123,3 @@ class LatestBlogPosts {
 		return $articleLoop;
 	} // END public function shortcodeLatestBlogPosts($attributes, $content = null)
 } // END class LatestBlogPosts
-
-new LatestBlogPosts;

@@ -104,5 +104,3 @@ class WordPressSecurity {
 		\remove_action('wp_head', 'feed_links_extra', 3);
 	} // END public function removeFeedLinks()
 } // END class Security
-
-new WordPressSecurity();

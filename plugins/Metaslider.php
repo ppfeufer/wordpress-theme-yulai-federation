@@ -197,5 +197,3 @@ class Metaslider {
 		return false;
 	} // END function yf_render_slider()
 } // END class Metaslider
-
-new Metaslider(true);

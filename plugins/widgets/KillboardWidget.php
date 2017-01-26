@@ -36,8 +36,8 @@ class KillboardWidget extends \WP_Widget {
 //	private $eveApi = null;
 
 	public function __construct() {
-		$this->plugin = new YulaiFederation\Plugins\Killboard(false);
-		$this->pluginHelper = new YulaiFederation\Plugins\Helper\KillboardHelper;
+		$this->plugin = new YulaiFederation\Plugins\Killboard;
+		$this->pluginHelper = new YulaiFederation\Plugins\Helper\EdkKillboardHelper;
 //		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
 //		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
