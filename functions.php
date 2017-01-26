@@ -39,6 +39,7 @@ require_once(\get_template_directory() . '/plugins/helper/EdkKillboardHelper.php
 require_once(\get_template_directory() . '/plugins/helper/ZkbKillboardHelper.php');
 require_once(\get_template_directory() . '/plugins/widgets/KillboardWidget.php');
 require_once(\get_template_directory() . '/plugins/Killboard.php');
+require_once(\get_template_directory() . '/plugins/LatestBlogPosts.php');
 
 /**
  * Loading Security Classes
@@ -66,6 +67,7 @@ new Plugins\Corppage;
 new Plugins\EncodeEmailAddresses;
 new Plugins\Whitelabel;
 new Plugins\Killboard(true);
+new Plugins\LatestBlogPosts;
 
 /**
  * Initiate needed Backend Classes
