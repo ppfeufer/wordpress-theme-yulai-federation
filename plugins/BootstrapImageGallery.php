@@ -153,7 +153,7 @@ class BootstrapImageGallery {
 		$output .= '<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery("ul.bootstrap-' . $selector . '").bootstrapGallery({
-					"classes" : "' . YulaiFederation\yf_get_loopContentClasses() . '",
+					"classes" : "' . YulaiFederation\Helper\PostHelper::geLoopContentClasses() . '",
 					"hasModal" : true
 				});
 			});

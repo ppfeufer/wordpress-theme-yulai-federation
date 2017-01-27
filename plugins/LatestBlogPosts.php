@@ -22,8 +22,8 @@ class LatestBlogPosts {
 	public function shortcodeLatestBlogPosts($attributes) {
 		$args = \shortcode_atts(
 			array(
-				'number' => YulaiFederation\yf_get_contentColumnCount(),
-				'classes' => YulaiFederation\yf_get_loopContentClasses()
+				'number' => YulaiFederation\Helper\PostHelper::getContentColumnCount(),
+				'classes' => YulaiFederation\Helper\PostHelper::geLoopContentClasses()
 			),
 			$attributes
 		);

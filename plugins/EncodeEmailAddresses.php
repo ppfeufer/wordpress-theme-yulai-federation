@@ -58,7 +58,6 @@ class EncodeEmailAddresses {
 			$regexp,
 			\create_function(
 				'$matches',
-//				'return ' . __CLASS__ . '::' . $method[1] . '($matches[0]);'
 				'return ' . $method[0] . '::' . $method[1] . '($matches[0]);'
 			),
 			$content

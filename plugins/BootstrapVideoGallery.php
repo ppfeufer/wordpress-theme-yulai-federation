@@ -114,7 +114,6 @@ class BootstrapVideoGallery {
 					$provider = $oEmbed->get_provider($video);
 					$videoData = $oEmbed->fetch($provider, $video);
 					$videoGalleryHtml .= '<li>';
-//					$videoGalleryHtml .= '<pre>' . htmlentities(print_r($videoData, true)) . '</pre>';
 					$videoGalleryHtml .= $videoData->html;
 					$videoGalleryHtml .= '<header><h2 class="video-gallery-title"><a href="' . $video . '" rel="external">' . $videoData->title . '</a></h2><span class="bootstrap-video-gallery-video-author small">' . sprintf(\__('&copy %1$s', 'yulai-federation'), $videoData->author_name) . ' (<a href="' . $videoData->author_url . '" rel=external">' . \__('Channel', 'yulai-federation') . '</a>)</span></header>';
 					$videoGalleryHtml .= '</li>';
@@ -126,7 +125,7 @@ class BootstrapVideoGallery {
 		$videoGalleryHtml .= '</div>';
 
 		if(empty($classes)) {
-			$classes = YulaiFederation\yf_get_loopContentClasses();
+			$classes = YulaiFederation\Helper\PostHelper::geLoopContentClasses();
 		} // END if(empty($classes))
 
 		$videoGalleryHtml .= '<script type="text/javascript">

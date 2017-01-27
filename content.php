@@ -26,19 +26,19 @@ defined('ABSPATH') or die();
 	<header class="entry-header">
 		<h2 class="entry-title">
 			<a href="<?php \the_permalink(); ?>" title="<?php \printf(\esc_attr__('Permalink to %s', 'yulai-federation'), \the_title_attribute('echo=0')); ?>" rel="bookmark">
-				<?php the_title(); ?>
+				<?php \the_title(); ?>
 			</a>
 		</h2>
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-//				echo \WordPress\Themes\YulaiFederation\yf_posted_on();
+//				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
 
-				\edit_post_link(__('Edit', 'yulai-federation'));
+				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 				<br/>
 				<?php
-//				\WordPress\Themes\YulaiFederation\yf_cats_tags();
+//				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
 				?>
 			</p>
 		</aside><!--end .entry-details -->
@@ -58,7 +58,7 @@ defined('ABSPATH') or die();
 					?>
 					<div class="entry-content">
 						<?php
-						echo \wpautop(\do_shortcode(WordPress\Themes\YulaiFederation\Helper\StringHelper::cutString(\get_the_content(), '140')));
+						echo \wpautop(\do_shortcode(\WordPress\Themes\YulaiFederation\Helper\StringHelper::cutString(\get_the_content(), '140')));
 						\printf('<a href="%1$s"><span class="read-more">' . \__('Read more', 'yulai-federation') . '</span></a>', \get_the_permalink());
 
 //						if(isset($options['excerpts'])) {

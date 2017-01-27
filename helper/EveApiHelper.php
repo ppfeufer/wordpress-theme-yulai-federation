@@ -129,7 +129,7 @@ class EveApiHelper {
 			'32' => 'alliance'
 		);
 
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 	} // END public function __construct()
 
 	public function getImageServerUrl() {

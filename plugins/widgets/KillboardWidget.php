@@ -40,7 +40,7 @@ class KillboardWidget extends \WP_Widget {
 		$this->pluginHelper = new YulaiFederation\Plugins\Helper\EdkKillboardHelper;
 //		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
-//		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+//		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
 		$this->kbDB = $this->pluginHelper->db;
 
@@ -89,7 +89,7 @@ class KillboardWidget extends \WP_Widget {
 			echo '<p><input id="' . $this->get_field_id('yulai-federation-killboard-widget-number-of-kills') . '" name="' . $this->get_field_name('yulai-federation-killboard-widget-number-of-kills') . '" type="text" value="' . $instance['yulai-federation-killboard-widget-number-of-kills'] . '"></p>';
 			echo '<p style="clear:both;"></p>';
 
-			// Show losses
+			// Show losses (not yet implemented)
 //			echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Losses', 'yulai-federation') . '</strong></p>';
 //			echo '<p><label><input class="checkbox" type="checkbox" ' . $showLosses . ' id="' . $this->get_field_id('yulai-federation-killboard-widget-show-losses') . '" name="' . $this->get_field_name('yulai-federation-killboard-widget-show-losses') . '"> <span>' . \__('Show losses as well?', 'yulai-federation') . '</span></label></p>';
 //			echo '<p style="clear:both;"></p>';

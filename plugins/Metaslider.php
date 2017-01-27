@@ -142,7 +142,7 @@ class Metaslider {
 			 * No slider set, check for our default slider
 			 */
 			if(empty($page_slider)) {
-				$themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+				$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
 				if(!empty($themeOptions['default_slider'])) {
 					 if(!\is_front_page() && isset($themeOptions['default_slider_on']['frontpage_only'])) {

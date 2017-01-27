@@ -20,6 +20,9 @@ namespace WordPress\Themes\YulaiFederation;
 /**
  * Loading Helper Classes
  */
+require_once(\get_template_directory() . '/helper/ThemeHelper.php');
+require_once(\get_template_directory() . '/helper/NavigationHelper.php');
+require_once(\get_template_directory() . '/helper/PostHelper.php');
 require_once(\get_template_directory() . '/helper/EveApiHelper.php');
 require_once(\get_template_directory() . '/helper/StringHelper.php');
 require_once(\get_template_directory() . '/helper/ImageHelper.php');
@@ -84,71 +87,10 @@ if(!isset($content_width)) {
 } // END if(!isset($content_width))
 
 /**
- * Return the current DB version used for the themes settings
- *
- * @return string
- */
-function yf_get_current_db_version() {
-	return '20160825';
-} // END function yf_get_current_db_version()
-
-/**
- * Returns the default theme options.
- * If you change something here, do not forget to increase the DB Version Number
- * in yf_get_current_db_version()
- *
- * @return array Default Theme Options
- */
-function yf_get_options_default() {
-	$defaultOptions = array(
-		// generel settings tab
-		'type' => '',
-		'name' => '',
-		'show_corp_logos' => array(
-			'show' => 'show'
-		),
-		'navigation_even_cells' => array(
-			'yes' => ''
-		),
-
-		// background settings tab
-		'use_background_image' => array(
-			'yes' => 'yes'
-		),
-		'background_image' => 'eve-citadel.jpg',
-		'background_image_upload' => '',
-		'background_color' => '',
-
-		// slider settings tab
-		'default_slider' => '',
-		'default_slider_on' => array(
-			'frontpage_only' => 'frontpage_only'
-		),
-
-		// footer settings tab
-		'footertext' => '',
-	);
-
-	return \apply_filters('yulai_theme_options', $defaultOptions);
-} // END function yf_get_options_default()
-
-/**
  * Enqueue JavaScripts
  */
 if(!\function_exists('yf_enqueue_scripts')) {
 	function yf_enqueue_scripts() {
-		/**
-		 * Html5Shiv
-		 */
-		\wp_enqueue_script('html5shiv', \get_template_directory_uri() . '/js/html5.min.js');
-		\wp_script_add_data('html5shiv', 'conditional', 'lt IE 9');
-
-		/**
-		 * Respond JS
-		 */
-		\wp_enqueue_script('respondJS', \get_template_directory_uri() . '/js/respond.min.js');
-		\wp_script_add_data('respondJS', 'conditional', 'lt IE 9');
-
 		/**
 		 * Adds JavaScript to pages with the comment form to support
 		 * sites with threaded comments (when in use).
@@ -157,7 +99,7 @@ if(!\function_exists('yf_enqueue_scripts')) {
 			\wp_enqueue_script('comment-reply');
 		} // END if(\is_singular() && \comments_open() && \get_option('thread_comments'))
 
-		$enqueue_script = yf_get_javascripts();
+		$enqueue_script = Helper\ThemeHelper::getThemeJavaScripts();
 
 		/**
 		 * Loop through the JS array and load the scripts
@@ -172,212 +114,24 @@ if(!\function_exists('yf_enqueue_scripts')) {
 				\wp_enqueue_script($script['handle'], $script['source-development'], $script['deps'], $script['version'], $script['in_footer']);
 			} else {
 				\wp_enqueue_script($script['handle'], $script['source'], $script['deps'], $script['version'], $script['in_footer']);
-			}
+			} // END if(\preg_match('/development/', \APPLICATION_ENV))
+
+			// conditional scripts
+			if(!empty($script['condition'])) {
+				\wp_script_add_data($script['handle'], $script['condition']['conditionKey'], $script['condition']['conditionValue']);
+			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_script as $script)
 	} // END function yf_enqueue_styles()
 
 	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_scripts');
 } // END if(!\function_exists('yf_enqueue_scripts'))
 
-function yf_get_javascripts() {
-	$enqueue_script = array(
-		/* Bootstrap's JS */
-		'Bootstrap' => array(
-			'handle' => 'bootstrap-js',
-			'source' => \get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js',
-			'source-development' => \get_template_directory_uri() . '/bootstrap/js/bootstrap.js',
-			'deps' => array(
-				'jquery'
-			),
-			'version' => '3.3.7',
-			'in_footer' => true
-		),
-		/* Bootstrap Toolkit */
-		'Bootstrap Toolkit' => array(
-			'handle' => 'bootstrap-toolkit',
-			'source' => \get_template_directory_uri() . '/bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js',
-			'source-development' => \get_template_directory_uri() . '/bootstrap/bootstrap-toolkit/bootstrap-toolkit.js',
-			'deps' => array(
-				'bootstrap-js'
-			),
-			'version' => '2.6.3',
-			'in_footer' => true
-		),
-		/* Bootstrap Gallery */
-		'Bootstrap Gallery' => array(
-			'handle' => 'bootstrap-gallery-js',
-			'source' => \get_template_directory_uri() . '/plugins/js/jquery.bootstrap-gallery.min.js',
-			'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.bootstrap-gallery.js',
-			'deps' => array(
-				'jquery'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'in_footer' => true
-		),
-		/* Sonar for Lazy Loading */
-		'Sonar for Lazy Loading' => array(
-			'handle' => 'jquery-sonar',
-			'source' => \get_template_directory_uri() . '/plugins/js/jquery.sonar.min.js',
-			'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.sonar.js',
-			'deps' => array(
-				'jquery',
-				'bootstrap-js'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'in_footer' => true
-		),
-		/* Lazy Loading */
-		'Lazy Loading' => array(
-			'handle' => 'lazy-load-js',
-			'source' => \get_template_directory_uri() . '/plugins/js/jquery.lazy-load.min.js',
-			'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.lazy-load.js',
-			'deps' => array(
-				'jquery',
-				'jquery-sonar'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'in_footer' => true
-		),
-		/* The main JS */
-		'Yulai Federation' => array(
-			'handle' => 'yulai-federation-main-js',
-			'source' => \get_template_directory_uri() . '/js/yulai-federation.min.js',
-			'source-development' => \get_template_directory_uri() . '/js/yulai-federation.js',
-			'deps' => array(
-				'jquery'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'in_footer' => true
-		)
-	);
-
-	return $enqueue_script;
-} // END function yf_get_javascripts()
-
 /**
  * Enqueue Styles
  */
 if(!\function_exists('yf_enqueue_styles')) {
 	function yf_enqueue_styles() {
-		$enqueue_style = yf_get_stylesheets();
-
-		/**
-		 * Loop through the CSS array and load the styles
-		 */
-		foreach($enqueue_style as $style) {
-			if(\preg_match('/development/', \APPLICATION_ENV)) {
-				// for external styles we might not have a development source
-				if(!isset($style['source-development'])) {
-					$style['source-development'] = $style['source'];
-				} // END if(!isset($style['source-development']))
-
-				\wp_enqueue_style($style['handle'], $style['source-development'], $style['deps'], $style['version'], $style['media']);
-			} else {
-				\wp_enqueue_style($style['handle'], $style['source'], $style['deps'], $style['version'], $style['media']);
-			}
-		} // END foreach($enqueue_style as $style)
-	} // END function yf_enqueue_styles()
-
-	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
-} // END if(!\function_exists('yf_enqueue_styles'))
-
-function yf_get_stylesheets() {
-	$enqueue_style = array(
-		/* Normalize CSS */
-		'Normalize CSS' => array(
-			'handle' => 'normalize',
-			'source' => \get_template_directory_uri() . '/css/normalize.min.css',
-			'source-development' => \get_template_directory_uri() . '/css/normalize.css',
-			'deps' => array(),
-			'version' => '3.0.3',
-			'media' => 'all'
-		),
-		/* Bootstrap */
-		'Bootstrap' => array(
-			'handle' => 'bootstrap',
-			'source' => \get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css',
-			'source-development' => \get_template_directory_uri() . '/bootstrap/css/bootstrap.css',
-			'deps' => array(),
-			'version' => '3.3.7',
-			'media' => 'all'
-		),
-//		'Bootstrap Theme' => array(
-//			'handle' => 'bootstrap-theme',
-//			'source' => \get_template_directory_uri() . '/bootstrap/css/bootstrap-theme.min.css',
-//			'source-development' => \get_template_directory_uri() . '/bootstrap/css/bootstrap-theme.css',
-//			'deps' => array(
-//				'bootstrap'
-//			),
-//			'version' => '3.3.7',
-//			'media' => 'all'
-//		),
-		/* Genericons (Taken from Twenty Thirteen Theme) */
-//		'Genericons' => array(
-//			'handle' => 'genericons',
-//			'source' => \get_template_directory_uri() . '/genericons/genericons.min.css',
-//			'source-development' => \get_template_directory_uri() . '/genericons/genericons.css',
-//			'deps' => array(),
-//			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-//			'media' => 'all'
-//		),
-		/* Font Awesome */
-//		'Font Awesome' => array(
-//			'handle' => 'font-awesome',
-//			'source' => \get_template_directory_uri() . '/font-awesome/css/font-awesome.min.css',
-//			'source-development' => \get_template_directory_uri() . '/font-awesome/css/font-awesome.css',
-//			'deps' => array(),
-//			'version' => '4.6.3',
-//			'media' => 'all'
-//		),
-		/* Google Font */
-		'Google Font' => array(
-			'handle' => 'google-font',
-			'source' => '//fonts.googleapis.com/css?family=Amethysta',
-			'deps' => array(),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'media' => 'all'
-		),
-		/* Yulai Federation Theme Main CSS */
-		'Yulai Federation Theme Styles' => array(
-			'handle' => 'yulai-federation',
-			'source' => \get_template_directory_uri() . '/style.min.css',
-			'source-development' => \get_template_directory_uri() . '/style.css',
-			'deps' => array(
-				'google-font',
-				'bootstrap'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'media' => 'all'
-		),
-		/* Adjustment to Plugins */
-		'Yulai Federation Plugin Styles' => array(
-			'handle' => 'yulai-federation-plugin-styles',
-			'source' => \get_template_directory_uri() . '/plugin-tweaks.min.css',
-			'source-development' => \get_template_directory_uri() . '/plugin-tweaks.css',
-			'deps' => array(
-				'yulai-federation'
-			),
-			'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-			'media' => 'all'
-		),
-	);
-
-	return $enqueue_style;
-} // END function yf_get_stylesheets()
-
-if(!\function_exists('yf_enqueue_admin_styles')) {
-	function yf_enqueue_admin_styles() {
-		$enqueue_style = array(
-			/* Adjustment to Plugins */
-			'Yulai Federation Admin Styles' => array(
-				'handle' => 'yulai-federation-admin-styles',
-				'source' => \get_template_directory_uri() . '/admin/css/yulai-federation-admin-style.min.css',
-				'source-development' => \get_template_directory_uri() . '/admin/css/yulai-federation-admin-style.css',
-				'deps' => array(),
-				'version' => \sanitize_title(yf_get_theme_data('Name')) . '-' . yf_get_theme_data('Version'),
-				'media' => 'all'
-			),
-		);
+		$enqueue_style = Helper\ThemeHelper::getThemeStyleSheets();
 
 		/**
 		 * Loop through the CSS array and load the styles
@@ -393,6 +147,40 @@ if(!\function_exists('yf_enqueue_admin_styles')) {
 			} else {
 				\wp_enqueue_style($style['handle'], $style['source'], $style['deps'], $style['version'], $style['media']);
 			} // END if(\preg_match('/development/', \APPLICATION_ENV))
+
+			// conditional styles
+			if(!empty($style['condition'])) {
+				\wp_style_add_data($style['handle'], $style['condition']['conditionKey'], $style['condition']['conditionValue']);
+			} // END if(!empty($script['condition']))
+		} // END foreach($enqueue_style as $style)
+	} // END function yf_enqueue_styles()
+
+	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
+} // END if(!\function_exists('yf_enqueue_styles'))
+
+if(!\function_exists('yf_enqueue_admin_styles')) {
+	function yf_enqueue_admin_styles() {
+		$enqueue_style = Helper\ThemeHelper::getThemeAdminStyleSheets();
+
+		/**
+		 * Loop through the CSS array and load the styles
+		 */
+		foreach($enqueue_style as $style) {
+			if(\preg_match('/development/', \APPLICATION_ENV)) {
+				// for external styles we might not have a development source
+				if(!isset($style['source-development'])) {
+					$style['source-development'] = $style['source'];
+				} // END if(!isset($style['source-development']))
+
+				\wp_enqueue_style($style['handle'], $style['source-development'], $style['deps'], $style['version'], $style['media']);
+			} else {
+				\wp_enqueue_style($style['handle'], $style['source'], $style['deps'], $style['version'], $style['media']);
+			} // END if(\preg_match('/development/', \APPLICATION_ENV))
+
+			// conditional styles
+			if(!empty($style['condition'])) {
+				\wp_style_add_data($style['handle'], $style['condition']['conditionKey'], $style['condition']['conditionValue']);
+			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_style as $style)
 	} // END function yf_enqueue_admin_styles()
 
@@ -404,9 +192,9 @@ if(!\function_exists('yf_enqueue_admin_styles')) {
  */
 function yf_theme_setup() {
 	/**
-	 * Check if options have to be updated
+	 * Check if options need to be updated
 	 */
-	yf_update_options('yulai_theme_options', 'yulai_theme_db_version', yf_get_current_db_version(), yf_get_options_default());
+	Helper\ThemeHelper::updateOptions('yulai_theme_options', 'yulai_theme_db_version', Helper\ThemeHelper::getThemeDbVersion(), Helper\ThemeHelper::getThemeDefaultOptions());
 
 	/**
 	 * Loading out textdomain
@@ -431,7 +219,7 @@ function yf_theme_setup() {
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
 	 */
-	add_theme_support('html5', array(
+	\add_theme_support('html5', array(
 		'comment-form',
 		'comment-list',
 		'gallery',
@@ -482,35 +270,6 @@ function yf_theme_setup() {
  * style in css.
  */
 \add_filter('gallery_style', \create_function('$a', 'return "<div class=\'gallery\'>";'));
-
-/**
- * Update the options array for our theme, if needed
- *
- * @param string $optionsName
- * @param string $dbVersionFieldName
- * @param string $newDbVersion
- * @param array $defaultOptions
- */
-function yf_update_options($optionsName, $dbVersionFieldName, $newDbVersion, $defaultOptions) {
-	$currentDbVersion = \get_option($dbVersionFieldName);
-
-	// Check if the DB needs to be updated
-	if($currentDbVersion !== $newDbVersion) {
-		$currentOptions = \get_option($optionsName);
-
-		if(\is_array($currentOptions)) {
-			$newOptions = \array_merge($defaultOptions, $currentOptions);
-		} else {
-			$newOptions = $defaultOptions;
-		} // END if(\is_array($currentOptions))
-
-		// Update the options
-		\update_option($optionsName, $newOptions);
-
-		// Update the DB Version
-		\update_option($dbVersionFieldName, $newDbVersion);
-	} // END if($currentDbVersion !== $newDbVersion)
-} // END function yf_update_options($dbVersionName, $optionsName, $newDbVersion, $defaultOptions)
 
 /**
  * Return the Google font stylesheet URL, if available.
@@ -596,17 +355,6 @@ if(!\function_exists('yf_add_class_to_excerpt')) {
 
 	\add_filter('the_excerpt', '\\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt');
 } // END if(!\function_exists('yf_add_class_to_excerpt'))
-
-/**
- * Alias for is_active_sidebar()
- *
- * @param string $sidebarPosition
- * @return boolean
- * @uses is_active_sidebar() Whether a sidebar is in use.
- */
-function yf_has_sidebar($sidebarPosition) {
-	return \is_active_sidebar($sidebarPosition);
-} // END function yf_has_sidebar($sidebarPosition)
 
 /**
  * Define theme's widget areas.
@@ -776,144 +524,6 @@ function yf_remove_more_link_scroll($link) {
 \add_filter('the_content_more_link', '\\WordPress\Themes\YulaiFederation\yf_remove_more_link_scroll');
 
 /**
- * Display page next/previous navigation links.
- */
-if(!\function_exists('yf_content_nav')) {
-	function yf_content_nav($nav_id) {
-		global $wp_query, $post;
-
-		if($wp_query->max_num_pages > 1) {
-			?>
-			<nav id="<?php echo $nav_id; ?>" class="navigation" role="navigation">
-				<h3 class="assistive-text"><?php \_e('Post navigation', 'yulai-federation'); ?></h3>
-				<div class="nav-previous pull-left">
-					<?php \next_posts_link(\__('<span class="meta-nav">&larr;</span> Older posts', 'yulai-federation')); ?>
-				</div>
-				<div class="nav-next pull-right">
-					<?php \previous_posts_link(\__('Newer posts <span class="meta-nav">&rarr;</span>', 'yulai-federation')); ?>
-				</div>
-			</nav><!-- #<?php echo $nav_id; ?> .navigation -->
-			<?php
-		} // END if($wp_query->max_num_pages > 1)
-	} // END function yf_content_nav($nav_id)
-} // END if(!\function_exists('yf_content_nav'))
-
-/**
- * Display template for comments and pingbacks.
- */
-if(!\function_exists('yf_comment')) {
-	function yf_comment($comment, $args, $depth) {
-		$GLOBALS['comment'] = $comment;
-
-		switch($comment->comment_type) {
-			case 'pingback' :
-			case 'trackback' :
-				?>
-				<li class="comment media" id="comment-<?php \comment_ID(); ?>">
-					<div class="media-body">
-						<p>
-							<?php \_e('Pingback:', 'yulai-federation'); ?> <?php \comment_author_link(); ?>
-						</p>
-					</div><!--/.media-body -->
-					<?php
-					break;
-			default :
-				// Proceed with normal comments.
-				global $post;
-				?>
-				<li class="comment media" id="li-comment-<?php \comment_ID(); ?>">
-					<a href="<?php echo $comment->comment_author_url; ?>" class="pull-left">
-						<?php echo \get_avatar($comment, 64); ?>
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading comment-author vcard">
-							<?php
-							\printf('<cite class="fn">%1$s %2$s</cite>',
-								\get_comment_author_link(),
-								// If current post author is also comment author, make it known visually.
-								($comment->user_id === $post->post_author) ? '<span class="label"> ' . \__('Post author', 'yulai-federation') . '</span> ' : ''
-							);
-							?>
-						</h4>
-						<?php
-						if('0' == $comment->comment_approved) {
-							?>
-							<p class="comment-awaiting-moderation">
-								<?php \_e('Your comment is awaiting moderation.', 'yulai-federation'); ?>
-							</p>
-							<?php
-						} // END if('0' == $comment->comment_approved)
-
-						\comment_text();
-						?>
-						<p class="meta">
-							<?php
-							\printf('<a href="%1$s"><time datetime="%2$s">%3$s</time></a>',
-								\esc_url(\get_comment_link($comment->comment_ID)),
-								\get_comment_time('c'),
-								\sprintf(\__('%1$s at %2$s', 'yulai-federation'), \get_comment_date(), \get_comment_time())
-							);
-							?>
-						</p>
-						<p class="reply">
-							<?php
-							\comment_reply_link(\array_merge($args, array(
-								'reply_text' => __('Reply <span>&darr;</span>', 'yulai-federation'),
-								'depth' => $depth,
-								'max_depth' => $args['max_depth']
-							)));
-							?>
-						</p>
-					</div> <!--/.media-body -->
-					<?php
-				break;
-		} // END switch ($comment->comment_type)
-	} // END function yf_comment($comment, $args, $depth)
-} // END if(!\function_exists('yf_comment'))
-
-/**
- * Display template for post meta information.
- */
-if(!\function_exists('yf_posted_on')) {
-	function yf_posted_on() {
-		$options = \get_option('yulai_theme_options', yf_get_options_default());
-
-		if(isset($options['meta_data']) && $options['meta_data'] === true) {
-			\printf(\__('Posted on <time class="entry-date" datetime="%3$s">%4$s</time><span class="byline"> <span class="sep"> by </span> <span class="author vcard">%7$s</span></span>', 'yulai-federation'),
-				\esc_url(\get_permalink()),
-				\esc_attr(\get_the_time()),
-				\esc_attr(\get_the_date('c')),
-				\esc_html(\get_the_date()),
-				\esc_url(\get_author_posts_url(\get_the_author_meta('ID'))),
-				\esc_attr(\sprintf(\__('View all posts by %s', 'yulai-federation'),
-					\get_the_author()
-				)),
-				\esc_html(get_the_author())
-			);
-		} // END if(isset($options['meta_data']) && $options['meta_data'] === true)
-	} // END function yf_posted_on()
-} // END if(!\function_exists('yf_posted_on'))
-
-/**
- * Display template for post cateories and tags
- */
-if(!\function_exists('yf_cats_tags')) {
-	function yf_cats_tags() {
-		\printf('<span class="cats_tags"><span class="glyphicon glyphicon-folder-open" title="My tip"></span><span class="cats">');
-		\printf(\the_category(', '));
-		\printf('</span>');
-
-		if(\has_tag() === true) {
-			\printf('<span class="glyphicon glyphicon-tags"></span><span class="tags">');
-			\printf(\the_tags(' '));
-			\printf('</span>');
-		} // END if(has_tag() === true)
-
-		\printf('</span>');
-	} // END function yf_cats_tags()
-} // END if(!\function_exists('yf_cats_tags'))
-
-/**
  * Adds custom classes to the array of body classes.
  */
 function yf_body_classes($classes) {
@@ -968,186 +578,6 @@ function yf_wp_title($title, $sep) {
 \add_filter('wp_title', '\\WordPress\Themes\YulaiFederation\yf_wp_title', 10, 2);
 
 /**
- * Display template for breadcrumbs.
- */
-function yf_breadcrumbs($addTexts = true) {
-	$home = __('Home', 'yulai-federation'); // text for the 'Home' link
-	$before = '<li class="active">'; // tag before the current crumb
-	$sep = '';
-	$after = '</li>'; // tag after the current crumb
-
-	if(!\is_home() && !\is_front_page() || \is_paged()) {
-		echo '<ul class="breadcrumb">';
-
-		global $post;
-
-		$homeLink = \home_url();
-
-		echo '<li><a href="' . $homeLink . '">' . $home . '</a> ' . $sep . '</li> ';
-
-		if(\is_category()) {
-			global $wp_query;
-
-			$cat_obj = $wp_query->get_queried_object();
-			$thisCat = $cat_obj->term_id;
-			$thisCat = \get_category($thisCat);
-			$parentCat = \get_category($thisCat->parent);
-
-			if($thisCat->parent != 0) {
-				echo '<li>' . \get_category_parents($parentCat, true, $sep . '</li><li>') . '</li>';
-			} // END if($thisCat->parent != 0)
-
-			$format = $before . ($addTexts ? (__('Archive by category ', 'yulai-federation') . '"%s"') : '%s') . $after;
-
-			echo \sprintf($format, \single_cat_title('', false));
-		} elseif(\is_day()) {
-			echo '<li><a href="' . \get_year_link(\get_the_time('Y')) . '">' . \get_the_time('Y') . '</a></li> ';
-			echo '<li><a href="' . \get_month_link(\get_the_time('Y'), \get_the_time('m')) . '">' . \get_the_time('F') . '</a></li> ';
-			echo $before . \get_the_time('d') . $after;
-		} elseif(\is_month()) {
-			echo '<li><a href="' . \get_year_link(\get_the_time('Y')) . '">' . \get_the_time('Y') . '</a></li> ';
-			echo $before . \get_the_time('F') . $after;
-		} elseif(\is_year()) {
-			echo $before . \get_the_time('Y') . $after;
-		} elseif(\is_single() && !\is_attachment()) {
-			if(\get_post_type() != 'post') {
-				$post_type = \get_post_type_object(\get_post_type());
-				$slug = $post_type->rewrite;
-
-				echo '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ';
-				echo $before . \get_the_title() . $after;
-			} else {
-				$cat = \get_the_category();
-				$cat = $cat[0];
-
-				echo '<li>' . \get_category_parents($cat, true, $sep) . '</li>';
-				echo $before . \get_the_title() . $after;
-			} // END if(get_post_type() != 'post')
-		} elseif(!\is_single() && !\is_page() && \get_post_type() != 'post' && !\is_404()) {
-			$post_type = \get_post_type_object(\get_post_type());
-
-			echo $before . $post_type->labels->singular_name . $after;
-		} elseif(\is_attachment()) {
-			$parent = \get_post($post->post_parent);
-			$cat = \get_the_category($parent->ID);
-			$cat = (isset($cat['0'])) ? $cat['0'] : '';
-
-			echo (isset($cat['0'])) ? \get_category_parents($cat, true, $sep) : '';
-			echo '<li><a href="' . \get_permalink($parent) . '">' . $parent->post_title . '</a></li> ';
-			echo $before . \get_the_title() . $after;
-		} elseif(\is_page() && !$post->post_parent) {
-			echo $before . get_the_title() . $after;
-		} elseif(\is_page() && $post->post_parent) {
-			$parent_id = $post->post_parent;
-			$breadcrumbs = array();
-
-			while($parent_id) {
-				$page = \get_page($parent_id);
-				$breadcrumbs[] = '<li><a href="' . \get_permalink($page->ID) . '">' . \get_the_title($page->ID) . '</a>' . $sep . '</li>';
-				$parent_id = $page->post_parent;
-			} // END while($parent_id)
-
-			$breadcrumbs = \array_reverse($breadcrumbs);
-
-			foreach($breadcrumbs as $crumb) {
-				echo $crumb;
-			} // END foreach($breadcrumbs as $crumb)
-
-			echo $before . \get_the_title() . $after;
-		} elseif(\is_search()) {
-			$format = $before . ($addTexts ? (\__('Search results for "', 'yulai-federation') . '"%s"') : '%s') . $after;
-
-			echo \sprintf($format, \get_search_query());
-		} elseif(\is_tag()) {
-			$format = $before . ($addTexts ? (\__('Posts tagged "', 'yulai-federation') . '"%s"') : '%s') . $after;
-
-			echo \sprintf($format, \single_tag_title('', false));
-		} elseif(\is_author()) {
-			global $author;
-
-			$userdata = \get_userdata($author);
-			$format = $before . ($addTexts ? (\__('Articles posted by ', 'yulai-federation') . '"%s"') : '%s') . $after;
-
-			echo \sprintf($format, $userdata->display_name);
-		} elseif(\is_404()) {
-			echo $before . \__('Error 404', 'yulai-federation') . $after;
-		} // END if(is_category())
-
-		echo '</ul>';
-	} // END if(!is_home() && !is_front_page() || is_paged())
-} // END function yf_breadcrumbs($addTexts = true)
-
-function yf_get_headerColClasses($echo = false) {
-	if(yf_has_sidebar('header-widget-area')) {
-		$contentColClass = 'col-xs-12 col-sm-9 col-md-6 col-lg-6';
-	} else {
-		$contentColClass = 'col-xs-12 col-sm-9 col-md-9 col-lg-9';
-	} // END if(yf_has_sidebar('header-widget-area'))
-
-	if($echo === true) {
-		echo $contentColClass;
-	} else {
-		return $contentColClass;
-	} // END if($echo === true)
-} // END function yf_get_headerColClasses($echo = false)
-
-function yf_get_mainContentColClasses($echo = false) {
-	if(yf_has_sidebar('sidebar-page') || yf_has_sidebar('sidebar-general') || yf_has_sidebar('sidebar-post')) {
-		$contentColClass = 'col-lg-9 col-md-9 col-sm-9 col-9';
-	} else {
-		$contentColClass = 'col-lg-12 col-md-12 col-sm-12 col-12';
-	} // END if(yf_has_sidebar('sidebar-page'))
-
-	if($echo === true) {
-		echo $contentColClass;
-	} else {
-		return $contentColClass;
-	} // END if($echo === true)
-} // END function yf_get_mainContentColClasses($echo = false)
-
-function yf_get_loopContentClasses($echo = false) {
-	if(yf_has_sidebar('sidebar-page') || yf_has_sidebar('sidebar-general') || yf_has_sidebar('sidebar-post')) {
-		$contentColClass = 'col-lg-4 col-md-6 col-sm-12 col-xs-12';
-	} else {
-		$contentColClass = 'col-lg-3 col-md-4 col-sm-6 col-xs-12';
-	} // END if(eve_has_sidebar('sidebar-page'))
-
-	if($echo === true) {
-		echo $contentColClass;
-	} else {
-		return $contentColClass;
-	} // END if($echo === true)
-} // END function yf_get_loopContentClasses($echo = false)
-
-function yf_get_contentColumnCount($echo = false) {
-	if(yf_has_sidebar('sidebar-page') || yf_has_sidebar('sidebar-general') || yf_has_sidebar('sidebar-post')) {
-		$columnCount = 3;
-	} else {
-		$columnCount = 4;
-	} // END if(eve_has_sidebar('sidebar-page'))
-
-	if($echo === true) {
-		echo $columnCount;
-	} else {
-		return $columnCount;
-	} // END if($echo === true)
-}
-
-/**
- * Returning some theme related data
- *
- * @param string $parameter
- * @return string
- *
- * @link https://developer.wordpress.org/reference/functions/wp_get_theme/
- */
-function yf_get_theme_data($parameter) {
-	$themeData = \wp_get_theme();
-
-	return $themeData->get($parameter);
-} // END function yf_get_theme_data($parameter)
-
-/**
  * Link Pages
  * @author toscho
  * @link http://wordpress.stackexchange.com/questions/14406/how-to-style-current-page-number-wp-link-pages
@@ -1196,19 +626,6 @@ function yf_link_pages($args = array()) {
 	echo $output . $after;
 } // END function yf_link_pages($args = array())
 
-/**
- * check if a post has content or not
- *
- * @param int $postID ID of the post
- * @return boolean
- */
-function yf_post_has_content($postID) {
-	$content_post = \get_post($postID);
-	$content = $content_post->post_content;
-
-	return \trim(\str_replace('&nbsp;','',  \strip_tags($content))) !== '';
-} // END function yf_post_has_content($postID)
-
 function yf_bootstrapDebug() {
 	$script = '<script type="text/javascript">'
 			. 'jQuery(function($) {'
@@ -1237,58 +654,15 @@ if(\preg_match('/development/', \APPLICATION_ENV)) {
  */
 \add_filter('option_use_smilies', '__return_false');
 
-function yf_get_default_background_images($withThumbnail = false, $baseClass = null) {
-	$imagePath = \get_template_directory() . '/img/background/';
-	$handle = \opendir($imagePath);
-
-	if($baseClass !== null) {
-		$baseClass = '-' . $baseClass;
-	} // END if($baseClass !== null)
-
-	if($handle) {
-		while(false !== ($entry = \readdir($handle))) {
-			$files[$entry] = $entry;
-		} // END while(false !== ($entry = readdir($handle)))
-
-		\closedir($handle);
-
-		// we are only looking for images
-		$images = \preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
-
-		if($withThumbnail === true) {
-			foreach($images as &$image) {
-				$imageName = ucwords(str_replace('-', ' ', preg_replace("/\\.[^.\\s]{3,4}$/", "", $image)));
-				$image = '<figure class="bg-image' . $baseClass . '"><img src="' . \get_template_directory_uri() . '/img/background/' . $image . '" style="width:100px; height:auto;" title="' . $imageName . '"><figcaption>' . $imageName . '</figcaption></figure>';
-			} // END foreach($images as &$image)
-		} // END if($withThumbnail === true)
-
-		return $images;
-	} // END if($handle)
-} // END function yf_get_default_background_images($withThumbnail = false, $baseClass = null)
-
-function yf_get_theme_background_image() {
-	$themeSettings = \get_option('yulai_theme_options', yf_get_options_default());
-
-	$backgroundImage = (isset($themeSettings['background_image'])) ? \get_template_directory_uri() . '/img/background/' . $themeSettings['background_image'] : null;
-	$uploadedBackground = (empty($themeSettings['background_image_upload'])) ? false : true;
-
-	// we have an uploaded image, so overwrite the background
-	if($uploadedBackground === true) {
-		$backgroundImage = \wp_get_attachment_url($themeSettings['background_image_upload']);
-	} // END if($uploadedBackground === true)
-
-	return $backgroundImage;
-} // END function yf_get_theme_background_image()
-
 /**
  * Adding the custom style to the theme
  */
 function yf_get_theme_custom_style() {
-	$themeSettings = \get_option('yulai_theme_options', yf_get_options_default());
+	$themeSettings = \get_option('yulai_theme_options', Helper\ThemeHelper::getThemeDefaultOptions());
 	$themeCustomStyle = null;
 
 	// background image
-	$backgroundImage = yf_get_theme_background_image();
+	$backgroundImage = Helper\ThemeHelper::getThemeBackgroundImage();
 
 	if(!empty($backgroundImage) && (isset($themeSettings['use_background_image']['yes']) && $themeSettings['use_background_image']['yes'] === 'yes')) {
 		$themeCustomStyle .= 'body {background-image: url("' . $backgroundImage . '")}' . "\n";
@@ -1317,15 +691,12 @@ function yf_comment_form_fields($fields) {
 
 	$fields =  array(
 		'author' => '<div class="row"><div class="form-group comment-form-author col-md-4">'
-//					. '	<label for="author">' . \__('Name') . ($req ? ' <span class="required">*</span>' : '') . '</label>'
 					. '	<input class="form-control" id="author" name="author" type="text" value="' . \esc_attr($commenter['comment_author']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Name') . ($req ? ' *' : '') . '" />'
 					. '</div>',
 		'email' => '<div class="form-group comment-form-email col-md-4">'
-//					. '	<label for="email">' . \__('Email') . ($req ? ' <span class="required">*</span>' : '') . '</label> '
 					. '	<input class="form-control" id="email" name="email" ' . ($html5 ? 'type="email"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_email']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Email') . ($req ? ' *' : '') . '" />'
 					. '</div>',
 		'url' => '<div class="form-group comment-form-url col-md-4">'
-//					. '	<label for="url">' . \__('Website') . '</label> '
 					. '	<input class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_url']) . '" size="30" placeholder="' . \__('Website') . '" />'
 					. '</div></div>'
 	);
@@ -1336,7 +707,6 @@ function yf_comment_form_fields($fields) {
 
 function yf_comment_form($args) {
 	$args['comment_field'] = '<div class="row"><div class="form-group comment-form-comment col-lg-12">'
-//							. '	<label for="comment">' . \_x('Comment', 'noun') . '</label>'
 							. '	<textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true" required placeholder="' . \_x('Comment', 'noun') . '"></textarea>'
 							. '</div></div>';
 	$args['class_submit'] = 'btn btn-default';
@@ -1353,23 +723,6 @@ function yf_move_comment_field_to_bottom($fields) {
 	return $fields;
 } // END function yf_move_comment_field_to_bottom($fields)
 \add_filter('comment_form_fields', '\\WordPress\Themes\YulaiFederation\yf_move_comment_field_to_bottom');
-
-function get_excerpt_by_id($postID, $excerptLength = 35) {
-	$the_post = \get_post($postID); //Gets post ID
-	$the_excerpt = $the_post->post_content; //Gets post_content to be used as a basis for the excerpt
-	$the_excerpt = \strip_tags(\strip_shortcodes($the_excerpt)); //Strips tags and images
-	$words = \explode(' ', $the_excerpt, $excerptLength + 1);
-
-	if(\count($words) > $excerptLength) {
-		\array_pop($words);
-		\array_push($words, '…');
-		$the_excerpt = \implode(' ', $words);
-	} // END if(\count($words) > $excerptLength)
-
-	$the_excerpt = '<p>' . $the_excerpt . '</p>';
-
-	return $the_excerpt;
-} // END function get_excerpt_by_id($postID, $excerptLength = 35)
 
 /**
  * Getting the "on the fly" image URLs for Meta Slider
@@ -1403,4 +756,4 @@ function yf_enable_youtube_jsapi($html, $url, $args) {
 
 	return $html;
 } // END function yf_enable_youtube_jsapi($html, $url, $args)
-add_filter('oembed_result', '\\WordPress\Themes\YulaiFederation\yf_enable_youtube_jsapi');
+\add_filter('oembed_result', '\\WordPress\Themes\YulaiFederation\yf_enable_youtube_jsapi');

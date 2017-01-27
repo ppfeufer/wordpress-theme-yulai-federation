@@ -19,7 +19,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 	private $eveApi = null;
 
 	public function __construct() {
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 	}
 
@@ -91,10 +91,10 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 
 			// let's check if a page actually has content ...
 			$hasContent = true;
-			if($item->post_parent !== 0 && YulaiFederation\yf_post_has_content($item->object_id) === false) {
+			if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::hasContent($item->object_id) === false) {
 				$hasContent = false;
 				$class_names .= ' no-post-content';
-			} // END if($item->post_parent !== 0 && YulaiFederation\yf_post_has_content($item->object_id) === false)
+			} // END if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::hasContent($item->object_id) === false)
 
 			$class_names = $class_names ? ' class="' . \esc_attr($class_names) . '"' : '';
 
@@ -110,7 +110,6 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 
 			// If item has_children add atts to a.
 			if($args->has_children && $depth === 0) {
-//				$atts['href'] = '#';
 				$atts['href'] = !empty($item->url) ? $item->url : '';
 				$atts['data-toggle'] = 'dropdown';
 				$atts['class'] = 'dropdown-toggle';

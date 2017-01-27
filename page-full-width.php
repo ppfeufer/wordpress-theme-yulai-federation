@@ -12,9 +12,7 @@ defined('ABSPATH') or die();
 	<div class="row">
 		<div class="col-md-12">
 			<?php
-			if(\function_exists('\WordPress\Themes\YulaiFederation\yf_breadcrumbs')) {
-				\WordPress\Themes\YulaiFederation\yf_breadcrumbs();
-			} // END if(\function_exists('\YulaiFederation\yf_breadcrumbs'))
+			\WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbs();
 			?>
 		</div><!--/.col -->
 	</div><!--/.row -->

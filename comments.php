@@ -13,7 +13,7 @@ if(\post_password_required()) {
 		<ul class="media-list">
 			<?php
 			\wp_list_comments(array(
-				'callback' => '\WordPress\Themes\YulaiFederation\yf_comment'
+				'callback' => '\WordPress\Themes\YulaiFederation\Helper\PostHelper::getComments'
 			));
 			?>
 		</ul>

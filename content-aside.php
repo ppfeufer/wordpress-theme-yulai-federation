@@ -4,19 +4,19 @@
 	<header class="entry-header">
 		<h2 class="entry-title">
 			<a href="<?php \the_permalink(); ?>" title="<?php \printf(\esc_attr__('Permalink to %s', 'yulai-federation'), \the_title_attribute('echo=0')); ?>" rel="bookmark">
-				<?php the_title(); ?>
+				<?php \the_title(); ?>
 			</a>
 		</h2>
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-//				echo \WordPress\Themes\YulaiFederation\yf_posted_on();
+//				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
 
-				\edit_post_link(__('Edit', 'yulai-federation'));
+				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 				<br/>
 				<?php
-//				\WordPress\Themes\YulaiFederation\yf_cats_tags();
+//				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
 				?>
 			</p>
 		</aside><!--end .entry-details -->
@@ -36,7 +36,7 @@
 					?>
 					<div class="entry-content">
 						<?php
-						$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\yf_get_options_default());
+						$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
 						if(\has_post_thumbnail()) {
 							?>

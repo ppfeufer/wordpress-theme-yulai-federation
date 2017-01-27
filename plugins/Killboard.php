@@ -27,7 +27,7 @@ class Killboard {
 	} // END public function __construct()
 
 	private function initPlugin() {
-		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 		$this->pluginSettings = \get_option('yulai_theme_killboard_plugin_options', $this->getDefaultPluginOptions());
 
 		// backend actions

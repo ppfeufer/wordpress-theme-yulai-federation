@@ -8,15 +8,13 @@ defined('ABSPATH') or die();
 	<div class="row">
 		<div class="col-md-12">
 			<?php
-			if(\function_exists('\WordPress\Themes\YulaiFederation\yf_breadcrumbs')) {
-				\WordPress\Themes\YulaiFederation\yf_breadcrumbs();
-			} // END if(\function_exists('\WordPress\Themes\YulaiFederation\yf_breadcrumbs'))
+			\WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbs();
 			?>
 		</div><!--/.col -->
 	</div><!--/.row -->
 
 	<div class="row main-content">
-		<div class="<?php echo \WordPress\Themes\YulaiFederation\yf_get_mainContentColClasses(); ?>">
+		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getMainContentColClasses(); ?>">
 			<div class="content content-archive">
 				<header class="page-title">
 					<h1>
@@ -26,7 +24,7 @@ defined('ABSPATH') or die();
 						} elseif(is_month()) {
 							\printf(\__('Monthly Archives: %s', 'yulai-federation'), '<span>' . \get_the_date(\_x('F Y', 'monthly archives date format', 'yulai-federation')) . '</span>');
 						} elseif(is_year()) {
-							\printf(\__('Yearly Archives: %s', 'yulai-federation'), '<span>' . \get_the_date(_x('Y', 'yearly archives date format', 'yulai-federation')) . '</span>');
+							\printf(\__('Yearly Archives: %s', 'yulai-federation'), '<span>' . \get_the_date(\_x('Y', 'yearly archives date format', 'yulai-federation')) . '</span>');
 						} elseif(is_tag()) {
 							\printf(\__('Tag Archives: %s', 'yulai-federation'), '<span>' . \single_tag_title('', false) . '</span>');
 							// Show an optional tag description
@@ -77,7 +75,7 @@ defined('ABSPATH') or die();
 						echo '<script type="text/javascript">
 								jQuery(document).ready(function() {
 									jQuery("ul.bootstrap-post-loop-gallery-' . $uniqueID . '").bootstrapGallery({
-										"classes" : "' . \WordPress\Themes\YulaiFederation\yf_get_loopContentClasses() . '",
+										"classes" : "' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::geLoopContentClasses() . '",
 										"hasModal" : false
 									});
 								});
@@ -88,28 +86,28 @@ defined('ABSPATH') or die();
 				if(\function_exists('wp_pagenavi')) {
 					\wp_pagenavi();
 				} else {
-					\WordPress\Themes\YulaiFederation\yf_content_nav('nav-below');
+					\WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getContentNav('nav-below');
 				} // END if(\function_exists('wp_pagenavi'))s
 				?>
 			</div> <!-- /.content -->
 		</div> <!-- /.col -->
 
 		<?php
-		if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-page')) {
+		if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
 			?>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
-				<?php \get_sidebar('page'); ?>
-			</div><!--/.col -->
-			<?php
-		} // END if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-page'))
+				<?php
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page')) {
+					\get_sidebar('page');
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page'))
 
-		if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-general')) {
-			?>
-			<div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
-				<?php \get_sidebar('general'); ?>
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
+					\get_sidebar('general');
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general'))
+				?>
 			</div><!--/.col -->
 			<?php
-		} // END if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-general'))
+		} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
 		?>
 	</div> <!--/.row -->
 </div><!-- container -->

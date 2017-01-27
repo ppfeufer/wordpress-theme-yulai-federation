@@ -49,9 +49,9 @@
 				<div class="container">
 					<div class="row">
 						<!-- Logo -->
-						<div class="<?php echo \WordPress\Themes\YulaiFederation\yf_get_headerColClasses(); ?> brand clearfix">
+						<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getHeaderColClasses(); ?> brand clearfix">
 							<?php
-							$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\yf_get_options_default());
+							$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
 							if(!empty($options['name'])) {
 								$eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
@@ -95,7 +95,7 @@
 
 						<!-- Header Widget from Theme options -->
 						<?php
-						if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('header-widget-area')) {
+						if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('header-widget-area')) {
 							?>
 							<div class="col-md-3 col-sm-12">
 								<div class="row">
@@ -109,7 +109,7 @@
 								</div>
 							</div>
 							<?php
-						} // END if(\YulaiFederation\yf_has_sidebar('header-widget-area'))
+						} // END if(\YulaiFederation\Helper\ThemeHelper::hasSidebar('header-widget-area'))
 						?>
 					</div>
 
@@ -180,7 +180,7 @@
 
 		<?php
 		if((\is_front_page()) && (\is_paged() == false)) {
-			if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('home-column-1') || \WordPress\Themes\YulaiFederation\yf_has_sidebar('home-column-2') || \WordPress\Themes\YulaiFederation\yf_has_sidebar('home-column-3') || \WordPress\Themes\YulaiFederation\yf_has_sidebar('home-column-4')) {
+			if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-4')) {
 				?>
 				<!--
 				// Marketing Stuff
@@ -198,7 +198,7 @@
 					</div>
 				</div><!--/.row -->
 				<?php
-			} // END if(\YulaiFederation\yf_has_sidebar('home-left') || \YulaiFederation\yf_has_sidebar('home-middle') || \YulaiFederation\yf_has_sidebar('home-right'))
+			} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('home-column-4'))
 		} // END if((\is_front_page()) && (\is_paged() == false))
 		?>
 

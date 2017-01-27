@@ -46,7 +46,7 @@ class Whitelabel {
 	} // END function __construct()
 
 	private function getBackgroundImage() {
-		return YulaiFederation\yf_get_theme_background_image();
+		return YulaiFederation\Helper\ThemeHelper::getThemeBackgroundImage();
 	} // END private function getBackgroundImage()
 
 	/**
@@ -55,7 +55,7 @@ class Whitelabel {
 	 * @return Ambigous <string, mixed>
 	 */
 	public function loginLogoTitle() {
-		return __('Yulai Federation - NRDS Provibloc Alliance', $this->textdomain);
+		return \__('Yulai Federation - NRDS Provibloc Alliance', $this->textdomain);
 	} // END public function loginLogoTitle()
 
 	/**
@@ -64,7 +64,7 @@ class Whitelabel {
 	 * @return Ambigous <string, mixed, boolean>
 	 */
 	public function loginLogoUrl() {
-		return get_bloginfo('wpurl');
+		return \get_bloginfo('wpurl');
 	} // END public function loginLogoUrl()
 
 	/**
@@ -72,7 +72,7 @@ class Whitelabel {
 	 */
 	public function modifyAdminFooter() {
 		echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s',
-			__('Customized by:', $this->textdomain),
+			\__('Customized by:', $this->textdomain),
 			' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>'
 		);
 	} // END public function modifyAdminFooter()
@@ -82,9 +82,9 @@ class Whitelabel {
 	 */
 	public function themeInfo() {
 		echo '<ul>
-		<li><strong>' . __('Customized by:', $this->textdomain) . '</strong> ' . $this->developerName . '</li>
-		<li><strong>' . __('Website:', $this->textdomain) . '</strong> <a href="' . $this->developerWebsite . '">' . $this->developerWebsite . '</a></li>
-		<li><strong>' . __('Contact:',  $this->textdomain) . '</strong> <a href="mailto:' . $this->developerEmailAddress . '">' . $this->developerEmailAddress . '</a></li>
+		<li><strong>' . \__('Customized by:', $this->textdomain) . '</strong> ' . $this->developerName . '</li>
+		<li><strong>' . \__('Website:', $this->textdomain) . '</strong> <a href="' . $this->developerWebsite . '">' . $this->developerWebsite . '</a></li>
+		<li><strong>' . \__('Contact:',  $this->textdomain) . '</strong> <a href="mailto:' . $this->developerEmailAddress . '">' . $this->developerEmailAddress . '</a></li>
 		</ul>';
 	} // END public function themeInfo()
 

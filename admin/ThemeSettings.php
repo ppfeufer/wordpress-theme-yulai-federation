@@ -20,7 +20,7 @@ class ThemeSettings {
 	public function __construct() {
 		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 		$this->metaSlider = new YulaiFederation\Plugins\Metaslider(false);
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\yf_get_options_default());
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
 		// trigger the settings API
 		$this->fireSettingsApi();
@@ -28,7 +28,7 @@ class ThemeSettings {
 
 	private function fireSettingsApi() {
 		$this->settingsFilter = 'register_yulai_federation_theme_settings';
-		$this->settingsApi = new SettingsApi($this->settingsFilter, YulaiFederation\yf_get_options_default());
+		$this->settingsApi = new SettingsApi($this->settingsFilter, YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 		$this->settingsApi->init();
 
 		\add_filter($this->settingsFilter, array($this, 'renderSettingsPage'));
@@ -140,7 +140,7 @@ class ThemeSettings {
 			),
 			'background_image' => array(
 				'type' => 'radio',
-				'choices' => YulaiFederation\yf_get_default_background_images(true),
+				'choices' => YulaiFederation\Helper\ThemeHelper::getDefaultBackgroundImages(true),
 				'empty' => \__('Please Select', 'yulai-federation'),
 				'title' => \__('Background Image', 'yulai-federation'),
 				'description' => \__('Select one of the default Background images ...', 'yulai-federation'),
@@ -199,10 +199,10 @@ class ThemeSettings {
 		return array(
 			'yf_theme_options_sane' => array(
 				'type' => 'custom',
-				'content' => '<pre>' . \print_r(YulaiFederation\yf_get_options_default(), true) . '</pre>',
+				'content' => '<pre>' . \print_r(YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions(), true) . '</pre>',
 				'title' => \__('Options Array<br>(sane from functions.php)', 'yulai-federation'),
 				'callback' => null,
-				'description' => \__('This are the sane options defined in functions.php via <code>YulaiFederation\yf_get_options_default()</code>', 'yulai-federation')
+				'description' => \__('This are the sane options defined in functions.php via <code>\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions()</code>', 'yulai-federation')
 			),
 			'yf_theme_options_from_db' => array(
 				'type' => 'custom',
@@ -213,10 +213,10 @@ class ThemeSettings {
 			),
 			'yf_theme_options_merged' => array(
 				'type' => 'custom',
-				'content' => '<pre>' . \print_r(\get_option('yulai_theme_options', YulaiFederation\yf_get_options_default()), true) . '</pre>',
+				'content' => '<pre>' . \print_r(\get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions()), true) . '</pre>',
 				'title' => \__('Options Array<br>(merged / used for Theme)', 'yulai-federation'),
 				'callback' => null,
-				'description' => \__('This are the options used for the theme via <code>\get_option(\'yulai_theme_options\', \WordPress\Themes\YulaiFederation\yf_get_options_default())</code>', 'yulai-federation')
+				'description' => \__('This are the options used for the theme via <code>\get_option(\'yulai_theme_options\', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions())</code>', 'yulai-federation')
 			)
 		);
 	} // END private function getDevelopmentSettingsFields()

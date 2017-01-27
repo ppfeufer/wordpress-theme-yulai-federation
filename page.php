@@ -12,9 +12,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php
-				if(\function_exists('\WordPress\Themes\YulaiFederation\yf_breadcrumbs')) {
-					\WordPress\Themes\YulaiFederation\yf_breadcrumbs();
-				} // END if(\function_exists('\YulaiFederation\yf_breadcrumbs'))
+				\WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbs();
 				?>
 			</div><!--/.col -->
 		</div><!--/.row -->
@@ -25,7 +23,7 @@
 				\the_post();
 				?>
 				<div class="row main-content">
-					<div class="<?php echo \WordPress\Themes\YulaiFederation\yf_get_mainContentColClasses(); ?>">
+					<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getMainContentColClasses(); ?>">
 						<div class="content content-page">
 							<header>
 								<?php
@@ -62,21 +60,21 @@
 			} // END while(have_posts())
 		} // END if(have_posts())
 
-		if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-page')) {
+		if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
 			?>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
-				<?php \get_sidebar('page'); ?>
-			</div><!--/.col -->
-			<?php
-		} // END if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-page'))
+				<?php
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page')) {
+					\get_sidebar('page');
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page'))
 
-		if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-general')) {
-			?>
-			<div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
-				<?php \get_sidebar('general'); ?>
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
+					\get_sidebar('general');
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general'))
+				?>
 			</div><!--/.col -->
 			<?php
-		} // END if(\WordPress\Themes\YulaiFederation\yf_has_sidebar('sidebar-general'))
+		} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
 		?>
 	</div> <!--/.row .main-content -->
 </div><!-- container -->

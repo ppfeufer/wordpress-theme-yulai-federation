@@ -227,7 +227,6 @@ class SettingsApi {
 	 */
 	public function get() {
 		if(!empty($this->args['get'])) {
-//			$item_array = \call_user_func_array(array($this, 'get_' . $this->args['get']), array($this->args));
 			$item_array = \call_user_func_array(array($this, 'get' . YulaiFederation\Helper\StringHelper::camelCase($this->args['get']), true), array($this->args));
 		} elseif(!empty($this->args['choices'])) {
 			$item_array = $this->selectChoices($this->args);
@@ -766,8 +765,6 @@ class SettingsApi {
 	 * Final output on the settings page
 	 */
 	public function renderOptions() {
-//		global $wp_settings_sections;
-
 		$page = \filter_input(\INPUT_GET, 'page');
 		$settings = $this->settingsArray[$page];
 		$message = \get_option('rsa-message');
@@ -827,8 +824,6 @@ class SettingsApi {
 
 						$i++;
 					} // END foreach($settings['tabs'] as $settings_id => $section)
-
-//					$complete_url = \wp_nonce_url(\admin_url('options-general.php?page=' . $page . '&callback=rsa_delete_settings'));
 
 					\submit_button();
 					?>
@@ -918,7 +913,6 @@ class SettingsApi {
 					foreach($page['tabs'] as $tab) {
 						foreach($tab['fields'] as $field_key => $field) {
 							if($field['type'] == 'datepicker') {
-//								$date_format = (!empty($field['format']) ) ? $field['format'] : 'yy-mm-dd';
 								$date_format = (!empty($field['format']) ) ? $field['format'] : \get_option('date_format');
 								?>
 								$('[data-id="<?php echo $field_key; ?>"]').datepicker({

@@ -10,13 +10,13 @@
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-//				echo \WordPress\Themes\YulaiFederation\yf_posted_on();
+//				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
 
-				\edit_post_link(__('Edit', 'yulai-federation'));
+				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 				<!--<br/>-->
 				<?php
-//				\WordPress\Themes\YulaiFederation\yf_cats_tags();
+//				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
 				?>
 			</p>
 		</aside><!--end .entry-details -->
@@ -40,7 +40,7 @@
 				));
 			} else {
 				\wp_link_pages( array(
-					'before' => '<div class="page-links">' . __('Pages:', 'yulai-federation'),
+					'before' => '<div class="page-links">' . \__('Pages:', 'yulai-federation'),
 					'after'  => '</div>',
 				));
 			} // END if(\function_exists('\YulaiFederation\yf_link_pages'))
@@ -58,7 +58,7 @@
 			<div class="author-details">
 				<h3>
 					<?php
-					print(__('Posted by ', 'yulai-federation'));
+					print(\__('Posted by ', 'yulai-federation'));
 					\the_author_link();
 					?>
 				</h3>
