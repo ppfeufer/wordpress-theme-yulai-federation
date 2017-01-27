@@ -53,7 +53,6 @@ require_once(\get_template_directory() . '/security/WordPressCoreUpdateCleaner.p
 require_once(\get_template_directory() . '/admin/SettingsApi.php');
 require_once(\get_template_directory() . '/admin/ThemeSettings.php');
 
-
 /**
  * Initiate needed general Classes
  */
