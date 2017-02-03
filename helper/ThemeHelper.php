@@ -202,6 +202,17 @@ class ThemeHelper {
 				'version' => '3.3.7',
 				'media' => 'all'
 			),
+			/* Bootstrap Addition */
+			'Bootstrap Addition' => array(
+				'handle' => 'bootstrap-addition',
+				'source' => \get_template_directory_uri() . '/css/bootstrap-addition.min.css',
+				'source-development' => \get_template_directory_uri() . '/css/bootstrap-addition.css',
+				'deps' => array(
+					'bootstrap'
+				),
+				'version' => '3.3.7',
+				'media' => 'all'
+			),
 			/* Google Font */
 			'Google Font' => array(
 				'handle' => 'google-font',
@@ -222,11 +233,22 @@ class ThemeHelper {
 				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
 				'media' => 'all'
 			),
+			/* Yulai Federation Theme Responsive CSS */
+			'Yulai Federation Responsive Styles' => array(
+				'handle' => 'yulai-federation-responsive-styles',
+				'source' => \get_template_directory_uri() . '/css/responsive.min.css',
+				'source-development' => \get_template_directory_uri() . '/css/responsive.css',
+				'deps' => array(
+					'yulai-federation'
+				),
+				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'media' => 'all'
+			),
 			/* Adjustment to Plugins */
 			'Yulai Federation Plugin Styles' => array(
 				'handle' => 'yulai-federation-plugin-styles',
-				'source' => \get_template_directory_uri() . '/plugin-tweaks.min.css',
-				'source-development' => \get_template_directory_uri() . '/plugin-tweaks.css',
+				'source' => \get_template_directory_uri() . '/css/plugin-tweaks.min.css',
+				'source-development' => \get_template_directory_uri() . '/css/plugin-tweaks.css',
 				'deps' => array(
 					'yulai-federation'
 				),
