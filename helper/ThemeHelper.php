@@ -11,7 +11,7 @@ class ThemeHelper {
 	 * @return string
 	 */
 	public static function getThemeDbVersion() {
-		return '20160825';
+		return '20170203';
 	} // END public static function getThemeDbVersion()
 
 	/**
@@ -45,6 +45,11 @@ class ThemeHelper {
 			'default_slider' => '',
 			'default_slider_on' => array(
 				'frontpage_only' => 'frontpage_only'
+			),
+
+			// performance settings tab
+			'minifyHtmlOutput' => array(
+				'yes' => ''
 			),
 
 			// footer settings tab

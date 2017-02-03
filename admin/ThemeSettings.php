@@ -54,7 +54,12 @@ class ThemeSettings {
 				/**
 				 * slider settings tab
 				 */
-				'slider-settings' => $this->getSliderSettings()
+				'slider-settings' => $this->getSliderSettings(),
+
+				/**
+				 * performance settings tab
+				 */
+				'performance-settings' => $this->getPerformanceSettings()
 			)
 		);
 
@@ -183,6 +188,27 @@ class ThemeSettings {
 					'frontpage_only' => \__('Show only on front page.', 'yulai-federation')
 				),
 				'description' => \__('Show this slider only on front page in case no other slider is defined.', 'yulai-federation')
+			),
+		);
+	} // END private function getSliderSettingsFields()
+
+	private function getPerformanceSettings() {
+		return array(
+			'tab_title' => \__('Performance Settings', 'yulai-federation'),
+			'tab_description' => \__('Performance Settings', 'yulai-federation'),
+			'fields' => $this->getPerformanceSettingsFields()
+		);
+	} // END private function getSliderSettings()
+
+	private function getPerformanceSettingsFields() {
+		return array(
+			'minifyHtmlOutput' => array(
+				'type' => 'checkbox',
+				'title' => \__('HTML Output', 'yulai-federation'),
+				'choices' => array(
+					'yes' => \__('Minify HTML output?', 'yulai-federation')
+				),
+				'description' => \__('By minifying the HTML output you might boost your websites performance. NOTE: this may not work on every server, so if you experience issues, turn this option off again!', 'yulai-federation')
 			),
 		);
 	} // END private function getSliderSettingsFields()
