@@ -59,7 +59,7 @@ class ThemeSettings {
 				/**
 				 * performance settings tab
 				 */
-				'performance-settings' => $this->getPerformanceSettings()
+//				'performance-settings' => $this->getPerformanceSettings()
 			)
 		);
 
