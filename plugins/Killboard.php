@@ -20,7 +20,7 @@ class Killboard {
 	/**
 	 * constructor
 	 */
-	public function __construct($init = true) {
+	public function __construct($init = false) {
 		if($init === true) {
 			$this->initPlugin();
 		} // END if($init === true)
