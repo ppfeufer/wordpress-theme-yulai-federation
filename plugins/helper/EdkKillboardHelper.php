@@ -134,11 +134,16 @@ class EdkKillboardHelper {
 			'Phase Inversion Battery',
 			'Small Artillery Battery',
 			'Small AutoCannon Battery',
+			'Small Beam Laser Battery',
+			'Medium Pulse Laser Battery',
 			'Silo',
 			'Spatial Destabilization Battery',
 			'Stasis Webification Battery',
 			'Warp Disruption Battery',
 			'Warp Scrambling Battery',
+
+			// Orbital Modules
+			'Customs Office'
 		);
 	} // END private function getStructureNames()
 
