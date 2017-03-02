@@ -110,7 +110,7 @@ class BootstrapVideoGallery {
 					$videoGalleryHtml .= '</li>';
 				} // END foreach($childPages as $child)
 
-				wp_reset_query();
+				\wp_reset_query();
 			} else {
 				$videoGalleryHtml = false;
 			} // END if($childPages)
