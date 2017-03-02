@@ -43,42 +43,61 @@ class Corppage {
 		$corplistHTML = null;
 
 		if($corpPages !== false) {
-			$uniqueID = \uniqid();
-			$corplistHTML .= '<div class="gallery-row">';
-			$corplistHTML .= '<ul class="bootstrap-gallery bootstrap-corporationlist bootstrap-corporationlist-' . $uniqueID . ' clearfix">';
-
-			foreach($corpPages as $page) {
-				if(!empty($page->post_content)) {
-					$corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
-					$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
-
-					$corplistHTML .= '<li>';
-					$corplistHTML .= '<figure><a href="' . \get_permalink($page->ID) . '"><img src="' . $corpLogo . '" alt="' . $page->post_title . '"></a></figure>';
-					$corplistHTML .= '<header><h2 class="corporationlist-title"><a href="' . \get_permalink($page->ID) . '">' . $page->post_title . '</a></h2></header>';
-
-					$corplistHTML .= '<p>' . YulaiFederation\Helper\StringHelper::cutString(strip_shortcodes($page->post_content), '200') . '</p>';
-
-					$corplistHTML .= '</li>';
-				} // END if(!empty($page->post_content))
-			} // END foreach($corpPages as $page)
-
-			$corplistHTML .= '</ul>';
-			$corplistHTML .= '</div>';
-
-			$corplistHTML .= '<script type="text/javascript">
-									jQuery(document).ready(function() {
-										jQuery("ul.bootstrap-corporationlist-' . $uniqueID . '").bootstrapGallery({
-											"classes" : "col-lg-3 col-md-4 col-sm-6 col-xs-12",
-											"hasModal" : false
-										});
-									});
-									</script>';
+			$corplistHTML = $this->getCorporationPagesLoop($corpPages);
 		} // END if($corpPages !== false)
 
 		return $corplistHTML;
 	} // END public function shortcodeCorplist($attributes)
 
-	public function getCorporationPages() {
+	private function getCorporationPagesLoop($corpPages) {
+		$uniqueID = \uniqid();
+		$corplistHTML .= '<div class="gallery-row">';
+		$corplistHTML .= '<ul class="bootstrap-gallery bootstrap-corporationlist bootstrap-corporationlist-' . $uniqueID . ' clearfix">';
+
+		foreach($corpPages as $page) {
+			if(!empty($page->post_content)) {
+				$corplistHTML .= $this->getCorporationPageLoopItem($page);
+			} // END if(!empty($page->post_content))
+		} // END foreach($corpPages as $page)
+
+		$corplistHTML .= '</ul>';
+		$corplistHTML .= '</div>';
+
+		$corplistHTML .= '<script type="text/javascript">
+							jQuery(document).ready(function() {
+								jQuery("ul.bootstrap-corporationlist-' . $uniqueID . '").bootstrapGallery({
+									"classes" : "col-lg-3 col-md-4 col-sm-6 col-xs-12",
+									"hasModal" : false
+								});
+							});
+							</script>';
+
+		return $corplistHTML;
+	}
+
+	private function getCorporationPageLoopItem($page) {
+		$corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
+		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
+
+		$corplistHTML .= '<li>';
+		$corplistHTML .= '<figure><a href="' . \get_permalink($page->ID) . '"><img src="' . $corpLogo . '" alt="' . $page->post_title . '"></a></figure>';
+		$corplistHTML .= '<header><h2 class="corporationlist-title"><a href="' . \get_permalink($page->ID) . '">' . $page->post_title . '</a></h2></header>';
+
+		$corplistHTML .= '<p>' . YulaiFederation\Helper\StringHelper::cutString(strip_shortcodes($page->post_content), '200') . '</p>';
+
+		$corplistHTML .= '</li>';
+
+		return $corplistHTML;
+	}
+
+	/**
+	 * Getting the corporation pages from our DB
+	 *
+	 * @return object or boolean
+	 */
+	private function getCorporationPages() {
+		$returnValue = false;
+
 		$result = new \WP_Query(array(
 			'post_type' => 'page',
 			'meta_key' => 'yf_page_is_corp_page',
@@ -89,10 +108,10 @@ class Corppage {
 		));
 
 		if($result) {
-			return $result->posts;
+			$returnValue =  $result->posts;
 		} // END if($result)
 
-		return false;
+		return $returnValue;
 	} // END public function getCorporationPages()
 
 	public function registerMetaBoxes() {
