@@ -750,7 +750,7 @@ if(\function_exists('\fly_get_attachment_image')) {
  * @param array $args
  * @return string
  */
-function yf_enable_youtube_jsapi($html, $url, $args) {
+function yf_enable_youtube_jsapi($html) {
 	if(\strstr($html, 'youtube.com/embed/')) {
 		$html = \str_replace('?feature=oembed', '?feature=oembed&enablejsapi=1&origin=' . \get_bloginfo('url') . '&rel=0', $html);
 	} // END if(\strstr($html, 'youtube.com/embed/'))
