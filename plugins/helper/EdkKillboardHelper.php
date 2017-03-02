@@ -77,7 +77,7 @@ class EdkKillboardHelper {
 			/**
 			 * Overwrite Victim Image if its a Structure
 			 */
-			if(\in_array($kill->shp_name, $this->getStructureNames())) {
+			if(\in_array($kill->shp_name, Plugins\Killboard::getStructureNames())) {
 				$kill->victimImage = $this->getStructureImage($kill->shp_id);
 			} else {
 				$kill->victimImage = $this->getVictimImage($kill->plt_name, $kill->shp_id);
@@ -102,50 +102,6 @@ class EdkKillboardHelper {
 
 		return $victimImage;
 	} // END private function getCitadelImage($shipID, $size = 512)
-
-	private function getStructureNames() {
-		return array(
-			// Citadels
-			'Astrahus',
-			'Fortizar',
-			'Keepstar',
-
-			// POS Tower
-			'Amarr Control Tower',
-			'Amarr Control Tower Small',
-			'Amarr Control Tower Medium',
-			'Caldari Control Tower',
-			'Caldari Control Tower Small',
-			'Caldari Control Tower Medium',
-			'Gallente Control Tower',
-			'Gallente Control Tower Small',
-			'Gallente Control Tower Medium',
-			'Minmatar Control Tower',
-			'Minmatar Control Tower Small',
-			'Minmatar Control Tower Medium',
-
-			// POS Modules
-			'Domination Small AutoCannon Battery',
-			'Ion Field Projection Battery',
-			'Jump Bridge',
-			'Medium Artillery Battery',
-			'Medium AutoCannon Battery',
-			'Moon Harvesting Array',
-			'Phase Inversion Battery',
-			'Small Artillery Battery',
-			'Small AutoCannon Battery',
-			'Small Beam Laser Battery',
-			'Medium Pulse Laser Battery',
-			'Silo',
-			'Spatial Destabilization Battery',
-			'Stasis Webification Battery',
-			'Warp Disruption Battery',
-			'Warp Scrambling Battery',
-
-			// Orbital Modules
-			'Customs Office'
-		);
-	} // END private function getStructureNames()
 
 	private function getKillboardLinkToKill($killID) {
 		return $this->killboardUri . '?a=kill_detail&kll_id=' . $killID;

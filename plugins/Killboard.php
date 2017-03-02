@@ -207,4 +207,68 @@ class Killboard {
 			)
 		);
 	} // END private function getDevelopmentTabFields()
+
+	/**
+	 * If the victim is not a pilot, we have to resort to this "hack"
+	 *
+	 * @return array
+	 */
+	public static function getStructureNames() {
+		return array(
+			// Citadels
+			'Astrahus',
+			'Fortizar',
+			'Keepstar',
+
+			// POS Tower
+			'Amarr Control Tower',
+			'Amarr Control Tower Small',
+			'Amarr Control Tower Medium',
+			'Caldari Control Tower',
+			'Caldari Control Tower Small',
+			'Caldari Control Tower Medium',
+			'Gallente Control Tower',
+			'Gallente Control Tower Small',
+			'Gallente Control Tower Medium',
+			'Minmatar Control Tower',
+			'Minmatar Control Tower Small',
+			'Minmatar Control Tower Medium',
+
+			// POS Modules
+			'Ion Field Projection Battery',
+			'Jump Bridge',
+			'Moon Harvesting Array',
+			'Phase Inversion Battery',
+
+			// Artillery
+			'Small Artillery Battery',
+			'Medium Artillery Battery',
+			'Large Artillery Battery',
+
+			// AutoCannon
+			'Small AutoCannon Battery',
+			'Domination Small AutoCannon Battery',
+			'Medium AutoCannon Battery',
+			'Large AutoCannon Battery',
+
+			// Beam Laser
+			'Small Beam Laser Battery',
+			'Medium Beam Laser Battery',
+			'Large Beam Laser Battery',
+
+			// Pulse Laser
+			'Small Pulse Laser Battery',
+			'Medium Pulse Laser Battery',
+			'Large Pulse Laser Battery',
+
+			'Silo',
+			'Spatial Destabilization Battery',
+			'Stasis Webification Battery',
+			'Warp Disruption Battery',
+			'Warp Scrambling Battery',
+
+			// Orbital Modules
+			'Customs Office'
+		);
+	} // END public static function getStructureNames()
 } // END class Killboard
