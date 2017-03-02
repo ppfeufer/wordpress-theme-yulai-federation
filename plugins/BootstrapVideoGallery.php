@@ -97,7 +97,7 @@ class BootstrapVideoGallery {
 				$childPages = $this->getVideoPagesFromChildren($pageChildren);
 			} // END if($children)
 
-			if($childPages) {
+			if(!empty($childPages)) {
 				foreach($childPages as $child) {
 					$videoGalleryHtml .= '<li>';
 					$videoGalleryHtml .= $child->yf_page_video_oEmbed_code;
