@@ -758,3 +758,20 @@ function yf_enable_youtube_jsapi($html) {
 	return $html;
 } // END function yf_enable_youtube_jsapi($html, $url, $args)
 \add_filter('oembed_result', '\\WordPress\Themes\YulaiFederation\yf_enable_youtube_jsapi');
+
+/**
+ * Removing the version string from any enqueued css and js source
+ *
+ * @param string $src the css or js source
+ * @return string
+ */
+function yf_remove_wp_ver_css_js($src) {
+	if(strpos($src, 'ver=')) {
+		$src = remove_query_arg('ver', $src);
+	} // END if(strpos($src, 'ver=' . get_bloginfo('version')))
+
+	return $src;
+} // END function yf_remove_wp_ver_css_js($src)
+
+add_filter('style_loader_src', '\\WordPress\Themes\YulaiFederation\yf_remove_wp_ver_css_js', 9999);
+add_filter('script_loader_src', '\\WordPress\Themes\YulaiFederation\yf_remove_wp_ver_css_js', 9999);
