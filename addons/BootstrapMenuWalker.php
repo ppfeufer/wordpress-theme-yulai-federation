@@ -153,11 +153,11 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 			if($yf_page_corp_eve_ID) {
 				if(isset($this->themeOptions['show_corp_logos']['show'])) {
 					if(YulaiFederation\Helper\ImageHelper::checkCachedImage('corporation', $yf_page_corp_eve_ID . '_32.png') === true) {
-						$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $imageName;
+						$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_32.png';
 					} else {
 						YulaiFederation\Helper\ImageHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png');
 
-						$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $imageName;
+						$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_32.png';
 					}
 //					$corpLogoPath = $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png';
 
