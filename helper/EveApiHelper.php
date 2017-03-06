@@ -183,7 +183,7 @@ class EveApiHelper {
 		} // END if($entitieID == 0)
 
 		$ownerGroupID = $this->getEveGroupTypeFromName($name);
-		$imagePath = $this->imageserverUrl . $this->imageserverEndpoints[$this->entitieGroups[$ownerGroupID]] . $entitieID . '_' . $size. '.jpg';
+		$imagePath = $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $entitieID . '_' . $size. '.jpg';
 
 		if($imageOnly === true) {
 			return $imagePath;
