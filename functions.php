@@ -263,8 +263,35 @@ function yf_theme_setup() {
 		'genericons/genericons.css',
 		yf_fonts_url()
 	));
+
+	yf_create_cache_directories();
 } // END function yf_theme_setup()
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
+
+/**
+ * Creating cache directories
+ */
+function yf_create_cache_directories() {
+	if(!\is_dir(Helper\ThemeHelper::getThemeCacheDir())) {
+		\mkdir(Helper\ThemeHelper::getThemeCacheDir(), 0755, true);
+	} // END if(!\is_dir(Helper\ThemeHelper::getImagecacheDir()))
+
+	if(!\is_dir(Helper\ThemeHelper::getThemeCacheDir() . '/images')) {
+		\mkdir(Helper\ThemeHelper::getThemeCacheDir() . '/images', 0755, true);
+	} // END if(!\is_dir(Helper\ThemeHelper::getImagecacheDir() . '/images'))
+
+	if(!\is_dir(Helper\ThemeHelper::getThemeCacheDir() . '/images/corporation')) {
+		\mkdir(Helper\ThemeHelper::getThemeCacheDir() . '/images/corporation', 0755, true);
+	} // END if(!\is_dir(Helper\ThemeHelper::getImagecacheDir() . '/images/corporations'))
+
+	if(!\is_dir(Helper\ThemeHelper::getThemeCacheDir() . '/images/alliance')) {
+		\mkdir(Helper\ThemeHelper::getThemeCacheDir() . '/images/alliance', 0755, true);
+	} // END if(!\is_dir(Helper\ThemeHelper::getImagecacheDir() . '/images/alliances'))
+
+	if(!\is_dir(Helper\ThemeHelper::getThemeCacheDir() . '/images/character')) {
+		\mkdir(Helper\ThemeHelper::getThemeCacheDir() . '/images/character', 0755, true);
+	} // END if(!\is_dir(Helper\ThemeHelper::getImagecacheDir() . '/images/alliances'))
+} // END function eve_create_cache_directories()
 
 /**
  * Remove integrated gallery styles in the content area of standard gallery shortcode.

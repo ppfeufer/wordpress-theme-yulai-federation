@@ -17,7 +17,7 @@ class EveApiHelper {
 	private $apiEndpoints = null;
 	private $imageserverUrl = 'https://image.eveonline.com/';
 	private $imageserverEndpoints = null;
-	private $entitieGroups = null;
+	private $entityGroups = null;
 	private $themeOptions = null;
 
 	/**
@@ -123,7 +123,7 @@ class EveApiHelper {
 			'inventory' => 'InventoryType/' // Ships and all the other stuff
 		);
 
-		$this->entitieGroups = array(
+		$this->entityGroups = array(
 			'1' => 'character',
 			'2' => 'corporation',
 			'32' => 'alliance'
@@ -155,8 +155,16 @@ class EveApiHelper {
 			return false;
 		} // END if($entitieID == 0)
 
+		$imageName = $entitieID . '_' . $size . '.png';
 		$ownerGroupID = $this->getEveGroupTypeFromName($name);
-		$imagePath = $this->imageserverUrl . $this->imageserverEndpoints[$this->entitieGroups[$ownerGroupID]] . $entitieID . '_' . $size. '.png';
+
+		if(ImageHelper::checkCachedImage($this->entityGroups[$ownerGroupID], $imageName) === true) {
+			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $imageName;
+		} else {
+			ImageHelper::cacheRemoteImageFile($this->entityGroups[$ownerGroupID], $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $imageName);
+
+			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $imageName;
+		}
 
 		if($imageOnly === true) {
 			return $imagePath;
