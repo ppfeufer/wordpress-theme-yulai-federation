@@ -77,7 +77,16 @@ class Corppage {
 
 	private function getCorporationPageLoopItem($page) {
 		$corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
-		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
+
+		if(YulaiFederation\Helper\ImageHelper::checkCachedImage('corporation', $corpID . '_256.png') === true) {
+			$corpLogo = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+		} else {
+			YulaiFederation\Helper\ImageHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+
+			$corpLogo = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+		}
+
+//		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
 
 		$corplistHTML .= '<li>';
 		$corplistHTML .= '<figure><a href="' . \get_permalink($page->ID) . '"><img src="' . $corpLogo . '" alt="' . $page->post_title . '"></a></figure>';
@@ -148,7 +157,14 @@ class Corppage {
 				<label><strong><?php _e('Corporation Logo', 'yulai-federation'); ?></strong></label>
 				<br>
 				<?php
-				$corpLogoPath = $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png';
+				if(YulaiFederation\Helper\ImageHelper::checkCachedImage('corporation', $yf_page_corp_eve_ID . '_256.png') === true) {
+					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_256.png';
+				} else {
+					YulaiFederation\Helper\ImageHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png');
+
+					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_256.png';
+				}
+//				$corpLogoPath = $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png';
 				?>
 				<img src="<?php echo $corpLogoPath; ?>" alt="<?php echo $yf_page_corp_name; ?>">
 			</p>
