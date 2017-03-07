@@ -157,14 +157,7 @@ class Corppage {
 				<label><strong><?php _e('Corporation Logo', 'yulai-federation'); ?></strong></label>
 				<br>
 				<?php
-				if(YulaiFederation\Helper\ImageHelper::checkCachedImage('corporation', $yf_page_corp_eve_ID . '_256.png') === true) {
-					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_256.png';
-				} else {
-					YulaiFederation\Helper\ImageHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png');
-
-					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $yf_page_corp_eve_ID . '_256.png';
-				}
-//				$corpLogoPath = $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png';
+				$corpLogoPath = YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_256.png');
 				?>
 				<img src="<?php echo $corpLogoPath; ?>" alt="<?php echo $yf_page_corp_name; ?>">
 			</p>

@@ -158,13 +158,7 @@ class EveApiHelper {
 		$imageName = $entitieID . '_' . $size . '.png';
 		$ownerGroupID = $this->getEveGroupTypeFromName($name);
 
-		if(ImageHelper::checkCachedImage($this->entityGroups[$ownerGroupID], $imageName) === true) {
-			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $imageName;
-		} else {
-			ImageHelper::cacheRemoteImageFile($this->entityGroups[$ownerGroupID], $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $imageName);
-
-			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $imageName;
-		}
+		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage($this->entityGroups[$ownerGroupID], $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $imageName);
 
 		if($imageOnly === true) {
 			return $imagePath;
@@ -182,17 +176,19 @@ class EveApiHelper {
 			return false;
 		} // END if($entitieID == 0)
 
-		$ownerGroupID = $this->getEveGroupTypeFromName($name);
+		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $entitieID . '_' . $size. '.jpg');
 
-		if(ImageHelper::checkCachedImage($this->entityGroups[$ownerGroupID], $entitieID . '_' . $size. '.jpg') === true) {
-			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $entitieID . '_' . $size. '.jpg';
-		} else {
-			ImageHelper::cacheRemoteImageFile($this->entityGroups[$ownerGroupID], $this->getImageServerEndpoint('character') . $entitieID . '_' . $size. '.jpg');
+		if($imageOnly === true) {
+			return $imagePath;
+		} // END if($imageOnly === true)
 
-			$imagePath = ImageHelper::getImageCacheUri() . $this->entityGroups[$ownerGroupID] . '/' . $entitieID . '_' . $size. '.jpg';
-		}
+		$html = '<img src="' . $imagePath . '" class="eve-alliance-logo">';
 
-//		$imagePath = $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $entitieID . '_' . $size. '.jpg';
+		return $html;
+	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
+
+	public function getCharacterImageById($id, $imageOnly = true, $size = 128) {
+		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $id . '_' . $size. '.jpg');
 
 		if($imageOnly === true) {
 			return $imagePath;
