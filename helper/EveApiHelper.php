@@ -182,7 +182,7 @@ class EveApiHelper {
 			return $imagePath;
 		} // END if($imageOnly === true)
 
-		$html = '<img src="' . $imagePath . '" class="eve-alliance-logo">';
+		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-character-id-' . $entitieID . '">';
 
 		return $html;
 	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
@@ -194,7 +194,7 @@ class EveApiHelper {
 			return $imagePath;
 		} // END if($imageOnly === true)
 
-		$html = '<img src="' . $imagePath . '" class="eve-alliance-logo">';
+		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-character-id-' . $id . '">';
 
 		return $html;
 	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
