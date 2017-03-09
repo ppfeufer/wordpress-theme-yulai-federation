@@ -182,7 +182,7 @@ class EveApiHelper {
 			return $imagePath;
 		} // END if($imageOnly === true)
 
-		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-character-id-' . $entitieID . '" alt="' . $name - '">';
+		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-character-id-' . $entitieID . '" alt="' . $name . '">';
 
 		return $html;
 	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
