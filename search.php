@@ -5,13 +5,21 @@ defined('ABSPATH') or die();
 ?>
 
 <div class="container main">
-	<div class="row">
-		<div class="col-md-12">
-			<?php
-			\WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbs();
-			?>
-		</div><!--/.col -->
-	</div><!--/.row -->
+	<?php
+	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbNavigation();
+	if(!empty($breadcrumbNavigation)) {
+		?>
+		<!--
+		// Breadcrumb Navigation
+		-->
+		<div class="row">
+			<div class="col-md-12 breadcrumb-wrapper">
+				<?php echo $breadcrumbNavigation; ?>
+			</div><!--/.col -->
+		</div><!--/.row -->
+		<?php
+	} // END if(!empty($breadcrumbNavigation))
+	?>
 
 	<div class="row main-content">
 		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getMainContentColClasses(); ?>">
