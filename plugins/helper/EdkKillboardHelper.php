@@ -89,7 +89,7 @@ class EdkKillboardHelper {
 
 	private function getVictimImage($victimName, $shipID, $size = 512) {
 		if(\preg_match('/Control Tower/', $victimName)) {
-			$victimImage = YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png');
+			$victimImage = '<img src="' . YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png') . '" class="eve-character-image eve-online-id-' . $shipID . '">';
 		} else {
 //			$victimImage = $this->eveApi->getCharacterImageByName($victimName, true, $size);
 			$victimImage = $this->eveApi->getCharacterImageByName($victimName, false, $size);
