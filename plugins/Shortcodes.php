@@ -27,27 +27,173 @@ class Shortcodes {
 	} // END public function registerShortcodes()
 
 	public function shortcodeTwoColumnsOne($atts, $content = null) {
-		return '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		$html = $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+
+		return $html;
 	} // END public function shortcodeTwoColumnsOne($atts, $content = null)
 
 	public function shortcodeThreeColumnsOne($atts, $content = null) {
-		return '<div class="col-md-4">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		return $prefix . '<div class="col-md-4">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 	} // END public function shortcodeThreeColumnsOne($atts, $content = null)
 
 	public function shortcodeThreeColumnsTwo($atts, $content = null) {
-		return '<div class="col-md-8">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		return $prefix . '<div class="col-md-8">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 	} // END public function shortcodeThreeColumnsTwo($atts, $content = null)
 
 	public function shortcodeFourColumnsOne($atts, $content = null) {
-		return '<div class="col-md-3">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		return $prefix . '<div class="col-md-3">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 	} // END public function shortcodeFourColumnsOne($atts, $content = null)
 
 	public function shortcodeFourColumnsTwo($atts, $content = null) {
-		return '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		return $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 	} // END public function shortcodeFourColumnsTwo($atts, $content = null)
 
 	public function shortcodeFourColumnsThree($atts, $content = null) {
-		return '<div class="col-md-9">' . $this->removeAutopInShortcode($content) . '</div>';
+		$args = \shortcode_atts(
+			array(
+				'position' => ''
+			),
+			$atts
+		);
+
+		switch($args['position']) {
+			case 'first':
+				$prefix = '<div class="row">';
+				$suffix = '';
+				break;
+
+			case 'last':
+				$prefix = '';
+				$suffix = '</div>';
+				break;
+
+			default:
+				$prefix = '';
+				$suffix = '';
+				break;
+		}
+
+		return $prefix . '<div class="col-md-9">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 	} // END public function shortcodeFourColumnsThree($atts, $content = null)
 
 	public function shortcodeDivider($atts, $content = null) {
