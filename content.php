@@ -43,34 +43,30 @@ defined('ABSPATH') or die();
 	</header><!--end .entry-header -->
 
 	<section class="post-content clearfix">
-		<div class="row">
-			<div class="col-md-12">
+		<?php
+		if(\is_search()) { // Only display excerpts without thumbnails for search.
+			?>
+			<div class="entry-summary clearfix">
+				<?php \the_excerpt(); ?>
+			</div><!-- end .entry-summary -->
+			<?php
+		} else {
+			?>
+			<div class="entry-content clearfix">
 				<?php
-				if(\is_search()) { // Only display excerpts without thumbnails for search.
-					?>
-					<div class="entry-summary clearfix">
-						<?php \the_excerpt(); ?>
-					</div><!-- end .entry-summary -->
-					<?php
-				} else {
-					?>
-					<div class="entry-content clearfix">
-						<?php
-						echo \wpautop(\do_shortcode(\WordPress\Themes\YulaiFederation\Helper\StringHelper::cutString(\get_the_content(), '140')));
-						\printf('<a href="%1$s"><span class="read-more">' . \__('Read more', 'yulai-federation') . '</span></a>', \get_the_permalink());
+				echo \wpautop(\do_shortcode(\WordPress\Themes\YulaiFederation\Helper\StringHelper::cutString(\get_the_content(), '140')));
+				\printf('<a href="%1$s"><span class="read-more">' . \__('Read more', 'yulai-federation') . '</span></a>', \get_the_permalink());
 
-//						if(isset($options['excerpts'])) {
-//							echo \the_excerpt();
-//						} else {
-//							echo \the_content('<span class="read-more">Read more</span>', 'yulai-federation');
-//						} // END if(isset($options['excerpts']))
-						?>
-					</div><!-- end .entry-content -->
-					<?php
-				} // END if(is_search())
+//				if(isset($options['excerpts'])) {
+//					echo \the_excerpt();
+//				} else {
+//					echo \the_content('<span class="read-more">Read more</span>', 'yulai-federation');
+//				} // END if(isset($options['excerpts']))
 				?>
-			</div><!-- end .col -->
-		</div><!-- end .row -->
+			</div><!-- end .entry-content -->
+			<?php
+		} // END if(is_search())
+		?>
 	</section>
 </article><!-- /.post-->
 <hr>
