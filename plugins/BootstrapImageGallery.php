@@ -122,7 +122,7 @@ class BootstrapImageGallery {
 		$captiontag = \tag_escape($captiontag);
 
 		$selector = 'image-gallery-' . $instance;
-		$output = '<div class="gallery-row">';
+		$output = '<div class="gallery-row row">';
 		$output .= '<ul class="bootstrap-gallery bootstrap-image-gallery bootstrap-' . $selector . ' clearfix">';
 
 		foreach($attachments as $id => $attachment) {
