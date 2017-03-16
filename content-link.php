@@ -22,19 +22,19 @@
 		</aside><!--end .entry-details -->
 	</header><!--end .entry-header -->
 
-	<section class="post-content">
+	<section class="post-content clearfix">
 <!--		<div class="row">
 			<div class="col-md-12">-->
 				<?php
 				if(\is_search()) { // Only display excerpts without thumbnails for search.
 					?>
-					<div class="entry-summary">
+					<div class="entry-summary clearfix">
 						<?php \the_excerpt(); ?>
 					</div><!-- end .entry-summary -->
 					<?php
 				} else {
 					?>
-					<div class="entry-content">
+					<div class="entry-content clearfix">
 						<?php
 						$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
