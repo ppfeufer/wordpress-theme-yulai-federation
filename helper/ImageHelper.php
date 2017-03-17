@@ -104,7 +104,7 @@ class ImageHelper {
 
 			\chmod($cacheDir . $imageFilename,0755);
 			\fwrite($localImageFile, $imageToFetch);
-			\fclose($localImageFile);s
+			\fclose($localImageFile);
 		} // END if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
 	} // END public static function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null)
 
