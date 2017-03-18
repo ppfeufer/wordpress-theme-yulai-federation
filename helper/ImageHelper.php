@@ -99,12 +99,6 @@ class ImageHelper {
 
 			$wpFileSystem = new \WP_Filesystem_Direct(null);
 			$wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755);
-
-//			$localImageFile = \fopen($cacheDir . $imageFilename, 'w+');
-//
-//			\chmod($cacheDir . $imageFilename,0755);
-//			\fwrite($localImageFile, $imageToFetch);
-//			\fclose($localImageFile);
 		} // END if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
 	} // END public static function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null)
 

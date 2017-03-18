@@ -419,11 +419,5 @@ class ThemeHelper {
 				$wpFileSystem->mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755);
 			} // END if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory))
 		} // END if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir()))
-
-//		if(\is_writable(\WP_CONTENT_DIR)) {
-//			if(!\is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
-//				\mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755, true);
-//			} // END if(!\is_dir(self::getImagecacheDir()))
-//		} // END if(\is_writable(\WP_CONTENT_DIR))
 	} // END public static function createCacheDirectories()
 } // END class ThemeHelper
