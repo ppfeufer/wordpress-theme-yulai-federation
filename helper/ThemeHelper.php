@@ -420,6 +420,7 @@ class ThemeHelper {
 		 * class in future without having a fallback.
 		 */
 		if(\class_exists('\WP_Filesystem_Direct')) {
+			wp_die('test, please ignore');
 			$wpFileSystem =  new \WP_Filesystem_Direct(null);
 
 			if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir())) {

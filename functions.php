@@ -284,7 +284,10 @@ function yf_theme_setup() {
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
 
 function yf_create_cache_dirs() {
-		// Setting up the cahe directories
+	include_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
+	include_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
+
+	// Setting up the cahe directories
 	Helper\ThemeHelper::createCacheDirectory();
 	Helper\ThemeHelper::createCacheDirectory('images');
 	Helper\ThemeHelper::createCacheDirectory('images/corporation');
