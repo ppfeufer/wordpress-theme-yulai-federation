@@ -279,17 +279,6 @@ function yf_theme_setup() {
 		yf_fonts_url()
 	));
 
-//	// Setting up the cahe directories
-//	Helper\ThemeHelper::createCacheDirectory();
-//	Helper\ThemeHelper::createCacheDirectory('images');
-//	Helper\ThemeHelper::createCacheDirectory('images/corporation');
-//	Helper\ThemeHelper::createCacheDirectory('images/alliance');
-//	Helper\ThemeHelper::createCacheDirectory('images/character');
-//	Helper\ThemeHelper::createCacheDirectory('images/render');
-} // END function yf_theme_setup()
-\add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
-
-function yf_create_cache_dirs() {
 	// Setting up the cahe directories
 	Helper\ThemeHelper::createCacheDirectory();
 	Helper\ThemeHelper::createCacheDirectory('images');
@@ -297,8 +286,8 @@ function yf_create_cache_dirs() {
 	Helper\ThemeHelper::createCacheDirectory('images/alliance');
 	Helper\ThemeHelper::createCacheDirectory('images/character');
 	Helper\ThemeHelper::createCacheDirectory('images/render');
-}
-\add_action('wp_loaded', '\\WordPress\Themes\YulaiFederation\yf_create_cache_dirs');
+} // END function yf_theme_setup()
+\add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
 
 /**
  * Remove integrated gallery styles in the content area of standard gallery shortcode.
