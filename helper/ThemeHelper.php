@@ -412,28 +412,18 @@ class ThemeHelper {
 	 *		/wp-content/cache/themes/«theme-name»/
 	 */
 	public static function createCacheDirectory($directory = '') {
-		/**
-		 * If we have access to the WP_Filesystem_Direct class at this point,
-		 * use it, if not, help yourself.
-		 *
-		 * This is hopefully only a temporary fix, so we can use the WP
-		 * class in future without having a fallback.
-		 */
-		if(\class_exists('\WP_Filesystem_Direct')) {
-			wp_die('test, please ignore');
-			$wpFileSystem =  new \WP_Filesystem_Direct(null);
+		$wpFileSystem =  new \WP_Filesystem_Direct(null);
 
-			if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir())) {
-				if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
-					$wpFileSystem->mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755);
-				} // END if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory))
-			} // END if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir()))
-		} else {
-			if(\is_writable(\WP_CONTENT_DIR)) {
-				if(!\is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
-					\mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755, true);
-				} // END if(!\is_dir(self::getImagecacheDir()))
-			} // END if(\is_writable(\WP_CONTENT_DIR))
-		} // END if(\class_exists('WP_Filesystem_Direct'))
+		if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir())) {
+			if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
+				$wpFileSystem->mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755);
+			} // END if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory))
+		} // END if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir()))
+
+//		if(\is_writable(\WP_CONTENT_DIR)) {
+//			if(!\is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
+//				\mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755, true);
+//			} // END if(!\is_dir(self::getImagecacheDir()))
+//		} // END if(\is_writable(\WP_CONTENT_DIR))
 	} // END public static function createCacheDirectories()
 } // END class ThemeHelper

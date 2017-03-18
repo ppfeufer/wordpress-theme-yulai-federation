@@ -97,23 +97,14 @@ class ImageHelper {
 			$get = \wp_remote_get($remoteImageUrl);
 			$imageToFetch = \wp_remote_retrieve_body($get);
 
-			/**
-			 * If we have access to the WP_Filesystem_Direct class at this point,
-			 * use it, if not, help yourself.
-			 *
-			 * This is hopefully only a temporary fix, so we can use the WP
-			 * class in future without having a fallback.
-			 */
-			if(\class_exists('\WP_Filesystem_Direct')) {
-				$wpFileSystem = new \WP_Filesystem_Direct(null);
-				$wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755);
-			} else {
-				$localImageFile = \fopen($cacheDir . $imageFilename, 'w+');
+			$wpFileSystem = new \WP_Filesystem_Direct(null);
+			$wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755);
 
-				\chmod($cacheDir . $imageFilename,0755);
-				\fwrite($localImageFile, $imageToFetch);
-				\fclose($localImageFile);
-			} // END if(\class_exists('\WP_Filesystem_Direct'))
+//			$localImageFile = \fopen($cacheDir . $imageFilename, 'w+');
+//
+//			\chmod($cacheDir . $imageFilename,0755);
+//			\fwrite($localImageFile, $imageToFetch);
+//			\fclose($localImageFile);
 		} // END if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
 	} // END public static function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null)
 
