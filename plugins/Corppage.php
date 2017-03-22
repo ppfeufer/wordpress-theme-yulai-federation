@@ -86,7 +86,7 @@ class Corppage {
 //			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
 //		}
 
-		$corpLogo = EveOnline\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+		$corpLogo = YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
 
 //		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
 
