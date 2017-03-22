@@ -61,10 +61,7 @@
 					echo \get_the_author();
 					?>
 				</h3>
-			<?php
-			$eveApi = new WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
-			echo $eveApi->getCharacterImageByName(\get_the_author(), false);
-			?>
+				<?php echo \get_avatar(\get_the_author_meta('user_email')); ?>
 			</div><!-- end .author-details -->
 			<div class="author-description">
 				<?php echo \wpautop(\get_the_author_meta('description')); ?>
