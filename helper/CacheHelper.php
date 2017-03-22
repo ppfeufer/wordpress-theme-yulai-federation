@@ -42,6 +42,24 @@ class CacheHelper {
 	} // END public static function getImageCacheUri()
 
 	/**
+	 * Getting the URI for the EVE API cache directory
+	 *
+	 * @return string URI for the EVE API cache directory
+	 */
+	public static function getEveApiCacheDir() {
+		return \trailingslashit(self::getThemeCacheDir() . '/eve-api');
+	} // END public static function getEveApiCacheDir()
+
+	/**
+	 * Getting the local EVE API cache URI
+	 *
+	 * @return string Local EVE API cache URI
+	 */
+	public static function getEveApiCacheUri() {
+		return \trailingslashit(self::getThemeCacheUri() . '/eve-api');
+	} // END public static function getEveApiCacheUri()
+
+	/**
 	 * creating our needed cache directories under:
 	 *		/wp-content/cache/themes/«theme-name»/
 	 */
