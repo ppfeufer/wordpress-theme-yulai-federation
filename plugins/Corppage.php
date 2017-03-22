@@ -78,13 +78,15 @@ class Corppage {
 	private function getCorporationPageLoopItem($page) {
 		$corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
 
-		if(YulaiFederation\Helper\CacheHelper::checkCachedImage('corporation', $corpID . '_256.png') === true) {
-			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
-		} else {
-			YulaiFederation\Helper\CacheHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+//		if(YulaiFederation\Helper\CacheHelper::checkCachedImage('corporation', $corpID . '_256.png') === true) {
+//			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+//		} else {
+//			YulaiFederation\Helper\CacheHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+//
+//			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+//		}
 
-			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
-		}
+		$corpLogo = EveOnline\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
 
 //		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';
 
