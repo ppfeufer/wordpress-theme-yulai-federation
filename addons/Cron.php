@@ -43,7 +43,7 @@ class Cron {
 	} // END public function scheduleTwicedailyCron()
 
 	public function cronCleanupImageCacheDirectories() {
-		$imageCacheDirectory = YulaiFederation\Helper\ImageHelper::getImageCacheDir();
+		$imageCacheDirectory = YulaiFederation\Helper\CacheHelper::getImageCacheDir();
 
 		YulaiFederation\Helper\FilesystemHelper::deleteDirectoryRecursive($imageCacheDirectory, false);
 	} // END public function cronCleanupCacheDirectories()

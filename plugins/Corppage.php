@@ -78,12 +78,12 @@ class Corppage {
 	private function getCorporationPageLoopItem($page) {
 		$corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
 
-		if(YulaiFederation\Helper\ImageHelper::checkCachedImage('corporation', $corpID . '_256.png') === true) {
-			$corpLogo = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+		if(YulaiFederation\Helper\CacheHelper::checkCachedImage('corporation', $corpID . '_256.png') === true) {
+			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
 		} else {
-			YulaiFederation\Helper\ImageHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+			YulaiFederation\Helper\CacheHelper::cacheRemoteImageFile('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
 
-			$corpLogo = YulaiFederation\Helper\ImageHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
+			$corpLogo = YulaiFederation\Helper\CacheHelper::getImageCacheUri() . 'corporation' . '/' . $corpID . '_256.png';
 		}
 
 //		$corpLogo = $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png';

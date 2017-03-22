@@ -34,6 +34,7 @@ require_once(\get_template_directory() . '/helper/EveApiHelper.php');
 require_once(\get_template_directory() . '/helper/StringHelper.php');
 require_once(\get_template_directory() . '/helper/ImageHelper.php');
 require_once(\get_template_directory() . '/helper/FilesystemHelper.php');
+require_once(\get_template_directory() . '/helper/CacheHelper.php');
 
 /**
  * Loading Plugins
@@ -266,9 +267,6 @@ function yf_theme_setup() {
 		\add_image_size('post-loop-thumbnail', 705, 395, true);
 	} // END if(\function_exists('\fly_add_image_size'))
 
-//	// Register Custom Navigation Walker
-//	require_once(\get_template_directory() .'/addons/BootstrapMenuWalker.php');
-
 	/**
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
@@ -279,13 +277,13 @@ function yf_theme_setup() {
 		yf_fonts_url()
 	));
 
-	// Setting up the cahe directories
-	Helper\ThemeHelper::createCacheDirectory();
-	Helper\ThemeHelper::createCacheDirectory('images');
-	Helper\ThemeHelper::createCacheDirectory('images/corporation');
-	Helper\ThemeHelper::createCacheDirectory('images/alliance');
-	Helper\ThemeHelper::createCacheDirectory('images/character');
-	Helper\ThemeHelper::createCacheDirectory('images/render');
+	// Setting up the cache directories
+	Helper\CacheHelper::createCacheDirectory();
+	Helper\CacheHelper::createCacheDirectory('images');
+	Helper\CacheHelper::createCacheDirectory('images/corporation');
+	Helper\CacheHelper::createCacheDirectory('images/alliance');
+	Helper\CacheHelper::createCacheDirectory('images/character');
+	Helper\CacheHelper::createCacheDirectory('images/render');
 } // END function yf_theme_setup()
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
 
