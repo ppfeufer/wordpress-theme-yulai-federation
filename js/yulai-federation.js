@@ -6,9 +6,8 @@
  * Author: Rounon Dax (Terra Nanotech / Yulai Federation)
  */
 
-/**
- * Stuff without jQuery
- */
+/* Stuff without jQuery
+----------------------------------------------------------------------------- */
 /**
  * Detecting JS Support
  *
@@ -28,9 +27,8 @@ function isMobile() {
 	return navigator.userAgent.match(/(iPhone|iPod|iPad|blackberry|android|Kindle|htc|lg|midp|mmp|mobile|nokia|opera mini|palm|pocket|psp|sgh|smartphone|symbian|treo mini|Playstation Portable|SonyEricsson|Samsung|MobileExplorer|PalmSource|Benq|Windows Phone|Windows Mobile|IEMobile|Windows CE|Nintendo Wii)/i);
 } // END function isMobile()
 
-/**
- * Stuff that needs jQuery
- */
+/* Stuff that needs jQuery
+----------------------------------------------------------------------------- */
 jQuery(function($) {
 	// Detecting jQuery Support
 	$('body').addClass('jquery');
@@ -162,7 +160,7 @@ jQuery(function($) {
 		// adding the youtube video ID to the iframe
 		var youtubeVideoData = $(this).attr('src').match(/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/);
 		if(youtubeVideoData !== null) {
-			youtubeVideoID = youtubeVideoData['1'];
+			var youtubeVideoID = youtubeVideoData['1'];
 			$(this).attr('id', 'youtube-video-' + youtubeVideoID);
 		} // END if(youtubeVideoData != null)
 
@@ -254,6 +252,8 @@ jQuery(function($) {
 
 	/**
 	 * scroll to anchor smoothly
+	 *
+	 * @param {type} event
 	 */
 	$("a[href*='#']").on('click', function(event) {
 		/**
