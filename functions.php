@@ -17,6 +17,14 @@ namespace WordPress\Themes\YulaiFederation;
  */
 \defined('APPLICATION_ENV') || \define('APPLICATION_ENV', (\preg_match('/development/', \getenv('APPLICATION_ENV')) || \preg_match('/staging/', \getenv('APPLICATION_ENV'))) ? \getenv('APPLICATION_ENV') : 'production');
 
+/**
+ * Yulai Federation THeme only works in WordPress 4.7 or later.
+ */
+if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
+	require_one(\get_template_directory() . '/addons/Compatibility.php');
+
+	return false;
+} // END if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<'))
 
 /**
  * Theme Addons
