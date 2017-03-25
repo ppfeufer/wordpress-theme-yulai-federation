@@ -29,51 +29,52 @@ if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 /**
  * Theme Addons
  */
-require_once(\get_template_directory() .'/addons/BootstrapMenuWalker.php');
-require_once(\get_template_directory() .'/addons/Cron.php');
+//require_once(\get_template_directory() .'/addons/BootstrapMenuWalker.php');
+require_once(\get_theme_file_path('/addons/BootstrapMenuWalker.php'));
+require_once(\get_theme_file_path('/addons/Cron.php'));
 
 /**
  * Loading Helper Classes
  */
-require_once(\get_template_directory() . '/helper/ThemeHelper.php');
-require_once(\get_template_directory() . '/helper/NavigationHelper.php');
-require_once(\get_template_directory() . '/helper/PostHelper.php');
-require_once(\get_template_directory() . '/helper/EveApiHelper.php');
-require_once(\get_template_directory() . '/helper/StringHelper.php');
-require_once(\get_template_directory() . '/helper/ImageHelper.php');
-require_once(\get_template_directory() . '/helper/FilesystemHelper.php');
-require_once(\get_template_directory() . '/helper/CacheHelper.php');
+require_once(\get_theme_file_path('/helper/ThemeHelper.php'));
+require_once(\get_theme_file_path('/helper/NavigationHelper.php'));
+require_once(\get_theme_file_path('/helper/PostHelper.php'));
+require_once(\get_theme_file_path('/helper/EveApiHelper.php'));
+require_once(\get_theme_file_path('/helper/StringHelper.php'));
+require_once(\get_theme_file_path('/helper/ImageHelper.php'));
+require_once(\get_theme_file_path('/helper/FilesystemHelper.php'));
+require_once(\get_theme_file_path('/helper/CacheHelper.php'));
 
 /**
  * Loading Plugins
  */
-require_once(\get_template_directory() . '/plugins/Metaslider.php');
-require_once(\get_template_directory() . '/plugins/Shortcodes.php');
-require_once(\get_template_directory() . '/plugins/BootstrapImageGallery.php');
-require_once(\get_template_directory() . '/plugins/BootstrapVideoGallery.php');
-require_once(\get_template_directory() . '/plugins/Corppage.php');
-require_once(\get_template_directory() . '/plugins/Whitelabel.php');
-require_once(\get_template_directory() . '/plugins/MoCache.php');
-require_once(\get_template_directory() . '/plugins/EncodeEmailAddresses.php');
-require_once(\get_template_directory() . '/plugins/helper/EdkKillboardHelper.php');
-require_once(\get_template_directory() . '/plugins/helper/ZkbKillboardHelper.php');
-require_once(\get_template_directory() . '/plugins/widgets/KillboardWidget.php');
-require_once(\get_template_directory() . '/plugins/Killboard.php');
-require_once(\get_template_directory() . '/plugins/LatestBlogPosts.php');
-require_once(\get_template_directory() . '/plugins/EveOnlineAvatar.php');
-//require_once(\get_template_directory() . '/plugins/HtmlMinify.php');
+require_once(\get_theme_file_path('/plugins/Metaslider.php'));
+require_once(\get_theme_file_path('/plugins/Shortcodes.php'));
+require_once(\get_theme_file_path('/plugins/BootstrapImageGallery.php'));
+require_once(\get_theme_file_path('/plugins/BootstrapVideoGallery.php'));
+require_once(\get_theme_file_path('/plugins/Corppage.php'));
+require_once(\get_theme_file_path('/plugins/Whitelabel.php'));
+require_once(\get_theme_file_path('/plugins/MoCache.php'));
+require_once(\get_theme_file_path('/plugins/EncodeEmailAddresses.php'));
+require_once(\get_theme_file_path('/plugins/helper/EdkKillboardHelper.php'));
+require_once(\get_theme_file_path('/plugins/helper/ZkbKillboardHelper.php'));
+require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
+require_once(\get_theme_file_path('/plugins/Killboard.php'));
+require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
+require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
+//require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
 
 /**
  * Loading Security Classes
  */
-require_once(\get_template_directory() . '/security/WordPressSecurity.php');
-require_once(\get_template_directory() . '/security/WordPressCoreUpdateCleaner.php');
+require_once(\get_theme_file_path('/security/WordPressSecurity.php'));
+require_once(\get_theme_file_path('/security/WordPressCoreUpdateCleaner.php'));
 
 /**
  * Theme Options
  */
-require_once(\get_template_directory() . '/admin/SettingsApi.php');
-require_once(\get_template_directory() . '/admin/ThemeSettings.php');
+require_once(\get_theme_file_path('/admin/SettingsApi.php'));
+require_once(\get_theme_file_path('/admin/ThemeSettings.php'));
 
 /**
  * WP Filesystem API

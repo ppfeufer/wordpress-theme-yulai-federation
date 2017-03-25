@@ -87,11 +87,12 @@ class ThemeHelper {
 					'conditionKey' => 'conditional',
 					'conditionValue' => 'lt IE 9'
 				),
-				'source' => \get_template_directory_uri() . '/js/html5.min.js',
+				'source' => \get_theme_file_uri('/js/html5.min.js'),
 				'deps' => '',
 				'version' => '',
 				'in_footer' => false
 			),
+
 			/* Respond JS */
 			'Respond JS' => array(
 				'handle' => 'respondJS',
@@ -99,82 +100,63 @@ class ThemeHelper {
 					'conditionKey' => 'conditional',
 					'conditionValue' => 'lt IE 9'
 				),
-				'source' => \get_template_directory_uri() . '/js/respond.min.js',
+				'source' => \get_theme_file_uri('/js/respond.min.js'),
 				'deps' => '',
 				'version' => '',
 				'in_footer' => false
 			),
+
 			/* Modernizr */
 //			'Modernizr' => array(
 //				'handle' => 'modernizr',
-//				'source' => \get_template_directory_uri() . '/js/modernizr.min.js',
-//				'source-development' => \get_template_directory_uri() . '/js/modernizr.js',
+//				'source' => \get_theme_file_uri('/js/modernizr.min.js'),
+//				'source-development' => \get_theme_file_uri('/js/modernizr.js'),
 //				'deps' => '',
 //				'version' => '',
 //				'in_footer' => true
 //			),
+
 			/* Bootstrap's JS */
 			'Bootstrap' => array(
 				'handle' => 'bootstrap-js',
-				'source' => \get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js',
-				'source-development' => \get_template_directory_uri() . '/bootstrap/js/bootstrap.js',
+				'source' => \get_theme_file_uri('/bootstrap/js/bootstrap.min.js'),
+				'source-development' => \get_theme_file_uri('/bootstrap/js/bootstrap.js'),
 				'deps' => array(
 					'jquery'
 				),
 				'version' => '3.3.7',
 				'in_footer' => true
 			),
+
 			/* Bootstrap Toolkit */
 			'Bootstrap Toolkit' => array(
 				'handle' => 'bootstrap-toolkit',
-				'source' => \get_template_directory_uri() . '/bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js',
-				'source-development' => \get_template_directory_uri() . '/bootstrap/bootstrap-toolkit/bootstrap-toolkit.js',
+				'source' => \get_theme_file_uri('/bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'),
+				'source-development' => \get_theme_file_uri('/bootstrap/bootstrap-toolkit/bootstrap-toolkit.js'),
 				'deps' => array(
 					'bootstrap-js'
 				),
 				'version' => '2.6.3',
 				'in_footer' => true
 			),
+
 			/* Bootstrap Gallery */
 			'Bootstrap Gallery' => array(
 				'handle' => 'bootstrap-gallery-js',
-				'source' => \get_template_directory_uri() . '/plugins/js/jquery.bootstrap-gallery.min.js',
-				'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.bootstrap-gallery.js',
+				'source' => \get_theme_file_uri('/plugins/js/jquery.bootstrap-gallery.min.js'),
+				'source-development' => \get_theme_file_uri('/plugins/js/jquery.bootstrap-gallery.js'),
 				'deps' => array(
 					'jquery'
 				),
 				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
 				'in_footer' => true
 			),
-//			/* Sonar for Lazy Loading */
-//			'Sonar for Lazy Loading' => array(
-//				'handle' => 'jquery-sonar',
-//				'source' => \get_template_directory_uri() . '/plugins/js/jquery.sonar.min.js',
-//				'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.sonar.js',
-//				'deps' => array(
-//					'jquery',
-//					'bootstrap-js'
-//				),
-//				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
-//				'in_footer' => true
-//			),
-//			/* Lazy Loading */
-//			'Lazy Loading' => array(
-//				'handle' => 'lazy-load-js',
-//				'source' => \get_template_directory_uri() . '/plugins/js/jquery.lazy-load.min.js',
-//				'source-development' => \get_template_directory_uri() . '/plugins/js/jquery.lazy-load.js',
-//				'deps' => array(
-//					'jquery',
-//					'jquery-sonar'
-//				),
-//				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
-//				'in_footer' => true
-//			),
+
 			/* The main JS */
-			'Yulai Federation' => array(
-				'handle' => 'yulai-federation-main-js',
-				'source' => \get_template_directory_uri() . '/js/yulai-federation.min.js',
-				'source-development' => \get_template_directory_uri() . '/js/yulai-federation.js',
+			'EVE Online' => array(
+				'handle' => 'eve-online-main-js',
+				'source' => \get_theme_file_uri('/js/yulai-federation.min.js'),
+				'source-development' => \get_theme_file_uri('/js/yulai-federation.js'),
 				'deps' => array(
 					'jquery'
 				),
@@ -196,68 +178,79 @@ class ThemeHelper {
 			/* Normalize CSS */
 			'Normalize CSS' => array(
 				'handle' => 'normalize',
-				'source' => \get_template_directory_uri() . '/css/normalize.min.css',
-				'source-development' => \get_template_directory_uri() . '/css/normalize.css',
+				'source' => \get_theme_file_uri('/css/normalize.min.css'),
+				'source-development' => \get_theme_file_uri('/css/normalize.css'),
 				'deps' => array(),
 				'version' => '3.0.3',
 				'media' => 'all'
 			),
+
+			/* Google Font */
+			'Google Font' => array(
+				'handle' => 'google-font',
+				'source' => '//fonts.googleapis.com/css?family=Amethysta',
+				'deps' => array(
+					'normalize'
+				),
+				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'media' => 'all'
+			),
+
 			/* Bootstrap */
 			'Bootstrap' => array(
 				'handle' => 'bootstrap',
-				'source' => \get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css',
-				'source-development' => \get_template_directory_uri() . '/bootstrap/css/bootstrap.css',
-				'deps' => array(),
+				'source' => \get_theme_file_uri('/bootstrap/css/bootstrap.min.css'),
+				'source-development' => \get_theme_file_uri('/bootstrap/css/bootstrap.css'),
+				'deps' => array(
+					'normalize'
+				),
 				'version' => '3.3.7',
 				'media' => 'all'
 			),
+
 			/* Bootstrap Addition */
 			'Bootstrap Addition' => array(
 				'handle' => 'bootstrap-addition',
-				'source' => \get_template_directory_uri() . '/css/bootstrap-addition.min.css',
-				'source-development' => \get_template_directory_uri() . '/css/bootstrap-addition.css',
+				'source' => \get_theme_file_uri('/css/bootstrap-addition.min.css'),
+				'source-development' => \get_theme_file_uri('/css/bootstrap-addition.css'),
 				'deps' => array(
 					'bootstrap'
 				),
 				'version' => '3.3.7',
 				'media' => 'all'
 			),
-			/* Google Font */
-			'Google Font' => array(
-				'handle' => 'google-font',
-				'source' => '//fonts.googleapis.com/css?family=Amethysta',
-				'deps' => array(),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
-				'media' => 'all'
-			),
+
 			/* Yulai Federation Theme Main CSS */
 			'Yulai Federation Theme Styles' => array(
 				'handle' => 'yulai-federation',
-				'source' => \get_template_directory_uri() . '/style.min.css',
-				'source-development' => \get_template_directory_uri() . '/style.css',
+				'source' => \get_theme_file_uri('/style.min.css'),
+				'source-development' => \get_theme_file_uri('/style.css'),
 				'deps' => array(
+					'normalize',
 					'google-font',
 					'bootstrap'
 				),
 				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
 				'media' => 'all'
 			),
+
 			/* Yulai Federation Theme Responsive CSS */
 			'Yulai Federation Responsive Styles' => array(
 				'handle' => 'yulai-federation-responsive-styles',
-				'source' => \get_template_directory_uri() . '/css/responsive.min.css',
-				'source-development' => \get_template_directory_uri() . '/css/responsive.css',
+				'source' => \get_theme_file_uri('/css/responsive.min.css'),
+				'source-development' => \get_theme_file_uri('/css/responsive.css'),
 				'deps' => array(
 					'yulai-federation'
 				),
 				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
 				'media' => 'all'
 			),
+
 			/* Adjustment to Plugins */
 			'Yulai Federation Plugin Styles' => array(
 				'handle' => 'yulai-federation-plugin-styles',
-				'source' => \get_template_directory_uri() . '/css/plugin-tweaks.min.css',
-				'source-development' => \get_template_directory_uri() . '/css/plugin-tweaks.css',
+				'source' => \get_theme_file_uri('/css/plugin-tweaks.min.css'),
+				'source-development' => \get_theme_file_uri('/css/plugin-tweaks.css'),
 				'deps' => array(
 					'yulai-federation'
 				),
@@ -276,11 +269,11 @@ class ThemeHelper {
 	 */
 	public static function getThemeAdminStyleSheets() {
 		$enqueue_style = array(
-			/* Adjustment to Plugins */
+			/* Adjustment to the backends */
 			'Yulai Federation Admin Styles' => array(
 				'handle' => 'yulai-federation-admin-styles',
-				'source' => \get_template_directory_uri() . '/admin/css/yulai-federation-admin-style.min.css',
-				'source-development' => \get_template_directory_uri() . '/admin/css/yulai-federation-admin-style.css',
+				'source' => \get_theme_file_uri('/admin/css/yulai-federation-admin-style.min.css'),
+				'source-development' => \get_theme_file_uri('/admin/css/yulai-federation-admin-style.css'),
 				'deps' => array(),
 				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
 				'media' => 'all'
@@ -338,7 +331,7 @@ class ThemeHelper {
 	 * @return array
 	 */
 	public static function getDefaultBackgroundImages($withThumbnail = false, $baseClass = null) {
-		$imagePath = \get_template_directory() . '/img/background/';
+		$imagePath = \get_theme_file_path('/img/background/');
 		$handle = \opendir($imagePath);
 
 		if($baseClass !== null) {
@@ -358,7 +351,7 @@ class ThemeHelper {
 			if($withThumbnail === true) {
 				foreach($images as &$image) {
 					$imageName = \ucwords(\str_replace('-', ' ', \preg_replace("/\\.[^.\\s]{3,4}$/", "", $image)));
-					$image = '<figure class="bg-image' . $baseClass . '"><img src="' . \get_template_directory_uri() . '/img/background/' . $image . '" style="width:100px; height:auto;" title="' . $imageName . '"><figcaption>' . $imageName . '</figcaption></figure>';
+					$image = '<figure class="bg-image' . $baseClass . '"><img src="' . \get_theme_file_uri('/img/background/' . $image) . '" style="width:100px; height:auto;" title="' . $imageName . '"><figcaption>' . $imageName . '</figcaption></figure>';
 				} // END foreach($images as &$image)
 			} // END if($withThumbnail === true)
 
@@ -374,7 +367,7 @@ class ThemeHelper {
 	public static function getThemeBackgroundImage() {
 		$themeSettings = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
 
-		$backgroundImage = (isset($themeSettings['background_image'])) ? \get_template_directory_uri() . '/img/background/' . $themeSettings['background_image'] : null;
+		$backgroundImage = (isset($themeSettings['background_image'])) ? \get_theme_file_uri('/img/background/' . $themeSettings['background_image']) : null;
 		$uploadedBackground = (empty($themeSettings['background_image_upload'])) ? false : true;
 
 		// we have an uploaded image, so overwrite the background
