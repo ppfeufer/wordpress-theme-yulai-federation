@@ -90,7 +90,7 @@ class CacheHelper {
 			 *
 			 * This is just in case our cronjob doesn't run for whetever reason
 			 */
-			if(\time() - \filemtime($cacheDir . $imageName) > 2 * 3600) {
+			if(\time() - \filemtime($cacheDir . $imageName) > 24 * 3600) {
 				\unlink($cacheDir . $imageName);
 
 				$returnValue = false;
