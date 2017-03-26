@@ -10,13 +10,9 @@
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-//				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
-
+				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
+				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
 				\edit_post_link(\__('Edit', 'yulai-federation'));
-				?>
-				<br/>
-				<?php
-//				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
 				?>
 			</p>
 		</aside><!--end .entry-details -->

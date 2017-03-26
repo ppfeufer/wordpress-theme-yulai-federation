@@ -8,7 +8,7 @@ class PostHelper {
 	public static function getPostMetaInformation() {
 		$options = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
 
-		if(isset($options['meta_data']) && $options['meta_data'] === true) {
+		if(!empty($options['show_post_meta']['yes'])) {
 			\printf(\__('Posted on <time class="entry-date" datetime="%3$s">%4$s</time><span class="byline"> <span class="sep"> by </span> <span class="author vcard">%7$s</span></span>', 'yulai-federation'),
 				\esc_url(\get_permalink()),
 				\esc_attr(\get_the_time()),
@@ -20,24 +20,28 @@ class PostHelper {
 				)),
 				\esc_html(get_the_author())
 			);
-		} // END if(isset($options['meta_data']) && $options['meta_data'] === true)
+		} // END if(!empty($options['show_post_meta']['yes'])) {
 	} // END public static function getPostMetaInformation()
 
 	/**
 	 * Display template for post categories and tags
 	 */
 	public static function getPostCategoryAndTags() {
-		\printf('<span class="cats_tags"><span class="glyphicon glyphicon-folder-open" title="My tip"></span><span class="cats">');
-		\printf(\the_category(', '));
-		\printf('</span>');
+		$options = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
 
-		if(\has_tag() === true) {
-			\printf('<span class="glyphicon glyphicon-tags"></span><span class="tags">');
-			\printf(\the_tags(' '));
+		if(!empty($options['show_post_meta']['yes'])) {
+			\printf('<span class="cats_tags"><span class="glyphicon glyphicon-folder-open" title="My tip"></span><span class="cats">');
+			\printf(\the_category(', '));
 			\printf('</span>');
-		} // END if(has_tag() === true)
 
-		\printf('</span>');
+			if(\has_tag() === true) {
+				\printf('<span class="glyphicon glyphicon-tags"></span><span class="tags">');
+				\printf(\the_tags(' '));
+				\printf('</span>');
+			} // END if(has_tag() === true)
+
+			\printf('</span>');
+		} // END if(!empty($options['show_post_meta']['yes']))
 	} // END public static function getPostCategoryAndTags()
 
 	/**

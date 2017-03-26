@@ -122,6 +122,30 @@ class ThemeSettings {
 				),
 				'description' => \__('Transforms the main navigation into even cells instead of random width cells. (only looks good with enough navigation items though ...)', 'yulai-federation')
 			),
+			'show_post_meta' => array(
+				'type' => 'checkbox',
+				'title' => \__('Post Meta', 'yulai-federation'),
+				'choices' => array(
+					'yes' => \__('Show post meta (categories and all that stuff) in article loop and article view.', 'yulai-federation')
+				),
+				'description' => \__('If checked the post meta information, such as categories, publish time and author will be displayed in article loop and article view. (Default: on)', 'yulai-federation')
+			),
+			'cache' => array(
+				'type' => 'checkbox',
+				'title' => \__('Cache', 'yulai-federation'),
+				'choices' => array(
+					'remote-image-cache' => \__('Use imagecache for images fetched from CCP\'s image server', 'yulai-federation')
+				),
+				'description' => \__('If checked the images from CCP\'s image server will be cached locally. (Default: on)', 'yulai-federation')
+			),
+			'cron' => array(
+				'type' => 'checkbox',
+				'title' => \__('Cron Jobs', 'yulai-federation'),
+				'choices' => array(
+					'cronCleanupImageCache' => \__('Use a cronjob to clear the imagecache once a day.', 'yulai-federation')
+				),
+				'description' => \__('If checked a WordPress cron will be initialized to clean up the image cache once a day. (Default: off)', 'eve-online')
+			),
 		);
 	} // END private function getGeneralSettingsFields()
 
@@ -192,26 +216,26 @@ class ThemeSettings {
 		);
 	} // END private function getSliderSettingsFields()
 
-	private function getPerformanceSettings() {
-		return array(
-			'tab_title' => \__('Performance Settings', 'yulai-federation'),
-			'tab_description' => \__('Performance Settings', 'yulai-federation'),
-			'fields' => $this->getPerformanceSettingsFields()
-		);
-	} // END private function getSliderSettings()
+//	private function getPerformanceSettings() {
+//		return array(
+//			'tab_title' => \__('Performance Settings', 'yulai-federation'),
+//			'tab_description' => \__('Performance Settings', 'yulai-federation'),
+//			'fields' => $this->getPerformanceSettingsFields()
+//		);
+//	} // END private function getSliderSettings()
 
-	private function getPerformanceSettingsFields() {
-		return array(
-			'minifyHtmlOutput' => array(
-				'type' => 'checkbox',
-				'title' => \__('HTML Output', 'yulai-federation'),
-				'choices' => array(
-					'yes' => \__('Minify HTML output?', 'yulai-federation')
-				),
-				'description' => \__('By minifying the HTML output you might boost your websites performance. NOTE: this may not work on every server, so if you experience issues, turn this option off again!', 'yulai-federation')
-			),
-		);
-	} // END private function getSliderSettingsFields()
+//	private function getPerformanceSettingsFields() {
+//		return array(
+//			'minifyHtmlOutput' => array(
+//				'type' => 'checkbox',
+//				'title' => \__('HTML Output', 'yulai-federation'),
+//				'choices' => array(
+//					'yes' => \__('Minify HTML output?', 'yulai-federation')
+//				),
+//				'description' => \__('By minifying the HTML output you might boost your websites performance. NOTE: this may not work on every server, so if you experience issues, turn this option off again!', 'yulai-federation')
+//			),
+//		);
+//	} // END private function getSliderSettingsFields()
 
 	private function getDevelopmentSettings() {
 		return array(
