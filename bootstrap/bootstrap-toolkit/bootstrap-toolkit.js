@@ -42,6 +42,9 @@ var ResponsiveBootstrapToolkit = (function($) {
 
 		/**
 		 * Determines whether passed string is a parsable expression
+		 *
+		 * @param {string} str
+		 * @returns {Boolean}
 		 */
 		isAnExpression: function(str) {
 			return (str.charAt(0) === '<' || str.charAt(0) === '>');
@@ -49,6 +52,9 @@ var ResponsiveBootstrapToolkit = (function($) {
 
 		/**
 		 * Splits the expression in into <|> [=] alias
+		 *
+		 * @param {string} str
+		 * @returns {nm$_bootstrap-toolkit.bootstrap-toolkit_L8.internal.splitExpression.bootstrap-toolkitAnonym$0}
 		 */
 		splitExpression: function(str) {
 			// Used operator
@@ -79,12 +85,16 @@ var ResponsiveBootstrapToolkit = (function($) {
 
 		/**
 		 * Returns true if currently active breakpoint matches the expression
+		 *
+		 * @param {type} breakpoints
+		 * @returns {bootstrap-toolkit_L8.internal.isAnyActive.found}
 		 */
 		isAnyActive: function(breakpoints) {
 			var found = false;
-			$.each(breakpoints, function (index, alias) {
+
+			$.each(breakpoints, function(index, alias) {
 				// Once first breakpoint matches, return true and break out of the loop
-				if(self.breakpoints[alias].is(':visible')) {
+				if(self.breakpoints[ alias ].is(':visible')) {
 					found = true;
 					return false;
 				}
@@ -95,6 +105,9 @@ var ResponsiveBootstrapToolkit = (function($) {
 
 		/**
 		 * Determines whether current breakpoint matches the expression given
+		 *
+		 * @param {type} str
+		 * @returns {bootstrap-toolkit_L8.internal.isAnyActive.found}
 		 */
 		isMatchingExpression: function(str) {
 			var expression = internal.splitExpression(str);
@@ -123,7 +136,6 @@ var ResponsiveBootstrapToolkit = (function($) {
 					start = 0;
 					end = expression.orEqual ? ++pos : pos;
 				}
-
 				/**
 				 * Parsing viewport.is('>=sm') we interate from breakpoint 'sm' and end at the end
 				 * of breakpoint list.
@@ -164,17 +176,24 @@ var ResponsiveBootstrapToolkit = (function($) {
 
 		/**
 		 * Returns true if current breakpoint matches passed alias
+		 *
+		 * @param {type} str
+		 * @returns {bootstrap-toolkit_L8.internal.isAnyActive.found|self.breakpoints|Window.breakpoints}
 		 */
 		is: function(str) {
 			if(internal.isAnExpression(str)) {
 				return internal.isMatchingExpression(str);
 			}
 
-			return self.breakpoints[str] && self.breakpoints[str].is(':visible');
+			return self.breakpoints[ str ] && self.breakpoints[ str ].is(':visible');
 		},
 
 		/**
 		 * Determines which framework-specific breakpoint detection divs to use
+		 *
+		 * @param {type} frameworkName
+		 * @param {type} breakpoints
+		 * @returns {undefined}
 		 */
 		use: function(frameworkName, breakpoints) {
 			self.framework = frameworkName.toLowerCase();
@@ -193,21 +212,19 @@ var ResponsiveBootstrapToolkit = (function($) {
 		 */
 		current: function() {
 			var name = 'unrecognized';
-			$.each(self.breakpoints, function (alias) {
+			$.each(self.breakpoints, function(alias) {
 				if(self.is(alias)) {
 					name = alias;
 				}
 			});
-
 			return name;
 		},
 
 		/*
 		 * Waits specified number of miliseconds before executing a callback
 		 */
-		changed: function (fn, ms) {
+		changed: function(fn, ms) {
 			var timer;
-
 			return function() {
 				clearTimeout(timer);
 				timer = setTimeout(function() {
@@ -218,7 +235,7 @@ var ResponsiveBootstrapToolkit = (function($) {
 	};
 
 	// Create a placeholder
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$('<div class="responsive-bootstrap-toolkit"></div>').appendTo('body');
 	});
 
