@@ -254,7 +254,7 @@ class NavigationHelper {
 		$htmlOutput .= '<nav class="article-navigation clearfix">';
 		$htmlOutput .= '<h3 class="assistive-text">' . \__('Post Navigation', 'yulai-federation') . '</h3>';
 
-		$htmlOutput .= '<div class="row">';
+		$htmlOutput .= '<div class="row clearfix">';
 		if($previousPostObject) {
 			$htmlOutput .= '<div class="nav-previous ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getArticleNavigationPanelClasses() . ' pull-left clearfix">';
 			$htmlOutput .= '<div class="nav-previous-link">' . \get_previous_post_link('%link', \__('<span class="meta-nav">&larr;</span> Previous Article', 'yulai-federation')) . '</div>';
@@ -309,8 +309,10 @@ class NavigationHelper {
 
 			$htmlOutput .= '<div><em>' . $nextPostObject->post_title . '</em></div>';
 			$htmlOutput .= '</div>';
-			$htmlOutput .= '</nav>';
 		} // END if($obj_NextPost)
+
+		$htmlOutput .= '</div>';
+		$htmlOutput .= '</nav>';
 
 		if($echo === true) {
 			echo $htmlOutput;
