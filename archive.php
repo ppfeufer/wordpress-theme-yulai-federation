@@ -85,7 +85,7 @@ defined('ABSPATH') or die();
 						echo '<script type="text/javascript">
 								jQuery(document).ready(function() {
 									jQuery("ul.bootstrap-post-loop-gallery-' . $uniqueID . '").bootstrapGallery({
-										"classes" : "' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::geLoopContentClasses() . '",
+										"classes" : "' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getLoopContentClasses() . '",
 										"hasModal" : false
 									});
 								});

@@ -236,4 +236,86 @@ class NavigationHelper {
 			return $breadcrumb;
 		} // END if($echo === true)
 	} // END public static function getBreadcrumbs($addTexts = true)
+
+	/**
+	 * Articlenavigation.
+	 * Displaying the next/previous links in single article.
+	 *
+	 * @since 0.1-r20170329
+	 *
+	 * @package WordPress
+	 * @subpackage Yulai Federation Theme
+	 */
+	public static function getArticleNavigation($echo = false) {
+		$htmlOutput = null;
+		$previousPostObject = \get_previous_post();
+		$nextPostObject = \get_next_post();
+
+		$htmlOutput .= '<nav class="article-navigation clearfix">';
+		$htmlOutput .= '<h3 class="assistive-text">' . \__('Post Navigation', 'yulai-federation') . '</h3>';
+
+		$htmlOutput .= '<div class="row">';
+		if($previousPostObject) {
+			$htmlOutput .= '<div class="nav-previous ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getArticleNavigationPanelClasses() . ' pull-left clearfix">';
+			$htmlOutput .= '<div class="nav-previous-link">' . \get_previous_post_link('%link', \__('<span class="meta-nav">&larr;</span> Previous Article', 'yulai-federation')) . '</div>';
+
+			if(\has_post_thumbnail($previousPostObject->ID)) {
+				$htmlOutput .= '<div class="nav-previous-thumbnail">';
+				$htmlOutput .= '<a href="' . \get_the_permalink($previousPostObject->ID) . '" title="' . $previousPostObject->post_title . '">';
+				$htmlOutput .= '<figure class="post-loop-thumbnail">';
+
+				if(\function_exists('\fly_get_attachment_image')) {
+					$htmlOutput .= \fly_get_attachment_image(\get_post_thumbnail_id($previousPostObject->ID), 'post-loop-thumbnail');
+				} else {
+					$htmlOutput .= \get_the_post_thumbnail($previousPostObject->ID, 'post-loop-thumbnail');
+				} // END if(\function_exists('\fly_get_attachment_image'))
+
+//				$htmlOutput .= '<figcaption>' . $previousPostObject->post_title . '</figcaption>';
+				$htmlOutput .= '</figure>';
+				$htmlOutput .= '</a>';
+				$htmlOutput .= '</div>';
+			} else {
+				// Article Image Plaveholder. We don't have it yet ....
+//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($previousPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . $previousPostObject->post_title . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
+			} // END if(\has_post_thumbnail($obj_PreviousPost->ID))
+
+			$htmlOutput .= '<div><em>' . $previousPostObject->post_title . '</em></div>';
+			$htmlOutput .= '</div>';
+		} // END if($obj_PreviousPost)
+
+		if($nextPostObject) {
+			$htmlOutput .= '<div class="nav-next ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getArticleNavigationPanelClasses() . ' pull-right text-align-right clearfix">';
+			$htmlOutput .= '<div class="nav-next-link">' . \get_next_post_link('%link', \__('Next Article <span class="meta-nav">&rarr;</span>', 'yulai-federation')) . '</div>';
+
+			if(\has_post_thumbnail($nextPostObject->ID)) {
+				$htmlOutput .= '<div class="nav-next-thumbnail">';
+				$htmlOutput .= '<a href="' . \get_the_permalink($nextPostObject->ID) . '" title="' . $nextPostObject->post_title . '">';
+				$htmlOutput .= '<figure class="post-loop-thumbnail">';
+
+				if(\function_exists('\fly_get_attachment_image')) {
+					$htmlOutput .= \fly_get_attachment_image(\get_post_thumbnail_id($nextPostObject->ID), 'post-loop-thumbnail');
+				} else {
+					$htmlOutput .= \get_the_post_thumbnail($nextPostObject->ID, 'post-loop-thumbnail');
+				} // END if(\function_exists('\fly_get_attachment_image'))
+
+//				$htmlOutput .= '<figcaption>' . $nextPostObject->post_title . '</figcaption>';
+				$htmlOutput .= '</figure>';
+				$htmlOutput .= '</a>';
+				$htmlOutput .= '</div>';
+			} else {
+				// Article Image Plaveholder. We don't have it yet ....
+//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($nextPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . $nextPostObject->post_title . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
+			} // END if(has_post_thumbnail($obj_NextPost->ID))
+
+			$htmlOutput .= '<div><em>' . $nextPostObject->post_title . '</em></div>';
+			$htmlOutput .= '</div>';
+			$htmlOutput .= '</nav>';
+		} // END if($obj_NextPost)
+
+		if($echo === true) {
+			echo $htmlOutput;
+		} else {
+			return $htmlOutput;
+		} // END if($echo === true)
+	} // END function getArticleNavigation()
 } // END class NavigationHelper

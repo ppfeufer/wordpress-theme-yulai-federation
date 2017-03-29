@@ -136,7 +136,7 @@ class BootstrapVideoGallery {
 		$videoGalleryHtml .= '</div>';
 
 		if(empty($classes)) {
-			$classes = YulaiFederation\Helper\PostHelper::geLoopContentClasses();
+			$classes = YulaiFederation\Helper\PostHelper::getLoopContentClasses();
 		} // END if(empty($classes))
 
 		$videoGalleryHtml .= '<script type="text/javascript">

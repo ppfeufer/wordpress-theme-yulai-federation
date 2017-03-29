@@ -67,5 +67,7 @@
 	} // END if(get_the_author_meta('description'))
 	?>
 	<hr/>
+	<?php \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getArticleNavigation(true); ?>
+	<hr/>
 	<?php \comments_template(); ?>
 </article><!-- /.post-->

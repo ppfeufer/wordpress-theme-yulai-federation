@@ -23,7 +23,7 @@ class LatestBlogPosts {
 		$args = \shortcode_atts(
 			array(
 				'number' => YulaiFederation\Helper\PostHelper::getContentColumnCount(),
-				'classes' => YulaiFederation\Helper\PostHelper::geLoopContentClasses(),
+				'classes' => YulaiFederation\Helper\PostHelper::getLoopContentClasses(),
 				'headline_type' => 'h2',
 				'headline_text' => ''
 			),
