@@ -11,7 +11,7 @@ class ThemeHelper {
 	 * @return string
 	 */
 	public static function getThemeDbVersion() {
-		return '20170326';
+		return '20170330';
 	} // END public static function getThemeDbVersion()
 
 	/**
