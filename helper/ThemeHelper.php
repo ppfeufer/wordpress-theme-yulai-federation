@@ -11,7 +11,7 @@ class ThemeHelper {
 	 * @return string
 	 */
 	public static function getThemeDbVersion() {
-		return '20170326';
+		return '20170330';
 	} // END public static function getThemeDbVersion()
 
 	/**
@@ -35,12 +35,6 @@ class ThemeHelper {
 			'show_post_meta' => array(
 				'yes' => ''
 			),
-			'cache' => array(
-				'remote-image-cache' => 'remote-image-cache'
-			),
-			'cron' => array(
-				'cronCleanupImageCache' => ''
-			),
 
 			// background settings tab
 			'use_background_image' => array(
@@ -57,9 +51,15 @@ class ThemeHelper {
 			),
 
 			// performance settings tab
-//			'minifyHtmlOutput' => array(
-//				'yes' => ''
-//			),
+			'minify_html_output' => array(
+				'yes' => ''
+			),
+			'cache' => array(
+				'remote-image-cache' => 'remote-image-cache'
+			),
+			'cron' => array(
+				'cronCleanupImageCache' => ''
+			),
 
 			// footer settings tab
 			'footertext' => '',
