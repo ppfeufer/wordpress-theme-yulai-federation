@@ -231,6 +231,7 @@ function yf_theme_setup() {
 
 	\add_theme_support('automatic-feed-links');
 	\add_theme_support('post-thumbnails');
+	\add_theme_support('title-tag');
 	\add_theme_support('post-formats', array(
 		'aside',
 		'image',
@@ -297,6 +298,13 @@ function yf_theme_setup() {
 	Helper\CacheHelper::createCacheDirectory('images/render');
 } // END function yf_theme_setup()
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
+
+function yf_title_separator($separator) {
+	$separator = '»';
+
+	return $separator;
+}
+\add_filter('document_title_separator', '\\WordPress\Themes\YulaiFederation\yf_title_separator');
 
 /**
  * Remove integrated gallery styles in the content area of standard gallery shortcode.
@@ -620,7 +628,7 @@ function yf_wp_title($title, $sep) {
  */
 function yf_link_pages($args = array()) {
 	$defaults = array(
-		'before' => '<p>' . __('Pages:'),
+		'before' => '<p>' . __('Pages:', 'yulai-federation'),
 		'after' => '</p>',
 		'before_link' => '',
 		'after_link' => '',
@@ -724,13 +732,13 @@ function yf_comment_form_fields($fields) {
 
 	$fields =  array(
 		'author' => '<div class="row"><div class="form-group comment-form-author col-md-4">'
-					. '	<input class="form-control" id="author" name="author" type="text" value="' . \esc_attr($commenter['comment_author']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Name') . ($req ? ' *' : '') . '" />'
+					. '	<input class="form-control" id="author" name="author" type="text" value="' . \esc_attr($commenter['comment_author']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Name', 'yulai-federation') . ($req ? ' *' : '') . '" />'
 					. '</div>',
 		'email' => '<div class="form-group comment-form-email col-md-4">'
-					. '	<input class="form-control" id="email" name="email" ' . ($html5 ? 'type="email"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_email']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Email') . ($req ? ' *' : '') . '" />'
+					. '	<input class="form-control" id="email" name="email" ' . ($html5 ? 'type="email"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_email']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Email', 'yulai-federation') . ($req ? ' *' : '') . '" />'
 					. '</div>',
 		'url' => '<div class="form-group comment-form-url col-md-4">'
-					. '	<input class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_url']) . '" size="30" placeholder="' . \__('Website') . '" />'
+					. '	<input class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_url']) . '" size="30" placeholder="' . \__('Website', 'yulai-federation') . '" />'
 					. '</div></div>'
 	);
 
@@ -740,7 +748,7 @@ function yf_comment_form_fields($fields) {
 
 function yf_comment_form($args) {
 	$args['comment_field'] = '<div class="row"><div class="form-group comment-form-comment col-lg-12">'
-							. '	<textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true" required placeholder="' . \_x('Comment', 'noun') . '"></textarea>'
+							. '	<textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true" required placeholder="' . \_x('Comment', 'noun', 'yulai-federation') . '"></textarea>'
 							. '</div></div>';
 	$args['class_submit'] = 'btn btn-default';
 

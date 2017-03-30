@@ -18,11 +18,6 @@ class Whitelabel {
 	 */
 	function __construct() {
 		/**
-		 * Translation Stuff
-		 */
-		$this->textdomain = 'yulai-federation';
-
-		/**
 		 * Setting Developer Information
 		 */
 		$this->developerName = 'YF [TN-NT] Rounon Dax';
@@ -55,7 +50,7 @@ class Whitelabel {
 	 * @return Ambigous <string, mixed>
 	 */
 	public function loginLogoTitle() {
-		return \__('Yulai Federation - NRDS Provibloc Alliance', $this->textdomain);
+		return \__('Yulai Federation - NRDS Provibloc Alliance', 'yulai-federation');
 	} // END public function loginLogoTitle()
 
 	/**
@@ -72,7 +67,7 @@ class Whitelabel {
 	 */
 	public function modifyAdminFooter() {
 		echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s',
-			\__('Customized by:', $this->textdomain),
+			\__('Customized by:', 'yulai-federation'),
 			' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>'
 		);
 	} // END public function modifyAdminFooter()
@@ -82,14 +77,14 @@ class Whitelabel {
 	 */
 	public function themeInfo() {
 		echo '<ul>
-		<li><strong>' . \__('Customized by:', $this->textdomain) . '</strong> ' . $this->developerName . '</li>
-		<li><strong>' . \__('Website:', $this->textdomain) . '</strong> <a href="' . $this->developerWebsite . '">' . $this->developerWebsite . '</a></li>
-		<li><strong>' . \__('Contact:',  $this->textdomain) . '</strong> <a href="mailto:' . $this->developerEmailAddress . '">' . $this->developerEmailAddress . '</a></li>
+		<li><strong>' . \__('Customized by:', 'yulai-federation') . '</strong> ' . $this->developerName . '</li>
+		<li><strong>' . \__('Website:', 'yulai-federation') . '</strong> <a href="' . $this->developerWebsite . '">' . $this->developerWebsite . '</a></li>
+		<li><strong>' . \__('Contact:',  'yulai-federation') . '</strong> <a href="mailto:' . $this->developerEmailAddress . '">' . $this->developerEmailAddress . '</a></li>
 		</ul>';
 	} // END public function themeInfo()
 
 	public function addDashboardWidget() {
-		\wp_add_dashboard_widget('wp_dashboard_widget', __('Developer Contact', $this->textdomain), array($this, 'themeInfo'));
+		\wp_add_dashboard_widget('wp_dashboard_widget', __('Developer Contact', 'yulai-federation'), array($this, 'themeInfo'));
 	} // END public function addDashboardWidget()
 
 	/**

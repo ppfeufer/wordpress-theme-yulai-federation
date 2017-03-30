@@ -49,16 +49,14 @@ class BootstrapImageGallery {
 
 		$order = $attributes['order'];
 		$orderby = $attributes['orderby'];
-		$id = $attributes['id'];
-		$itemtag = $attributes['itemtag'];
-		$icontag = $attributes['icontag'];
-		$captiontag = $attributes['captiontag'];
+		$id = \intval($attributes['id']);
+		$itemtag = \tag_escape($attributes['itemtag']);
+		$icontag = \tag_escape($attributes['icontag']);
+		$captiontag = \tag_escape($attributes['captiontag']);
 //		$columns = $attributes['columns'];
 		$size = $attributes['size'];
 		$include = $attributes['include'];
 		$exclude = $attributes['exclude'];
-
-		$id = \intval($id);
 
 		if('RAND' == $order) {
 			$orderby = 'none';
@@ -117,9 +115,6 @@ class BootstrapImageGallery {
 
 			return $output;
 		} // END if(is_feed())
-
-		$itemtag = \tag_escape($itemtag);
-		$captiontag = \tag_escape($captiontag);
 
 		$selector = 'image-gallery-' . $instance;
 		$output = '<div class="gallery-row row">';

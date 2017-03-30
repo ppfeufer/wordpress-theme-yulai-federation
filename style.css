@@ -1,13 +1,13 @@
 /*!
 Theme Name: Yulai Federation
-Theme URI: http://yulaifederation.net
+Theme URI: https://github.com/ppfeufer/eve-online-wordpress-theme
 Description: A beatyfull WordPress Theme for the Provibloc Alliance "Yulai Federation"
 Version: 0.1-r20170329
 Author: YF [TN-NT] Rounon Dax
 Author URI: http://yulaifederation.net
 License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags:
+License URI: https://github.com/ppfeufer/eve-online-wordpress-theme/blob/master/LICENSE
+Tags: responsive, eve-online
 Text Domain: yulai-federation
 Domain Path: /l10n
 */
@@ -155,6 +155,10 @@ Domain Path: /l10n
 	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6  {
 		font-family: 'Amethysta', serif;
 	}
+
+	.sticky {}
+
+	.bypostauthor {}
 
 	.article-navigation h3, .author-details h3 {
 		margin-top: 0;

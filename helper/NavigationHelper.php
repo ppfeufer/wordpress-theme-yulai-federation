@@ -57,7 +57,7 @@ class NavigationHelper {
 		$nextpage = \intval($paged) + 1;
 
 		if(null === $label) {
-			$label = __('&laquo; Previous Page');
+			$label = \__('&laquo; Previous Page', 'yulai-federation');
 		} // END if(null === $label)
 
 		if(!\is_single() && ($nextpage <= $max_page)) {
@@ -91,7 +91,7 @@ class NavigationHelper {
 		global $paged;
 
 		if(null === $label) {
-			$label = __('Next Page &raquo;');
+			$label = \__('Next Page &raquo;', 'yulai-federation');
 		} // END if(null === $label)
 
 		if(!\is_single() && $paged > 1) {

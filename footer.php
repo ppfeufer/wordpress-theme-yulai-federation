@@ -31,7 +31,7 @@
 //									} else {
 										?>
 										<ul class="credit">
-											<li>&copy; <?php echo date('Y'); ?> <a href="<?php \bloginfo('url'); ?>"><?php \bloginfo(); ?></a></li>
+											<li>&copy; <?php echo date('Y'); ?> <a href="<?php echo \esc_url(\home_url()); ?>"><?php \bloginfo(); ?></a></li>
 											<!--<li><?php \_e('Proudly powered by ', 'yulai-federation') ?> <a href="<?php echo \esc_url(\__('http://wordpress.org/', 'yulai-federation')); ?>" ><?php \_e('WordPress', 'yulai-federation') ?></a>.</li>-->
 											<li>(<?php \printf(\__('Design and Programming by Rounon Dax', 'yulai-federation')); ?>)</li>
 										</ul><!-- end .credit -->

@@ -144,7 +144,7 @@ class ThemeSettings {
 				'choices' => array(
 					'cronCleanupImageCache' => \__('Use a cronjob to clear the imagecache once a day.', 'yulai-federation')
 				),
-				'description' => \__('If checked a WordPress cron will be initialized to clean up the image cache once a day. (Default: off)', 'eve-online')
+				'description' => \__('If checked a WordPress cron will be initialized to clean up the image cache once a day. (Default: off)', 'yulai-federation')
 			),
 		);
 	} // END private function getGeneralSettingsFields()
