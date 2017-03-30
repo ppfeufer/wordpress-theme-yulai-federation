@@ -27,15 +27,15 @@ class HtmlMinify {
 	protected function bottomComment($raw, $compressed) {
 		$raw = \strlen($raw);
 		$compressed = \strlen($compressed);
-//		$savings = ($raw - $compressed) / $raw * 100;
-		$savings = \round(($raw - $compressed) / $raw * 100, 2);
+		$savings = ($raw - $compressed) / $raw * 100;
+		$savings = \round($savings, 2);
 
 		return '<!--HTML compressed, size saved ' . $savings . '%. From ' . $raw . ' bytes, now ' . $compressed . ' bytes-->';
 	} // END protected function bottomComment($raw, $compressed)
 
 	protected function minifyHTML($html) {
 		$pattern = '/<(?<script>script).*?<\/script\s*>|<(?<style>style).*?<\/style\s*>|<!(?<comment>--).*?-->|<(?<tag>[\/\w.:-]*)(?:".*?"|\'.*?\'|[^\'">]+)*>|(?<text>((<[^!\/\w.:-])?[^<]*)+)|/si';
-		\preg_match_all($pattern, \preg_replace('/\/\/ (.*)\n/', ' ', $html), $matches, \PREG_SET_ORDER );
+		\preg_match_all($pattern, $html, $matches, \PREG_SET_ORDER );
 
 		$overriding = false;
 		$raw_tag = false;
@@ -126,6 +126,6 @@ function yf_html_compression_start() {
 
 $themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 
-if(!empty($themeOptions['minify_html_output']['yes'])) {
+if(!empty($themeOptions['minifyhtmloutput']['yes'])) {
 	\add_action('get_header', '\\WordPress\\Themes\\YulaiFederation\\Plugins\\yf_html_compression_start');
-} // END if(!empty($themeOptions['minify_html_output']['yes']))
+} // END if(!empty($themeOptions['minifyHtmlOutput']['yes']))

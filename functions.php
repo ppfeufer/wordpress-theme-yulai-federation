@@ -62,7 +62,7 @@ require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
 require_once(\get_theme_file_path('/plugins/Killboard.php'));
 require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
 require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
-require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
+//require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
 
 /**
  * Loading Security Classes
