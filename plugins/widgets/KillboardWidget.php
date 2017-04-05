@@ -67,7 +67,7 @@ class KillboardWidget extends \WP_Widget {
 		 */
 		$instance = \wp_parse_args((array) $instance, array(
 			'yulai-federation-killboard-widget-title' => '',
-			'yulai-federation-killboard-widget-number-of-kills' => $this->pluginSettings['number_of_kills'],
+			'yulai-federation-killboard-widget-number-of-kills' => (!empty($this->pluginSettings['number_of_kills'])) ? $this->pluginSettings['number_of_kills'] : 5,
 //			'yulai-federation-killboard-widget-show-losses' => ($this->pluginSettings['show_losses']['yes']) ? true : false
 		));
 
