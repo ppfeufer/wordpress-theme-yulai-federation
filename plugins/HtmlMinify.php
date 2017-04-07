@@ -35,7 +35,7 @@ class HtmlMinify {
 
 	protected function minifyHTML($html) {
 		$pattern = '/<(?<script>script).*?<\/script\s*>|<(?<style>style).*?<\/style\s*>|<!(?<comment>--).*?-->|<(?<tag>[\/\w.:-]*)(?:".*?"|\'.*?\'|[^\'">]+)*>|(?<text>((<[^!\/\w.:-])?[^<]*)+)|/si';
-		\preg_match_all($pattern, \preg_replace('/\/\/ (.*)\n/', ' ', $html), $matches, \PREG_SET_ORDER );
+		\preg_match_all($pattern, $html, $matches, \PREG_SET_ORDER);
 
 		$overriding = false;
 		$raw_tag = false;
@@ -61,6 +61,12 @@ class HtmlMinify {
 					if(!$overriding && $raw_tag != 'textarea') {
 						// Remove any HTML comments, except MSIE conditional comments
 						$content = \preg_replace( '/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content );
+
+						// Remove any JS single line comments starting with //
+						$content = \preg_replace('/\/\/ (.*)\n/', ' ', $content);
+
+						// Remove any JS single or multiline comments like /* comment */
+						$content = \preg_replace('/\/\*(.*)\*\//', ' ', $content);
 					}
 				}
 			} else {
