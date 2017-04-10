@@ -290,6 +290,15 @@
 	}
 }
 
+/* boostrap content elements theme plugin
+----------------------------------------------------------------------------- */
+@media all {
+	.bootstrap-content-grid {
+		list-style-type: none;
+		padding-left: 0;
+	}
+}
+
 /* Latest Blogposts
 ----------------------------------------------------------------------------- */
 @media all {
