@@ -44,6 +44,7 @@ require_once(\get_theme_file_path('/helper/StringHelper.php'));
 require_once(\get_theme_file_path('/helper/ImageHelper.php'));
 require_once(\get_theme_file_path('/helper/FilesystemHelper.php'));
 require_once(\get_theme_file_path('/helper/CacheHelper.php'));
+require_once(\get_theme_file_path('/helper/CommentHelper.php'));
 
 /**
  * Loading Plugins
