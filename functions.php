@@ -62,6 +62,7 @@ require_once(\get_theme_file_path('/plugins/helper/EdkKillboardHelper.php'));
 require_once(\get_theme_file_path('/plugins/helper/ZkbKillboardHelper.php'));
 require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
 require_once(\get_theme_file_path('/plugins/Killboard.php'));
+require_once(\get_theme_file_path('/plugins/ChildpageMenu.php'));
 require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
 require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
 require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
@@ -99,6 +100,7 @@ new Plugins\Corppage;
 new Plugins\EncodeEmailAddresses;
 new Plugins\Whitelabel;
 new Plugins\Killboard(true);
+new Plugins\ChildpageMenu;
 new Plugins\LatestBlogPosts;
 new Plugins\EveOnlineAvatar;
 

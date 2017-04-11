@@ -1,15 +1,17 @@
-.yulai-federation-killboard-widget ul {
-	list-style-type: none;
-	padding-left: 0 !important;
-}
+@media all {
+	.yulai-federation-killboard-widget ul {
+		list-style-type: none;
+		padding-left: 0 !important;
+	}
 
-.yulai-federation-killboard-widget .killboard-entry {
-	margin-bottom: 16px;
-	margin-bottom: 1rem;
-}
+	.yulai-federation-killboard-widget .killboard-entry {
+		margin-bottom: 16px;
+		margin-bottom: 1rem;
+	}
 
-.yulai-federation-killboard-widget .killboard-entry:last-child {
-	margin-bottom: 0;
+	.yulai-federation-killboard-widget .killboard-entry:last-child {
+		margin-bottom: 0;
+	}
 }
 
 @media all and (min-width: 1200px) {
