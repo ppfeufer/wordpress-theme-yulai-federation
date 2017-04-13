@@ -202,8 +202,8 @@ class Corppage {
 	public static function getCorprationLogo($corpPageID) {
 		$eveApi = new YulaiFederation\Helper\EveApiHelper;
 
-		$corpName = \get_post_meta($corpPageID, 'eve_page_corp_name', true);
-		$corpID = \get_post_meta($corpPageID, 'eve_page_corp_eve_ID', true);
+		$corpName = \get_post_meta($corpPageID, 'yf_page_corp_name', true);
+		$corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);
 
 		$imagePath = YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
 
