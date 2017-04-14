@@ -261,7 +261,7 @@ class NavigationHelper {
 
 			if(\has_post_thumbnail($previousPostObject->ID)) {
 				$htmlOutput .= '<div class="nav-previous-thumbnail">';
-				$htmlOutput .= '<a href="' . \get_the_permalink($previousPostObject->ID) . '" title="' . $previousPostObject->post_title . '">';
+				$htmlOutput .= '<a href="' . \get_the_permalink($previousPostObject->ID) . '" title="' . \esc_html($previousPostObject->post_title) . '">';
 				$htmlOutput .= '<figure class="post-loop-thumbnail">';
 
 				if(\function_exists('\fly_get_attachment_image')) {
@@ -276,10 +276,10 @@ class NavigationHelper {
 				$htmlOutput .= '</div>';
 			} else {
 				// Article Image Plaveholder. We don't have it yet ....
-//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($previousPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . $previousPostObject->post_title . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
+//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($previousPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . \esc_html($previousPostObject->post_title) . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
 			} // END if(\has_post_thumbnail($obj_PreviousPost->ID))
 
-			$htmlOutput .= '<div><em>' . $previousPostObject->post_title . '</em></div>';
+			$htmlOutput .= '<div><em>' . \esc_html($previousPostObject->post_title) . '</em></div>';
 			$htmlOutput .= '</div>';
 		} // END if($obj_PreviousPost)
 
@@ -289,7 +289,7 @@ class NavigationHelper {
 
 			if(\has_post_thumbnail($nextPostObject->ID)) {
 				$htmlOutput .= '<div class="nav-next-thumbnail">';
-				$htmlOutput .= '<a href="' . \get_the_permalink($nextPostObject->ID) . '" title="' . $nextPostObject->post_title . '">';
+				$htmlOutput .= '<a href="' . \get_the_permalink($nextPostObject->ID) . '" title="' . \esc_html($nextPostObject->post_title) . '">';
 				$htmlOutput .= '<figure class="post-loop-thumbnail">';
 
 				if(\function_exists('\fly_get_attachment_image')) {
@@ -304,10 +304,10 @@ class NavigationHelper {
 				$htmlOutput .= '</div>';
 			} else {
 				// Article Image Plaveholder. We don't have it yet ....
-//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($nextPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . $nextPostObject->post_title . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
+//				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($nextPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . \esc_html($nextPostObject->post_title) . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
 			} // END if(has_post_thumbnail($obj_NextPost->ID))
 
-			$htmlOutput .= '<div><em>' . $nextPostObject->post_title . '</em></div>';
+			$htmlOutput .= '<div><em>' . \esc_html($nextPostObject->post_title) . '</em></div>';
 			$htmlOutput .= '</div>';
 		} // END if($obj_NextPost)
 
