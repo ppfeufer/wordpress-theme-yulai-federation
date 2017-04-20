@@ -45,10 +45,10 @@
 									if(\has_nav_menu('footer-menu')) {
 										\wp_nav_menu(array(
 											'menu' => '',
-											'theme_location' => 'nav navbar-nav footer-menu footer-navigation',
+											'theme_location' => 'footer-menu',
 											'depth' => 1,
 											'container' => false,
-											'menu_class' => 'footer-menu',
+											'menu_class' => 'footer-menu footer-navigation',
 											'fallback_cb' => '\WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker::fallback',
 											'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
 										));
