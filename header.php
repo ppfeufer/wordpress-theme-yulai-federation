@@ -44,18 +44,16 @@
 	<body <?php \body_class('no-js'); ?> id="pagetop">
 		<header>
 			<!-- Blog Name & Logo -->
-			<div class="header">
-				<div class="container header-container">
+			<div class="top-main-menu">
+				<div class="container">
 					<div class="row">
 						<!-- Logo -->
 						<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getHeaderColClasses(); ?> brand clearfix">
 							<?php
 							$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
-
 							if(!empty($options['name'])) {
 								$eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
 								$siteLogo = $eveApi->getEntityLogoByName($options['name']);
-
 								if($siteLogo !== false) {
 									?>
 									<div class="site-logo float-left">
@@ -146,13 +144,11 @@
 													'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
 												));
 											} // END if(\has_nav_menu('main-menu'))
-
 											if(\has_nav_menu('header-menu')) {
 												$additionalMenuClass = null;
 												if(\has_nav_menu('main-menu')) {
 													$additionalMenuClass = ' secondary-mobile-menu';
 												} // END if(\has_nav_menu('main-menu'))
-
 												\wp_nav_menu(array(
 													'menu' => '',
 													'theme_location' => 'header-menu',
@@ -171,13 +167,6 @@
 						</div>
 						<?php
 					} // END if(has_nav_menu('main-menu'))
-					?>
-				</div><!-- /.container -->
-			</div><!-- /.top-main-menu -->
-
-			<div class="stage">
-				<div class="container stage-container">
-					<?php
 					if(\is_single() && \get_post_type() === 'post' && \has_post_thumbnail()) {
 						?>
 						<figure class="post-header-image">
@@ -191,14 +180,13 @@
 						</figure>
 						<?php
 					} // END if(\get_post_type() === 'post' && \has_post_thumbnail())
-
 					/**
 					 * Render our Slider, if we have one
 					 */
 					\do_action('yf_render_header_slider');
 					?>
-				</div>
-			</div>
+				</div><!-- /.container -->
+			</div><!-- /.top-main-menu -->
 		</header>
 		<!-- End Header. Begin Template Content -->
 
