@@ -44,8 +44,8 @@
 	<body <?php \body_class('no-js'); ?> id="pagetop">
 		<header>
 			<!-- Blog Name & Logo -->
-			<div class="top-main-menu">
-				<div class="container">
+			<div class="header">
+				<div class="container header-container">
 					<div class="row">
 						<!-- Logo -->
 						<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getHeaderColClasses(); ?> brand clearfix">
@@ -171,7 +171,13 @@
 						</div>
 						<?php
 					} // END if(has_nav_menu('main-menu'))
+					?>
+				</div><!-- /.container -->
+			</div><!-- /.top-main-menu -->
 
+			<div class="stage">
+				<div class="container stage-container">
+					<?php
 					if(\is_single() && \get_post_type() === 'post' && \has_post_thumbnail()) {
 						?>
 						<figure class="post-header-image">
@@ -191,8 +197,8 @@
 					 */
 					\do_action('yf_render_header_slider');
 					?>
-				</div><!-- /.container -->
-			</div><!-- /.top-main-menu -->
+				</div>
+			</div>
 		</header>
 		<!-- End Header. Begin Template Content -->
 

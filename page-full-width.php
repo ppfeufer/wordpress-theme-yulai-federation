@@ -8,7 +8,7 @@ defined('ABSPATH') or die();
 \get_header();
 ?>
 
-<div class="container main">
+<div class="container container-main">
 	<?php
 	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbNavigation();
 	if(!empty($breadcrumbNavigation)) {

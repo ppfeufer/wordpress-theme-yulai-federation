@@ -5,7 +5,7 @@
 			<div class="footer-wrapper">
 				<div class="row">
 					<!--<div class="footer-divider"></div>-->
-					<div class="container">
+					<div class="container container-footer">
 						<?php
 						if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-4')) {
 							\get_sidebar('footer');
@@ -17,7 +17,7 @@
 
 			<div class="copyright-wrapper">
 				<div class="row ">
-					<div class="container">
+					<div class="container container-footer">
 						<div class="row copyright">
 							<div class="col-md-12">
 								<div class="pull-left copyright-text">
@@ -62,7 +62,7 @@
 			</div>
 			<div class="legal-wrapper">
 				<div class="row ">
-					<div class="container">
+					<div class="container container-footer">
 						<div class="row copyright">
 							<div class="col-md-12">
 								<h5>CCP Copyright Notice</h5>
