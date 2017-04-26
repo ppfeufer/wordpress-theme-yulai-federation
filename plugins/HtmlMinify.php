@@ -37,7 +37,7 @@ class HtmlMinify {
 		// THese have to be removed right away ....
 		if($this->remove_comments) {
 			// Remove any HTML comments, except MSIE conditional comments
-			$html = \preg_replace( '/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
+			$html = \preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $html);
 
 			// Remove any JS single line comments starting with //
 			$html = \preg_replace('/\/\/ (.*)\n/', ' ', $html);
@@ -69,7 +69,7 @@ class HtmlMinify {
 				} else if($this->remove_comments) {
 					if(!$overriding && $raw_tag != 'textarea') {
 						// Remove any HTML comments, except MSIE conditional comments
-						$content = \preg_replace( '/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
+						$content = \preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
 
 						// Remove any JS single or multiline comments like /* comment */
 						$content = \preg_replace('/\/\*(.*)\*\//', ' ', $content);
