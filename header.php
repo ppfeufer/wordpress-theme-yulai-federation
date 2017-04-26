@@ -167,6 +167,13 @@
 						</div>
 						<?php
 					} // END if(has_nav_menu('main-menu'))
+					?>
+				</div><!-- /.container -->
+			</div><!-- /.top-main-menu -->
+
+			<div class="stage">
+				<div class="container">
+					<?php
 					if(\is_single() && \get_post_type() === 'post' && \has_post_thumbnail()) {
 						?>
 						<figure class="post-header-image">
@@ -180,13 +187,14 @@
 						</figure>
 						<?php
 					} // END if(\get_post_type() === 'post' && \has_post_thumbnail())
+
 					/**
 					 * Render our Slider, if we have one
 					 */
 					\do_action('yf_render_header_slider');
 					?>
-				</div><!-- /.container -->
-			</div><!-- /.top-main-menu -->
+				</div>
+			</div>
 		</header>
 		<!-- End Header. Begin Template Content -->
 
