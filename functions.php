@@ -122,7 +122,7 @@ if(!isset($content_width)) {
 /**
  * Enqueue JavaScripts
  */
-if(!\function_exists('yf_enqueue_scripts')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
 	function yf_enqueue_scripts() {
 		/**
 		 * Adds JavaScript to pages with the comment form to support
@@ -162,7 +162,7 @@ if(!\function_exists('yf_enqueue_scripts')) {
 /**
  * Enqueue Styles
  */
-if(!\function_exists('yf_enqueue_styles')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_styles')) {
 	function yf_enqueue_styles() {
 		$enqueue_style = Helper\ThemeHelper::getThemeStyleSheets();
 
@@ -191,7 +191,7 @@ if(!\function_exists('yf_enqueue_styles')) {
 	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
 } // END if(!\function_exists('yf_enqueue_styles'))
 
-if(!\function_exists('yf_enqueue_admin_styles')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles')) {
 	function yf_enqueue_admin_styles() {
 		$enqueue_style = Helper\ThemeHelper::getThemeAdminStyleSheets();
 
@@ -218,7 +218,7 @@ if(!\function_exists('yf_enqueue_admin_styles')) {
 	} // END function yf_enqueue_admin_styles()
 
 	\add_action('admin_init', '\\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles');
-} // END if(!function_exists('\yf_enqueue_styles'))
+} // END if(!function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_styles'))
 
 /**
  * Theme Setup
@@ -327,7 +327,7 @@ function yf_title_separator($separator) {
  *
  * @return string Font stylesheet or empty string if disabled.
  */
-if(!\function_exists('yf_fonts_url')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_fonts_url')) {
 	function yf_fonts_url() {
 		$fonts_url = '';
 
@@ -365,42 +365,42 @@ if(!\function_exists('yf_fonts_url')) {
 
 		return $fonts_url;
 	} // END function yf_fonts_url()
-} // END if(!\function_exists('yf_fonts_url'))
+} // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_fonts_url'))
 
 /**
  * Adding the clearfix CSS class to every paragraph in .entry-content
  */
-if(!\function_exists('yf_paragraph_clearfix')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix')) {
 	function yf_paragraph_clearfix($content) {
 		return \preg_replace('/<p([^>]+)?>/', '<p$1 class="clearfix">', $content);
 	} // END function yf_paragraph_clearfix($content)
 
 //	\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix');
-} // END if(!\function_exists('yf_paragraph_clearfix'))
+} // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix'))
 
 /**
  * Picking up teh first paragraph from the_content
  */
-if(!\function_exists('yf_first_paragraph')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph')) {
 	function yf_first_paragraph($content) {
 		return \preg_replace('/<p([^>]+)?>/', '<p$1 class="intro">', $content, 1);
 	} // END function yf_first_paragraph($content)
 
 //	\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_first_paragraph');
-} // END if(!\function_exists('yf_first_paragraph'))
+} // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph'))
 
 /**
  * Adding a CSS class to the excerpt
  * @param string $excerpt
  * @return string
  */
-if(!\function_exists('yf_add_class_to_excerpt')) {
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt')) {
 	function yf_add_class_to_excerpt($excerpt) {
 		return \str_replace('<p', '<p class="excerpt"', $excerpt);
 	} // END function yf_add_class_to_excerpt($excerpt)
 
 	\add_filter('the_excerpt', '\\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt');
-} // END if(!\function_exists('yf_add_class_to_excerpt'))
+} // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt'))
 
 /**
  * Define theme's widget areas.
