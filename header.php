@@ -13,6 +13,7 @@
 		<link rel="manifest" href="<?php echo \get_theme_file_uri('/icons/manifest.json'); ?>">
 		<link rel="mask-icon" href="<?php echo \get_theme_file_uri('/icons/safari-pinned-tab.svg'); ?>" color="#5bbad5">
 		<link rel="shortcut icon" href="<?php echo \get_theme_file_uri('/icons/favicon.ico'); ?>">
+		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-config" content="<?php echo \get_theme_file_uri('/icons/browserconfig.xml'); ?>">
 		<meta name="theme-color" content="#ffffff">
 
