@@ -155,9 +155,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
 			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_script as $script)
 	} // END function yf_enqueue_styles()
-
-	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_scripts');
 } // END if(!\function_exists('yf_enqueue_scripts'))
+\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_scripts');
 
 /**
  * Enqueue Styles
@@ -187,9 +186,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_styles')) {
 			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_style as $style)
 	} // END function yf_enqueue_styles()
-
-	\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
 } // END if(!\function_exists('yf_enqueue_styles'))
+\add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
 
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles')) {
 	function yf_enqueue_admin_styles() {
@@ -216,9 +214,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles'
 			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_style as $style)
 	} // END function yf_enqueue_admin_styles()
-
-	\add_action('admin_init', '\\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles');
 } // END if(!function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_styles'))
+\add_action('admin_init', '\\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles');
 
 /**
  * Theme Setup
@@ -304,10 +301,12 @@ function yf_theme_setup() {
 } // END function yf_theme_setup()
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
 
-function yf_title_separator($separator) {
-	$separator = '»';
+if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_title_separator')) {
+	function yf_title_separator($separator) {
+		$separator = '»';
 
-	return $separator;
+		return $separator;
+	}
 }
 \add_filter('document_title_separator', '\\WordPress\Themes\YulaiFederation\yf_title_separator');
 
@@ -374,9 +373,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix'))
 	function yf_paragraph_clearfix($content) {
 		return \preg_replace('/<p([^>]+)?>/', '<p$1 class="clearfix">', $content);
 	} // END function yf_paragraph_clearfix($content)
-
-//	\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix');
 } // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix'))
+//\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix');
 
 /**
  * Picking up teh first paragraph from the_content
@@ -385,9 +383,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph')) {
 	function yf_first_paragraph($content) {
 		return \preg_replace('/<p([^>]+)?>/', '<p$1 class="intro">', $content, 1);
 	} // END function yf_first_paragraph($content)
-
-//	\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_first_paragraph');
 } // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph'))
+//\add_filter('the_content', '\\WordPress\Themes\YulaiFederation\yf_first_paragraph');
 
 /**
  * Adding a CSS class to the excerpt
@@ -398,9 +395,8 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt'
 	function yf_add_class_to_excerpt($excerpt) {
 		return \str_replace('<p', '<p class="excerpt"', $excerpt);
 	} // END function yf_add_class_to_excerpt($excerpt)
-
-	\add_filter('the_excerpt', '\\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt');
 } // END if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt'))
+\add_filter('the_excerpt', '\\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt');
 
 /**
  * Define theme's widget areas.
@@ -556,9 +552,11 @@ function yf_widgets_init() {
 /**
  * Replaces the excerpt "more" text by a link
  */
-function yf_excerpt_more($more) {
-	return ' ... <br/><a class="read-more" href="'. \get_permalink(\get_the_ID()) . '">'.__('Read More', 'yulai-federation').'</a>';
-} // END function yf_excerpt_more($more)
+if(!function_exists('\WordPress\Themes\YulaiFederation\yf_excerpt_more')) {
+	function yf_excerpt_more($more) {
+		return ' ... <br/><a class="read-more" href="'. \get_permalink(\get_the_ID()) . '">'.__('Read More', 'yulai-federation').'</a>';
+	} // END function yf_excerpt_more($more)
+}
 \add_filter('excerpt_more', '\\WordPress\Themes\YulaiFederation\yf_excerpt_more');
 
 /**

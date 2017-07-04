@@ -116,14 +116,14 @@ class ThemeHelper {
 			),
 
 			/* Modernizr */
-//			'Modernizr' => array(
-//				'handle' => 'modernizr',
-//				'source' => \get_theme_file_uri('/js/modernizr.min.js'),
-//				'source-development' => \get_theme_file_uri('/js/modernizr.js'),
-//				'deps' => '',
-//				'version' => '',
-//				'in_footer' => true
-//			),
+			'Modernizr' => array(
+				'handle' => 'modernizr',
+				'source' => \get_theme_file_uri('/js/modernizr.min.js'),
+				'source-development' => \get_theme_file_uri('/js/modernizr.js'),
+				'deps' => '',
+				'version' => '',
+				'in_footer' => true
+			),
 
 			/* Bootstrap's JS */
 			'Bootstrap' => array(
