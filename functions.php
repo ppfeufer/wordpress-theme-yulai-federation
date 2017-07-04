@@ -122,7 +122,7 @@ if(!isset($content_width)) {
 /**
  * Enqueue JavaScripts
  */
-if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
+//if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
 	function yf_enqueue_scripts() {
 		/**
 		 * Adds JavaScript to pages with the comment form to support
@@ -132,7 +132,7 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
 			\wp_enqueue_script('comment-reply');
 		} // END if(\is_singular() && \comments_open() && \get_option('thread_comments'))
 
-		$enqueue_script = Helper\ThemeHelper::getThemeJavaScripts();
+		$enqueue_script = yf_get_javascripts();
 
 		/**
 		 * Loop through the JS array and load the scripts
@@ -155,39 +155,49 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_scripts')) {
 			} // END if(!empty($script['condition']))
 		} // END foreach($enqueue_script as $script)
 	} // END function yf_enqueue_styles()
-} // END if(!\function_exists('yf_enqueue_scripts'))
+//} // END if(!\function_exists('yf_enqueue_scripts'))
 \add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_scripts');
+
+if(!function_exists('\WordPress\Themes\YulaiFederation\yf_get_javascripts')) {
+	function yf_get_javascripts() {
+		return Helper\ThemeHelper::getThemeJavaScripts();
+	}
+}
 
 /**
  * Enqueue Styles
  */
-if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_styles')) {
-	function yf_enqueue_styles() {
-		$enqueue_style = Helper\ThemeHelper::getThemeStyleSheets();
+function yf_enqueue_styles() {
+	$enqueue_style = yf_get_stylesheets();
 
-		/**
-		 * Loop through the CSS array and load the styles
-		 */
-		foreach($enqueue_style as $style) {
-			if(\preg_match('/development/', \APPLICATION_ENV)) {
-				// for external styles we might not have a development source
-				if(!isset($style['source-development'])) {
-					$style['source-development'] = $style['source'];
-				} // END if(!isset($style['source-development']))
+	/**
+	 * Loop through the CSS array and load the styles
+	 */
+	foreach($enqueue_style as $style) {
+		if(\preg_match('/development/', \APPLICATION_ENV)) {
+			// for external styles we might not have a development source
+			if(!isset($style['source-development'])) {
+				$style['source-development'] = $style['source'];
+			} // END if(!isset($style['source-development']))
 
-				\wp_enqueue_style($style['handle'], $style['source-development'], $style['deps'], $style['version'], $style['media']);
-			} else {
-				\wp_enqueue_style($style['handle'], $style['source'], $style['deps'], $style['version'], $style['media']);
-			} // END if(\preg_match('/development/', \APPLICATION_ENV))
+			\wp_enqueue_style($style['handle'], $style['source-development'], $style['deps'], $style['version'], $style['media']);
+		} else {
+			\wp_enqueue_style($style['handle'], $style['source'], $style['deps'], $style['version'], $style['media']);
+		} // END if(\preg_match('/development/', \APPLICATION_ENV))
 
-			// conditional styles
-			if(!empty($style['condition'])) {
-				\wp_style_add_data($style['handle'], $style['condition']['conditionKey'], $style['condition']['conditionValue']);
-			} // END if(!empty($script['condition']))
-		} // END foreach($enqueue_style as $style)
-	} // END function yf_enqueue_styles()
-} // END if(!\function_exists('yf_enqueue_styles'))
+		// conditional styles
+		if(!empty($style['condition'])) {
+			\wp_style_add_data($style['handle'], $style['condition']['conditionKey'], $style['condition']['conditionValue']);
+		} // END if(!empty($script['condition']))
+	} // END foreach($enqueue_style as $style)
+} // END function yf_enqueue_styles()
 \add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_styles');
+
+if(!function_exists('\WordPress\Themes\YulaiFederation\yf_get_stylesheets')) {
+	function yf_get_stylesheets() {
+		return Helper\ThemeHelper::getThemeStyleSheets();
+	}
+}
 
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles')) {
 	function yf_enqueue_admin_styles() {
