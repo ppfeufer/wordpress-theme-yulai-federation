@@ -378,9 +378,10 @@ class ThemeSettings {
 			'title' => \__('Cron Jobs', 'yulai-federation'),
 			'type' => 'checkbox',
 			'choices' => array(
-				'cleanupThemeImageCache' => \__('Use a cronjob to clear the image cache once a day.', 'yulai-federation')
+				'cleanupThemeImageCache' => \__('Use a cronjob to clear the image cache once a day.', 'yulai-federation'),
+				'cleanupTransientCache' => \__('Use a cronjob to clear the database transient cache once a day.', 'yulai-federation')
 			),
-			'description' => \__('If checked a WordPress cron will be initialized to clean up the image cache once a day. (Default: off)', 'yulai-federation')
+			'description' => \__('If checked a WordPress cron will be initialized to run te selected task(s). (Default: off)', 'yulai-federation')
 		);
 	} // END private function getCronField()
 

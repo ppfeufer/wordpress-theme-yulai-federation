@@ -31,6 +31,10 @@ class Cron {
 			'Cleanup Image Cache' => array(
 				'hook' => 'cleanupThemeImageCache',
 				'recurrence' => 'daily'
+			),
+			'Cleanup Transient Database Cache' => array(
+				'hook' => 'cleanupTransientCache',
+				'recurrence' => 'daily'
 			)
 		);
 	} // END public function getTemeCronEvents()
@@ -95,4 +99,17 @@ class Cron {
 
 		YulaiFederation\Helper\FilesystemHelper::deleteDirectoryRecursive($imageCacheDirectory, false);
 	} // END public function cronCleanupCacheDirectories()
+
+	/**
+	 * Cron Job: cleanupTransientCache
+	 * Schedule: Daily
+	 *
+	 * @global type $wpdb
+	 */
+	public function cronCleanupTransientCache() {
+		global $wpdb;
+
+		$wpdb->query('DELETE FROM `' . $wpdb->prefix . 'options' . '` WHERE `option_name` LIKE (\'_transient_%\');');
+		$wpdb->query('DELETE FROM `' . $wpdb->prefix . 'options' . '` WHERE `option_name` LIKE (\'_site_transient_%\');');
+	} // END public function cronCleanupTransientCache()
 } // END class Cron
