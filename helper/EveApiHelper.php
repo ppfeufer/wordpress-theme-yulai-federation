@@ -172,7 +172,7 @@ class EveApiHelper {
 	public function getCharacterImageByName($name, $imageOnly = true, $size = 128) {
 		$entitieID = $this->getEveIdFromName($name);
 
-		if($entitieID == 0) {
+		if($entitieID == 0 || $entitieID === false) {
 			return false;
 		} // END if($entitieID == 0)
 
