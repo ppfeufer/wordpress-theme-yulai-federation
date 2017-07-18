@@ -22,7 +22,7 @@ class Shortcodes {
 		\add_shortcode('four_columns_two', array($this, 'shortcodeFourColumnsTwo'));
 		\add_shortcode('four_columns_three', array($this, 'shortcodeFourColumnsThree'));
 		\add_shortcode('divider', array($this, 'shortcodeDivider'));
-		\add_shortcode('button', array($this, 'shortcodeButton'));
+//		\add_shortcode('button', array($this, 'shortcodeButton'));
 		\add_shortcode('credits', array($this, 'shortcodeCredits'));
 	} // END public function registerShortcodes()
 
@@ -200,23 +200,23 @@ class Shortcodes {
 		return '<div class="divider"></div>';
 	} // END public function shortcodeDivider($atts, $content = null)
 
-	public function shortcodeButton($atts, $content = null) {
-		$attributes = \shortcode_atts(array(
-			'type' => 'standard',
-			'link' => '#',
-			'target' => '_self',
-			'size' => '',
-		), $atts);
-
-		$type = (!empty($attributes['type'])) ? ' btn-' . $attributes['type'] : '';
-		$link = $attributes['link'];
-		$target = $attributes['target'];
-		$size = (!empty($attributes['size'])) ? ' btn-' . $attributes['size'] : '';
-
-		$output = '<a class="btn ' . $type . $size . '" href="' . $link . '" target="' . $target . '"><span>' . $this->removeAutopInShortcode($content) . '</span></a>';
-
-		return $output;
-	} // END public function shortcodeButton($atts, $content = null)
+//	public function shortcodeButton($atts, $content = null) {
+//		$attributes = \shortcode_atts(array(
+//			'type' => 'standard',
+//			'link' => '#',
+//			'target' => '_self',
+//			'size' => '',
+//		), $atts);
+//
+//		$type = (!empty($attributes['type'])) ? ' btn-' . $attributes['type'] : '';
+//		$link = $attributes['link'];
+//		$target = $attributes['target'];
+//		$size = (!empty($attributes['size'])) ? ' btn-' . $attributes['size'] : '';
+//
+//		$output = '<a class="btn ' . $type . $size . '" href="' . $link . '" target="' . $target . '"><span>' . $this->removeAutopInShortcode($content) . '</span></a>';
+//
+//		return $output;
+//	} // END public function shortcodeButton($atts, $content = null)
 
 	public function shortcodeCredits($atts, $content = null) {
 		$attributes = \shortcode_atts(array(
