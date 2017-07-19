@@ -2,7 +2,7 @@
 Theme Name: Yulai Federation
 Theme URI: https://github.com/ppfeufer/eve-online-wordpress-theme
 Description: A beatyfull WordPress Theme for the Provibloc Alliance "Yulai Federation"
-Version: 0.1-r20170718
+Version: 0.1-r20170719
 Author: YF [TN-NT] Rounon Dax
 Author URI: http://yulaifederation.net
 License: GNU General Public License v2 or later
@@ -474,13 +474,6 @@ Domain Path: /l10n
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		-moz-transform: translate(-50%, -50%);
-		-ms-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
-
-	.mobile-nav .caret i {
 		display: block;
 		width: 0.625rem;
 		height: 0.625rem;
@@ -491,6 +484,13 @@ Domain Path: /l10n
 		border: 2px solid currentColor;
 		border-width: 0 2px 2px 0;
 		transition: all 0.2s;
+	}
+
+	.mobile-nav .open .caret i {
+		-webkit-transform: translate(-50%, -50%) rotate(225deg);
+		-moz-transform: translate(-50%, -50%) rotate(225deg);
+		-ms-transform: translate(-50%, -50%) rotate(225deg);
+		transform: translate(-50%, -50%) rotate(225deg);
 	}
 
 	.header-menu span.caret, .footer-menu span.caret {
