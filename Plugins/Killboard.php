@@ -20,14 +20,12 @@ class Killboard {
 	/**
 	 * constructor
 	 */
-	public function __construct($init = false) {
-		if($init === true) {
-			$this->initPlugin();
-		} // END if($init === true)
+	public function __construct() {
+		;
 	} // END public function __construct()
 
-	private function initPlugin() {
-		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+	public function initPlugin() {
+		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 		$this->pluginSettings = \get_option('yulai_theme_killboard_plugin_options', $this->getDefaultPluginOptions());
 
 		// backend actions

@@ -89,7 +89,7 @@ class EdkKillboardHelper {
 
 	private function getVictimImage($victimName, $shipID, $size = 512) {
 		if(\preg_match('/Control Tower/', $victimName)) {
-			$victimImage = '<img src="' . YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png') . '" class="eve-character-image eve-online-id-' . $shipID . '">';
+			$victimImage = '<img src="' . YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png') . '" class="eve-character-image eve-online-id-' . $shipID . '">';
 		} else {
 //			$victimImage = $this->eveApi->getCharacterImageByName($victimName, true, $size);
 			$victimImage = $this->eveApi->getCharacterImageByName($victimName, false, $size);
@@ -99,7 +99,7 @@ class EdkKillboardHelper {
 	} // END private function getVictimImage($victimName, $shipID, $size = 512)
 
 	private function getStructureImage($shipID, $size = 512) {
-		$victimImage = '<img src="' . YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png') . '" class="eve-character-image eve-online-id-' . $shipID . '">';
+		$victimImage = '<img src="' . YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $shipID . '_' . $size . '.png') . '" class="eve-character-image eve-online-id-' . $shipID . '">';
 
 		return $victimImage;
 	} // END private function getCitadelImage($shipID, $size = 512)

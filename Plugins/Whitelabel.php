@@ -41,7 +41,7 @@ class Whitelabel {
 	} // END function __construct()
 
 	private function getBackgroundImage() {
-		return YulaiFederation\Helper\ThemeHelper::getThemeBackgroundImage();
+		return YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeBackgroundImage();
 	} // END private function getBackgroundImage()
 
 	/**

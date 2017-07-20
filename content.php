@@ -30,8 +30,8 @@ defined('ABSPATH') or die();
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
-				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
+				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostMetaInformation();
+				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostCategoryAndTags();
 				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 			</p>
@@ -50,7 +50,7 @@ defined('ABSPATH') or die();
 			?>
 			<div class="entry-content clearfix">
 				<?php
-				echo \wpautop(\do_shortcode(\WordPress\Themes\YulaiFederation\Helper\StringHelper::cutString(\get_the_content(), '140')));
+				echo \wpautop(\do_shortcode(\WordPress\Themes\YulaiFederation\Helper\StringHelper::getInstance()->cutString(\get_the_content(), '140')));
 				\printf('<a href="%1$s"><span class="read-more">' . \__('Read more', 'yulai-federation') . '</span></a>', \get_the_permalink());
 
 //				if(isset($options['excerpts'])) {

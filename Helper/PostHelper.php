@@ -5,8 +5,42 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 \defined('ABSPATH') or die();
 
 class PostHelper {
-	public static function getPostMetaInformation() {
-		$options = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
+	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+	public function getPostMetaInformation() {
+		$options = \get_option('yulai_theme_options', ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 		if(!empty($options['show_post_meta']['yes'])) {
 			\printf(\__('Posted on <time class="entry-date" datetime="%3$s">%4$s</time><span class="byline"> <span class="sep"> by </span> <span class="author vcard">%7$s</span></span>', 'yulai-federation'),
@@ -26,8 +60,8 @@ class PostHelper {
 	/**
 	 * Display template for post categories and tags
 	 */
-	public static function getPostCategoryAndTags() {
-		$options = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
+	public function getPostCategoryAndTags() {
+		$options = \get_option('yulai_theme_options', ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 		if(!empty($options['show_post_meta']['yes'])) {
 			\printf('<span class="cats_tags"><span class="glyphicon glyphicon-folder-open" title="My tip"></span><span class="cats">');
@@ -47,7 +81,7 @@ class PostHelper {
 	/**
 	 * Display template for comments and pingbacks.
 	 */
-	public static function getComments($comment, $args, $depth) {
+	public function getComments($comment, $args, $depth) {
 		switch($comment->comment_type) {
 			case 'pingback' :
 			case 'trackback' :
@@ -125,12 +159,12 @@ class PostHelper {
 		} // END switch ($comment->comment_type)
 	} // END public static function getComments()
 
-	public static function getHeaderColClasses($echo = false) {
-		if(ThemeHelper::hasSidebar('header-widget-area')) {
+	public function getHeaderColClasses($echo = false) {
+		if(ThemeHelper::getInstance()->hasSidebar('header-widget-area')) {
 			$contentColClass = 'col-xs-12 col-sm-9 col-md-6 col-lg-6';
 		} else {
 			$contentColClass = 'col-xs-12 col-sm-9 col-md-9 col-lg-9';
-		} // END if(Helper\ThemeHelper::hasSidebar('header-widget-area'))
+		} // END if(Helper\ThemeHelper::getInstance()->hasSidebar('header-widget-area'))
 
 		if($echo === true) {
 			echo $contentColClass;
@@ -139,19 +173,19 @@ class PostHelper {
 		} // END if($echo === true)
 	} // END public static function getHeaderColClasses($echo = false)
 
-	public static function getMainContentColClasses($echo = false) {
+	public function getMainContentColClasses($echo = false) {
 		if(\is_page() || \is_home()) {
-			if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 				$contentColClass = 'col-lg-9 col-md-9 col-sm-9 col-9';
 			} else {
 				$contentColClass = 'col-lg-12 col-md-12 col-sm-12 col-12';
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		} else {
-			if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
 				$contentColClass = 'col-lg-9 col-md-9 col-sm-9 col-9';
 			} else {
 				$contentColClass = 'col-lg-12 col-md-12 col-sm-12 col-12';
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		}
 
 		if($echo === true) {
@@ -161,19 +195,19 @@ class PostHelper {
 		} // END if($echo === true)
 	} // END public static function getMainContentColClasses($echo = false)
 
-	public static function getLoopContentClasses($echo = false) {
+	public function getLoopContentClasses($echo = false) {
 		if(\is_page() || \is_home()) {
-			if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 				$contentColClass = 'col-lg-4 col-md-6 col-sm-12 col-xs-12';
 			} else {
 				$contentColClass = 'col-lg-3 col-md-4 col-sm-6 col-xs-12';
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general'))
 		} else {
-			if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
 				$contentColClass = 'col-lg-4 col-md-6 col-sm-12 col-xs-12';
 			} else {
 				$contentColClass = 'col-lg-3 col-md-4 col-sm-6 col-xs-12';
-			} // END if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		} // END if(\is_page())
 
 		if($echo === true) {
@@ -183,19 +217,19 @@ class PostHelper {
 		} // END if($echo === true)
 	} // END public static function geLoopContentClasses($echo = false)
 
-	public static function getArticleNavigationPanelClasses($echo = false) {
+	public function getArticleNavigationPanelClasses($echo = false) {
 		if(\is_page() || \is_home()) {
-			if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 				$contentColClass = 'col-lg-4 col-md-6 col-sm-6 col-xs-6';
 			} else {
 				$contentColClass = 'col-lg-3 col-md-4 col-sm-6 col-xs-6';
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		} else {
-			if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
 				$contentColClass = 'col-lg-4 col-md-6 col-sm-6 col-xs-6';
 			} else {
 				$contentColClass = 'col-lg-3 col-md-4 col-sm-6 col-xs-6';
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		} // END if(\is_page())
 
 		if($echo === true) {
@@ -205,19 +239,19 @@ class PostHelper {
 		} // END if($echo === true)
 	} // END function public static function getArticleNavigationPanelClasses($echo = false)
 
-	public static function getContentColumnCount($echo = false) {
+	public function getContentColumnCount($echo = false) {
 		if(\is_page() || \is_home()) {
-			if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 				$columnCount = 3;
 			} else {
 				$columnCount = 4;
-			} // END if(ThemeHelper::hasSidebar('sidebar-page') || ThemeHelper::hasSidebar('sidebar-general'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-page') || ThemeHelper::getInstance()->hasSidebar('sidebar-general'))
 		} else {
-			if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post')) {
+			if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
 				$columnCount = 3;
 			} else {
 				$columnCount = 4;
-			} // END if(ThemeHelper::hasSidebar('sidebar-general') || ThemeHelper::hasSidebar('sidebar-post'))
+			} // END if(ThemeHelper::getInstance()->hasSidebar('sidebar-general') || ThemeHelper::getInstance()->hasSidebar('sidebar-post'))
 		} // END if(\is_page())
 
 		if($echo === true) {
@@ -233,14 +267,14 @@ class PostHelper {
 	 * @param int $postID ID of the post
 	 * @return boolean
 	 */
-	public static function hasContent($postID) {
+	public function hasContent($postID) {
 		$content_post = \get_post($postID);
 		$content = $content_post->post_content;
 
 		return \trim(\str_replace('&nbsp;','',  \strip_tags($content))) !== '';
 	} // END public static function hasContent($postID)
 
-	public static function getExcerptById($postID, $excerptLength = 35) {
+	public function getExcerptById($postID, $excerptLength = 35) {
 		$the_post = \get_post($postID); //Gets post ID
 		$the_excerpt = $the_post->post_content; //Gets post_content to be used as a basis for the excerpt
 		$the_excerpt = \strip_tags(\strip_shortcodes($the_excerpt)); //Strips tags and images

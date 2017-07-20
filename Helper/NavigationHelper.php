@@ -6,12 +6,46 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 
 class NavigationHelper {
 	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+	/**
 	 * Display page next/previous navigation links.
 	 *
 	 * @global object $wp_query
 	 * @param int $nav_id
 	 */
-	public static function getContentNav($nav_id) {
+	public function getContentNav($nav_id) {
 		global $wp_query;
 
 		if($wp_query->max_num_pages > 1) {
@@ -39,7 +73,7 @@ class NavigationHelper {
 	 * @param int    $max_page Optional. Max pages. Default 0.
 	 * @return string|void HTML-formatted next posts page link.
 	 */
-	public static function getNextPostsLink($label = null, $max_page = 0, $echo = false, $wp_query = null) {
+	public function getNextPostsLink($label = null, $max_page = 0, $echo = false, $wp_query = null) {
 		global $paged;
 
 		if($wp_query === null) {
@@ -87,7 +121,7 @@ class NavigationHelper {
 	 * @param bool $echo Optional. echoing or returning the link.
 	 * @return string|void HTML-formatted previous page link.
 	 */
-	public static function getPreviousPostsLink($label = null, $echo = false) {
+	public function getPreviousPostsLink($label = null, $echo = false) {
 		global $paged;
 
 		if(null === $label) {
@@ -122,7 +156,7 @@ class NavigationHelper {
 	 * @param boolean $echo
 	 * @return string
 	 */
-	public static function getBreadcrumbNavigation($addTexts = true, $echo = false) {
+	public function getBreadcrumbNavigation($addTexts = true, $echo = false) {
 		$home = __('Home', 'yulai-federation'); // text for the 'Home' link
 		$before = '<li class="active">'; // tag before the current crumb
 		$sep = '';
@@ -246,7 +280,7 @@ class NavigationHelper {
 	 * @package WordPress
 	 * @subpackage Yulai Federation Theme
 	 */
-	public static function getArticleNavigation($echo = false) {
+	public function getArticleNavigation($echo = false) {
 		$htmlOutput = null;
 		$previousPostObject = \get_previous_post();
 		$nextPostObject = \get_next_post();
@@ -256,7 +290,7 @@ class NavigationHelper {
 
 		$htmlOutput .= '<div class="row clearfix">';
 		if($previousPostObject) {
-			$htmlOutput .= '<div class="nav-previous ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getArticleNavigationPanelClasses() . ' pull-left clearfix">';
+			$htmlOutput .= '<div class="nav-previous ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getArticleNavigationPanelClasses() . ' pull-left clearfix">';
 			$htmlOutput .= '<div class="nav-previous-link">' . \get_previous_post_link('%link', \__('<span class="meta-nav">&larr;</span> Previous Article', 'yulai-federation')) . '</div>';
 
 			if(\has_post_thumbnail($previousPostObject->ID)) {
@@ -275,7 +309,7 @@ class NavigationHelper {
 				$htmlOutput .= '</a>';
 				$htmlOutput .= '</div>';
 			} else {
-				// Article Image Plaveholder. We don't have it yet ....
+				// Article Image Placeholder. We don't have it yet ....
 //				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($previousPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . \esc_html($previousPostObject->post_title) . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
 			} // END if(\has_post_thumbnail($obj_PreviousPost->ID))
 
@@ -284,7 +318,7 @@ class NavigationHelper {
 		} // END if($obj_PreviousPost)
 
 		if($nextPostObject) {
-			$htmlOutput .= '<div class="nav-next ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getArticleNavigationPanelClasses() . ' pull-right text-align-right clearfix">';
+			$htmlOutput .= '<div class="nav-next ' . \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getArticleNavigationPanelClasses() . ' pull-right text-align-right clearfix">';
 			$htmlOutput .= '<div class="nav-next-link">' . \get_next_post_link('%link', \__('Next Article <span class="meta-nav">&rarr;</span>', 'yulai-federation')) . '</div>';
 
 			if(\has_post_thumbnail($nextPostObject->ID)) {
@@ -303,7 +337,7 @@ class NavigationHelper {
 				$htmlOutput .= '</a>';
 				$htmlOutput .= '</div>';
 			} else {
-				// Article Image Plaveholder. We don't have it yet ....
+				// Article Image Placeholder. We don't have it yet ....
 //				$htmlOutput .= '<a class="related-article-header" href="' . \get_permalink($nextPostObject->ID) . '" rel="bookmark" title="' . \__('Permanent link to: ', 'yulai-federation') . \esc_html($nextPostObject->post_title) . '"><img width="251" height="115" title="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" alt="' . \__('Placeholder Postthumbnail Related Article', 'yulai-federation') . '" class="attachment-related-article wp-post-image" src="' . get_theme_file_uri('/images/placeholder/postthumbnail-related-article.jpg') . '" /></a>';
 			} // END if(has_post_thumbnail($obj_NextPost->ID))
 

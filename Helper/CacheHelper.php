@@ -6,12 +6,47 @@ use WordPress\Themes\YulaiFederation;
 
 class CacheHelper {
 	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+	/**
 	 * Getting the absolute path for the cache directory
 	 *
 	 * @return string absolute path for the cache directory
 	 */
-	public static function getThemeCacheDir() {
-		return \trailingslashit(\WP_CONTENT_DIR) . 'cache/themes/' . \sanitize_title(ThemeHelper::getThemeName());
+//	public static function getThemeCacheDir() {
+	public function getThemeCacheDir() {
+		return \trailingslashit(\WP_CONTENT_DIR) . 'cache/themes/' . \sanitize_title(ThemeHelper::getInstance()->getThemeName());
 	} // END public static function getThemeCacheDir()
 
 	/**
@@ -19,8 +54,9 @@ class CacheHelper {
 	 *
 	 * @return string URI for the cache directory
 	 */
-	public static function getThemeCacheUri() {
-		return \trailingslashit(\WP_CONTENT_URL) . 'cache/themes/' . \sanitize_title(ThemeHelper::getThemeName());
+//	public static function getThemeCacheUri() {
+	public function getThemeCacheUri() {
+		return \trailingslashit(\WP_CONTENT_URL) . 'cache/themes/' . \sanitize_title(ThemeHelper::getInstance()->getThemeName());
 	} // END public static function getThemeCacheUri()
 
 	/**
@@ -28,8 +64,9 @@ class CacheHelper {
 	 *
 	 * @return string Local image cache directory
 	 */
-	public static function getImageCacheDir() {
-		return \trailingslashit(self::getThemeCacheDir() . '/images');
+//	public static function getImageCacheDir() {
+	public function getImageCacheDir() {
+		return \trailingslashit($this->getThemeCacheDir() . '/images');
 	} // END public static function getImageCacheDir()
 
 	/**
@@ -37,8 +74,9 @@ class CacheHelper {
 	 *
 	 * @return string Local image cache URI
 	 */
-	public static function getImageCacheUri() {
-		return \trailingslashit(self::getThemeCacheUri() . '/images');
+//	public static function getImageCacheUri() {
+	public function getImageCacheUri() {
+		return \trailingslashit($this->getThemeCacheUri() . '/images');
 	} // END public static function getImageCacheUri()
 
 	/**
@@ -46,8 +84,9 @@ class CacheHelper {
 	 *
 	 * @return string URI for the EVE API cache directory
 	 */
-	public static function getEveApiCacheDir() {
-		return \trailingslashit(self::getThemeCacheDir() . '/eve-api');
+//	public static function getEveApiCacheDir() {
+	public function getEveApiCacheDir() {
+		return \trailingslashit($this->getThemeCacheDir() . '/eve-api');
 	} // END public static function getEveApiCacheDir()
 
 	/**
@@ -55,21 +94,23 @@ class CacheHelper {
 	 *
 	 * @return string Local EVE API cache URI
 	 */
-	public static function getEveApiCacheUri() {
-		return \trailingslashit(self::getThemeCacheUri() . '/eve-api');
+//	public static function getEveApiCacheUri() {
+	public function getEveApiCacheUri() {
+		return \trailingslashit($this->getThemeCacheUri() . '/eve-api');
 	} // END public static function getEveApiCacheUri()
 
 	/**
 	 * creating our needed cache directories under:
 	 *		/wp-content/cache/themes/«theme-name»/
 	 */
-	public static function createCacheDirectory($directory = '') {
+//	public static function createCacheDirectory($directory = '') {
+	public function createCacheDirectory($directory = '') {
 		$wpFileSystem =  new \WP_Filesystem_Direct(null);
 
 		if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir())) {
-			if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory)) {
-				$wpFileSystem->mkdir(\trailingslashit(self::getThemeCacheDir()) . $directory, 0755);
-			} // END if(!$wpFileSystem->is_dir(\trailingslashit(self::getThemeCacheDir()) . $directory))
+			if(!$wpFileSystem->is_dir(\trailingslashit($this->getThemeCacheDir()) . $directory)) {
+				$wpFileSystem->mkdir(\trailingslashit($this->getThemeCacheDir()) . $directory, 0755);
+			} // END if(!$wpFileSystem->is_dir(\trailingslashit($this->getThemeCacheDir()) . $directory))
 		} // END if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir()))
 	} // END public static function createCacheDirectories()
 
@@ -80,8 +121,9 @@ class CacheHelper {
 	 * @param string $imageName The image file name
 	 * @return boolean true or false
 	 */
-	public static function checkCachedImage($cacheType = null, $imageName = null) {
-		$cacheDir = \trailingslashit(self::getImageCacheDir() . $cacheType);
+//	public static function checkCachedImage($cacheType = null, $imageName = null) {
+	public function checkCachedImage($cacheType = null, $imageName = null) {
+		$cacheDir = \trailingslashit($this->getImageCacheDir() . $cacheType);
 
 		if(\file_exists($cacheDir . $imageName)) {
 			/**
@@ -110,8 +152,9 @@ class CacheHelper {
 	 * @param string $cacheType The subdirectory in the image cache filesystem
 	 * @param string $remoteImageUrl The URL for the remote image
 	 */
-	public static function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null) {
-		$cacheDir = \trailingslashit(self::getImageCacheDir() . $cacheType);
+//	public static function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null) {
+	public function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null) {
+		$cacheDir = \trailingslashit($this->getImageCacheDir() . $cacheType);
 		$explodedImageUrl = \explode('/', $remoteImageUrl);
 		$imageFilename = \end($explodedImageUrl);
 		$explodedImageFilename = \explode('.', $imageFilename);

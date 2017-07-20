@@ -19,7 +19,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 	private $eveApi = null;
 
 	public function __construct() {
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 	}
 
@@ -91,10 +91,10 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 
 			// let's check if a page actually has content ...
 			$hasContent = true;
-			if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::hasContent($item->object_id) === false) {
+			if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::getInstance()->hasContent($item->object_id) === false) {
 				$hasContent = false;
 				$class_names .= ' no-post-content';
-			} // END if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::hasContent($item->object_id) === false)
+			} // END if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::getInstance()->hasContent($item->object_id) === false)
 
 			$class_names = $class_names ? ' class="' . \esc_attr($class_names) . '"' : '';
 
@@ -152,7 +152,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 			$yf_page_corp_eve_ID = \get_post_meta($item->object_id, 'yf_page_corp_eve_ID', true);
 			if($yf_page_corp_eve_ID) {
 				if(isset($this->themeOptions['show_corp_logos']['show'])) {
-					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png');
+					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png');
 
 					$item_output .= '<a' . $attributes . '><span class="corp-' . \sanitize_title($item->title) . ' ' . \esc_attr($item->attr_title) . ' corp-eveID-' . $yf_page_corp_eve_ID . '"><img src="' . $corpLogoPath . '" width="24" height="24" alt="' . $item->title . '"></span>&nbsp;';
 				} else {

@@ -129,7 +129,7 @@ class EveApiHelper {
 			'32' => 'alliance'
 		);
 
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 	} // END public function __construct()
 
 	public function getImageServerUrl() {
@@ -158,7 +158,7 @@ class EveApiHelper {
 		$imageName = $entitieID . '_' . $size . '.png';
 		$ownerGroupID = $this->getEveGroupTypeFromName($name);
 
-		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage($this->entityGroups[$ownerGroupID], $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $imageName);
+		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage($this->entityGroups[$ownerGroupID], $this->imageserverUrl . $this->imageserverEndpoints[$this->entityGroups[$ownerGroupID]] . $imageName);
 
 		if($imageOnly === true) {
 			return $imagePath;
@@ -176,7 +176,7 @@ class EveApiHelper {
 			return false;
 		} // END if($entitieID == 0)
 
-		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $entitieID . '_' . $size. '.jpg');
+		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $entitieID . '_' . $size. '.jpg');
 
 		if($imageOnly === true) {
 			return $imagePath;
@@ -188,7 +188,7 @@ class EveApiHelper {
 	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
 
 	public function getCharacterImageById($id, $imageOnly = true, $size = 128) {
-		$imagePath = ImageHelper::getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $id . '_' . $size. '.jpg');
+		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', $this->imageserverUrl . $this->imageserverEndpoints['character'] . $id . '_' . $size. '.jpg');
 
 		if($imageOnly === true) {
 			return $imagePath;

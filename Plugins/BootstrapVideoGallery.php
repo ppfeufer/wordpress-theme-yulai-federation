@@ -104,7 +104,7 @@ class BootstrapVideoGallery {
 					$videoGalleryHtml .= '<header><h2 class="video-gallery-title"><a href="' . \get_permalink($child->ID) . '">' . $child->post_title . '</a></h2></header>';
 
 					if($child->post_content) {
-						$videoGalleryHtml .= '<p>' . YulaiFederation\Helper\StringHelper::cutString($child->post_content, '140') . '</p>';
+						$videoGalleryHtml .= '<p>' . YulaiFederation\Helper\StringHelper::getInstance()->cutString($child->post_content, '140') . '</p>';
 					} // END if($child->post_content)
 
 					$videoGalleryHtml .= '</li>';
@@ -136,7 +136,7 @@ class BootstrapVideoGallery {
 		$videoGalleryHtml .= '</div>';
 
 		if(empty($classes)) {
-			$classes = YulaiFederation\Helper\PostHelper::getLoopContentClasses();
+			$classes = YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses();
 		} // END if(empty($classes))
 
 		$videoGalleryHtml .= '<script type="text/javascript">
@@ -152,10 +152,10 @@ class BootstrapVideoGallery {
 			$videoGalleryHtml .= '<nav id="nav-videogallery" class="navigation post-navigation clearfix" role="navigation">';
 			$videoGalleryHtml .= '<h3 class="assistive-text">' . \__('Video Navigation', 'yulai-federation') . '</h3>';
 			$videoGalleryHtml .= '<div class="nav-previous pull-left">';
-			$videoGalleryHtml .= YulaiFederation\Helper\NavigationHelper::getNextPostsLink(\__('<span class="meta-nav">&larr;</span> Older Videos', 'yulai-federation'), 0, false, $videoPages);
+			$videoGalleryHtml .= YulaiFederation\Helper\NavigationHelper::getInstance()->getNextPostsLink(\__('<span class="meta-nav">&larr;</span> Older Videos', 'yulai-federation'), 0, false, $videoPages);
 			$videoGalleryHtml .= '</div>';
 			$videoGalleryHtml .= '<div class="nav-next pull-right">';
-			$videoGalleryHtml .= YulaiFederation\Helper\NavigationHelper::getPreviousPostsLink(\__('Newer Videos <span class="meta-nav">&rarr;</span>', 'yulai-federation'), false);
+			$videoGalleryHtml .= YulaiFederation\Helper\NavigationHelper::getInstance()->getPreviousPostsLink(\__('Newer Videos <span class="meta-nav">&rarr;</span>', 'yulai-federation'), false);
 			$videoGalleryHtml .= '</div>';
 			$videoGalleryHtml .= '</nav><!-- #nav-videogallery .navigation -->';
 		} // END if($videoPages->max_num_pages > 1)

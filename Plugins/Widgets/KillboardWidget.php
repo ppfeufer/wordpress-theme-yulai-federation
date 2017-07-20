@@ -38,15 +38,13 @@ class KillboardWidget extends \WP_Widget {
 	public function __construct() {
 		$this->plugin = new YulaiFederation\Plugins\Killboard;
 		$this->pluginHelper = new YulaiFederation\Plugins\Helper\EdkKillboardHelper;
-//		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
 
-//		$this->themeSettings = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
 		$this->kbDB = $this->pluginHelper->db;
 
 		$widget_options = array(
 			'classname' => 'yulai-federation-killboard-widget',
-			'description' => __('Displaying the latest kills (and maybe losses if you are tough enough) in your sidebar.', 'yulai-federation')
+			'description' => \__('Displaying the latest kills (and maybe losses if you are tough enough) in your sidebar.', 'yulai-federation')
 		);
 
 		$control_options = array();

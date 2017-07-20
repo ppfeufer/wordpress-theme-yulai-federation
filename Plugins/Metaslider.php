@@ -10,11 +10,13 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class Metaslider {
-	public function __construct($init = false) {
-		if($init === true) {
-			$this->registerMetaBox();
-		} // END if($init === true)
+	public function __construct() {
+		;
 	} // END public function __construct($init = false)
+
+	public function init() {
+		$this->registerMetaBox();
+	}
 
 	public function registerMetaBox() {
 		\add_action('add_meta_boxes', array($this, 'addMetaBox'));
@@ -142,7 +144,7 @@ class Metaslider {
 			 * No slider set, check for our default slider
 			 */
 			if(empty($page_slider)) {
-				$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+				$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 				if(!empty($themeOptions['default_slider'])) {
 					 if(!\is_front_page() && isset($themeOptions['default_slider_on']['frontpage_only'])) {

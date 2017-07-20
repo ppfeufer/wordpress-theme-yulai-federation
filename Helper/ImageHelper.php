@@ -5,7 +5,42 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 \defined('ABSPATH') or die();
 
 class ImageHelper {
-	public static function getAttachmentId($url) {
+	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+//	public static function getAttachmentId($url) {
+	public function getAttachmentId($url) {
 		$attachment_id = 0;
 		$dir = \wp_upload_dir();
 
@@ -51,30 +86,31 @@ class ImageHelper {
 	 * @param string $remoteImageUrl The URL for the remote image
 	 * @return string The cached Image URL
 	 */
-	public static function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
-		$themeOptions = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
+//	public static function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
+	public function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
+		$themeOptions = \get_option('yulai_theme_options', ThemeHelper::getInstance()->getThemeDefaultOptions());
 		$returnValue = $remoteImageUrl;
 
 		// Check if we should use image cache
 		if(!empty($themeOptions['cache']['remote-image-cache'])) {
 			$explodedImageUrl = \explode('/', $remoteImageUrl);
 			$imageFilename = \end($explodedImageUrl);
-			$cachedImage = CacheHelper::getImageCacheUri() . $cacheType . '/' . $imageFilename;
+			$cachedImage = CacheHelper::getInstance()->getImageCacheUri() . $cacheType . '/' . $imageFilename;
 
 			// if we don't have the image cached already
-			if(CacheHelper::checkCachedImage($cacheType, $imageFilename) === false) {
+			if(CacheHelper::getInstance()->checkCachedImage($cacheType, $imageFilename) === false) {
 				/**
 				 * Check if the content dir is writable and cache the image.
 				 * Otherwise set the remote image as return value.
 				 */
-				if(\is_dir(CacheHelper::getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getImageCacheDir() . $cacheType)) {
-					if(CacheHelper::cacheRemoteImageFile($cacheType, $remoteImageUrl) === true) {
+				if(\is_dir(CacheHelper::getInstance()->getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getInstance()->getImageCacheDir() . $cacheType)) {
+					if(CacheHelper::getInstance()->cacheRemoteImageFile($cacheType, $remoteImageUrl) === true) {
 						$returnValue = $cachedImage;
 					} // END if(CacheHelper::cacheRemoteImageFile($cacheType, $remoteImageUrl) === true)
-				} // END if(\is_dir(CacheHelper::getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getImageCacheDir() . $cacheType))
+				} // END if(\is_dir(CacheHelper::vgetImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getInstance()->getImageCacheDir() . $cacheType))
 			} else {
 				$returnValue = $cachedImage;
-			} // END if(CacheHelper::checkCachedImage($cacheType, $imageName) === false)
+			} // END if(CacheHelper::getInstance()->checkCachedImage($cacheType, $imageName) === false)
 		} // END if(!empty($themeOptions['cache']['remote-image-cache']))
 
 		return $returnValue;

@@ -136,7 +136,7 @@ function yf_html_compression_start() {
 	\ob_start('\\WordPress\\Themes\\YulaiFederation\\Plugins\\yf_html_compression_finish');
 } // END function eve_html_compression_start()
 
-$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 if(!empty($themeOptions['minify_html_output']['yes'])) {
 	\add_action('get_header', '\\WordPress\\Themes\\YulaiFederation\\Plugins\\yf_html_compression_start');

@@ -10,7 +10,7 @@ defined('ABSPATH') or die();
 
 <div class="container container-main">
 	<?php
-	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbNavigation();
+	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getInstance()->getBreadcrumbNavigation();
 	if(!empty($breadcrumbNavigation)) {
 		?>
 		<!--

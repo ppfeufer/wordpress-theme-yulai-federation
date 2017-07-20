@@ -6,11 +6,45 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 
 class ThemeHelper {
 	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+	/**
 	 * Return the current DB version used for the themes settings
 	 *
 	 * @return string
 	 */
-	public static function getThemeDbVersion() {
+	public function getThemeDbVersion() {
 		return '20170708';
 	} // END public static function getThemeDbVersion()
 
@@ -21,7 +55,7 @@ class ThemeHelper {
 	 *
 	 * @return array Default Theme Options
 	 */
-	public static function getThemeDefaultOptions() {
+	public function getThemeDefaultOptions() {
 		$defaultOptions = array(
 			// generel settings tab
 			'type' => '',
@@ -77,7 +111,7 @@ class ThemeHelper {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_theme/
 	 */
-	public static function getThemeData($parameter) {
+	public function getThemeData($parameter) {
 		$themeData = \wp_get_theme();
 
 		return $themeData->get($parameter);
@@ -88,7 +122,7 @@ class ThemeHelper {
 	 *
 	 * @return array
 	 */
-	public static function getThemeJavaScripts() {
+	public function getThemeJavaScripts() {
 		$enqueue_script = array(
 			/* Html5Shiv */
 			'Html5Shiv' => array(
@@ -153,12 +187,12 @@ class ThemeHelper {
 			/* Bootstrap Gallery */
 			'Bootstrap Gallery' => array(
 				'handle' => 'bootstrap-gallery-js',
-				'source' => \get_theme_file_uri('/plugins/js/jquery.bootstrap-gallery.min.js'),
-				'source-development' => \get_theme_file_uri('/plugins/js/jquery.bootstrap-gallery.js'),
+				'source' => \get_theme_file_uri('/Plugins/js/jquery.bootstrap-gallery.min.js'),
+				'source-development' => \get_theme_file_uri('/Plugins/js/jquery.bootstrap-gallery.js'),
 				'deps' => array(
 					'jquery'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'in_footer' => true
 			),
 
@@ -170,7 +204,7 @@ class ThemeHelper {
 				'deps' => array(
 					'jquery'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'in_footer' => true
 			)
 		);
@@ -183,7 +217,7 @@ class ThemeHelper {
 	 *
 	 * @return array
 	 */
-	public static function getThemeStyleSheets() {
+	public function getThemeStyleSheets() {
 		$enqueue_style = array(
 			/* Normalize CSS */
 			'Normalize CSS' => array(
@@ -202,7 +236,7 @@ class ThemeHelper {
 				'deps' => array(
 					'normalize'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
 			),
 
@@ -240,7 +274,7 @@ class ThemeHelper {
 					'google-font',
 					'bootstrap'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
 			),
 
@@ -252,7 +286,7 @@ class ThemeHelper {
 				'deps' => array(
 					'yulai-federation'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
 			),
 
@@ -264,7 +298,7 @@ class ThemeHelper {
 				'deps' => array(
 					'yulai-federation'
 				),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
 			),
 		);
@@ -277,15 +311,15 @@ class ThemeHelper {
 	 *
 	 * @return array
 	 */
-	public static function getThemeAdminStyleSheets() {
+	public function getThemeAdminStyleSheets() {
 		$enqueue_style = array(
 			/* Adjustment to the backends */
 			'Yulai Federation Admin Styles' => array(
 				'handle' => 'yulai-federation-admin-styles',
-				'source' => \get_theme_file_uri('/admin/css/yulai-federation-admin-style.min.css'),
-				'source-development' => \get_theme_file_uri('/admin/css/yulai-federation-admin-style.css'),
+				'source' => \get_theme_file_uri('/Admin/css/yulai-federation-admin-style.min.css'),
+				'source-development' => \get_theme_file_uri('/Admin/css/yulai-federation-admin-style.css'),
 				'deps' => array(),
-				'version' => \sanitize_title(self::getThemeData('Name')) . '-' . self::getThemeData('Version'),
+				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
 			),
 		);
@@ -301,7 +335,7 @@ class ThemeHelper {
 	 * @param string $newDbVersion
 	 * @param array $defaultOptions
 	 */
-	public static function updateOptions($optionsName, $dbVersionFieldName, $newDbVersion, $defaultOptions) {
+	public function updateOptions($optionsName, $dbVersionFieldName, $newDbVersion, $defaultOptions) {
 		$currentDbVersion = \get_option($dbVersionFieldName);
 
 		// Check if the DB needs to be updated
@@ -329,7 +363,7 @@ class ThemeHelper {
 	 * @return boolean
 	 * @uses is_active_sidebar() Whether a sidebar is in use.
 	 */
-	public static function hasSidebar($sidebarPosition) {
+	public function hasSidebar($sidebarPosition) {
 		return \is_active_sidebar($sidebarPosition);
 	} // END public static function hasSidebar($sidebarPosition)
 
@@ -340,7 +374,7 @@ class ThemeHelper {
 	 * @param string $baseClass
 	 * @return array
 	 */
-	public static function getDefaultBackgroundImages($withThumbnail = false, $baseClass = null) {
+	public function getDefaultBackgroundImages($withThumbnail = false, $baseClass = null) {
 		$imagePath = \get_theme_file_path('/img/background/');
 		$handle = \opendir($imagePath);
 
@@ -374,8 +408,8 @@ class ThemeHelper {
 	 *
 	 * @return string
 	 */
-	public static function getThemeBackgroundImage() {
-		$themeSettings = \get_option('yulai_theme_options', ThemeHelper::getThemeDefaultOptions());
+	public function getThemeBackgroundImage() {
+		$themeSettings = \get_option('yulai_theme_options', $this->getThemeDefaultOptions());
 
 		$backgroundImage = (isset($themeSettings['background_image'])) ? \get_theme_file_uri('/img/background/' . $themeSettings['background_image']) : null;
 		$uploadedBackground = (empty($themeSettings['background_image_upload'])) ? false : true;
@@ -388,7 +422,7 @@ class ThemeHelper {
 		return $backgroundImage;
 	} // END public static function getThemeBackgroundImage()
 
-	public static function getThemeName() {
+	public function getThemeName() {
 		return 'Yulai Federation';
 	} // END public static function getThemeName()
 } // END class ThemeHelper

@@ -10,7 +10,41 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 \defined('ABSPATH') or die();
 
 class StringHelper {
-	public static function cutString($string, $pos) {
+	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $_instance = null;
+
+	public static function getInstance() {
+		if(null === self::$_instance) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
+
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		;
+	}
+
+	public function cutString($string, $pos) {
 		$string = strip_tags($string);
 
 		if($pos < \strlen($string)) {
@@ -34,7 +68,7 @@ class StringHelper {
 	 * @param array $noStrip
 	 * @return string
 	 */
-	public static function camelCase($string, $ucFirst = false, $noStrip = array()) {
+	public function camelCase($string, $ucFirst = false, $noStrip = array()) {
 		// First we make sure all is lower case
 		$string = \strtolower($string);
 
@@ -60,7 +94,7 @@ class StringHelper {
 	 * @param string $alpha
 	 * @return array
 	 */
-	public static function hextoRgb($hex, $alpha = false) {
+	public function hextoRgb($hex, $alpha = false) {
 		$hex = \str_replace('#', '', $hex);
 
 		if(\strlen($hex) == 6) {
@@ -84,7 +118,7 @@ class StringHelper {
 		return $rgb;
 	 } // END public static function hextoRgb($hex, $alpha = false)
 
-	 public static function encodeMailString($string) {
+	 public function encodeMailString($string) {
 		$chars = \str_split($string);
 		$seed = \mt_rand(0, (int) \abs(\crc32($string) / \strlen($string)));
 

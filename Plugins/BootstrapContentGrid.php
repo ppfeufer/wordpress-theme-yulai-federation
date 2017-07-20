@@ -19,7 +19,7 @@ class BootstrapContentGrid {
 	public function shortcodeContentGrid($atts, $content = null) {
 		$args = \shortcode_atts(
 			array(
-				'classes' => YulaiFederation\Helper\PostHelper::getLoopContentClasses(),
+				'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
 			),
 			$atts
 		);

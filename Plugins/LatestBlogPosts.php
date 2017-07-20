@@ -22,8 +22,8 @@ class LatestBlogPosts {
 	public function shortcodeLatestBlogPosts($attributes) {
 		$args = \shortcode_atts(
 			array(
-				'number' => YulaiFederation\Helper\PostHelper::getContentColumnCount(),
-				'classes' => YulaiFederation\Helper\PostHelper::getLoopContentClasses(),
+				'number' => YulaiFederation\Helper\PostHelper::getInstance()->getContentColumnCount(),
+				'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
 				'headline_type' => 'h2',
 				'headline_text' => ''
 			),

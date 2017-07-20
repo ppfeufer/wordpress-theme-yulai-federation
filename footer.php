@@ -7,9 +7,9 @@
 					<!--<div class="footer-divider"></div>-->
 					<div class="container container-footer">
 						<?php
-						if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-4')) {
+						if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-4')) {
 							\get_sidebar('footer');
-						} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('footer-column-4'))
+						} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-1') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-2') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-3') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('footer-column-4'))
 						?>
 					</div>
 				</div>
@@ -22,7 +22,7 @@
 							<div class="col-md-12">
 								<div class="pull-left copyright-text">
 									<?php
-//									$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+//									$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 //
 //									if($options['footertext'] != '') {
 //										echo '<p>';

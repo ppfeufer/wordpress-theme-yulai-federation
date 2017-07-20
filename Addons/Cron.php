@@ -11,13 +11,9 @@ class Cron {
 
 	public $cronEvents = array();
 
-	public function __construct($init = false) {
-		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
-		$this->cronEvents = $this->getTemeCronEvents();
-
-		if($init === true) {
-			$this->init();
-		} // END if($init === true)
+	public function __construct() {
+		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+		$this->cronEvents = $this->getThemeCronEvents();
 	} // END public function __construct()
 
 	/**
@@ -25,7 +21,7 @@ class Cron {
 	 *
 	 * @return array Themes Cron Events with their respective hooks
 	 */
-	public function getTemeCronEvents() {
+	public function getThemeCronEvents() {
 		return array(
 			// Daily Image Cache Cleanup
 			'Cleanup Image Cache' => array(
@@ -95,9 +91,9 @@ class Cron {
 	 * Schedule: Daily
 	 */
 	public function cronCleanupThemeImageCache() {
-		$imageCacheDirectory = YulaiFederation\Helper\CacheHelper::getImageCacheDir();
+		$imageCacheDirectory = YulaiFederation\Helper\CacheHelper::getInstance()->getImageCacheDir();
 
-		YulaiFederation\Helper\FilesystemHelper::deleteDirectoryRecursive($imageCacheDirectory, false);
+		YulaiFederation\Helper\FilesystemHelper::getInstance()->deleteDirectoryRecursive($imageCacheDirectory, false);
 	} // END public function cronCleanupCacheDirectories()
 
 	/**

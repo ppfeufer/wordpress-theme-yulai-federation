@@ -16,6 +16,14 @@ use WordPress\Themes\YulaiFederation;
  * @since Yulai Federation Theme 0.1-r20170324
  */
 
+if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
+	\add_action('after_switch_theme', '\\WordPress\Themes\YulaiFederation\Addons\yf_switch_theme');
+	\add_action('load-customize.php', '\\WordPress\Themes\YulaiFederation\Addons\yf_customize');
+	\add_action('template_redirect', '\\WordPress\Themes\YulaiFederation\Addons\yf_preview');
+
+	return false;
+}
+
 /**
  * Prevent switching to Yulai Federation Theme on old versions of WordPress.
  *
@@ -30,7 +38,6 @@ function yf_switch_theme() {
 
 	\add_action('admin_notices', '\\WordPress\Themes\YulaiFederation\Addons\yf_upgrade_notice');
 } // END function yf_switch_theme()
-\add_action('after_switch_theme', '\\WordPress\Themes\YulaiFederation\Addons\yf_switch_theme');
 
 /**
  * Adds a message for unsuccessful theme switch.
@@ -60,7 +67,6 @@ function yf_customize() {
 		'back_link' => true,
 	));
 } // END function yf_customize()
-\add_action('load-customize.php', '\\WordPress\Themes\YulaiFederation\Addons\yf_customize');
 
 /**
  * Prevents the Theme Preview from being loaded on WordPress versions prior to 4.7.
@@ -76,4 +82,3 @@ function yf_preview() {
 		\wp_die(\sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version')));
 	} // END if(!empty($preview))
 } // END function yf_preview()
-\add_action('template_redirect', '\\WordPress\Themes\YulaiFederation\Addons\yf_preview');
