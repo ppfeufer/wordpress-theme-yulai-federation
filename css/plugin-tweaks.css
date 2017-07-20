@@ -409,11 +409,12 @@
 
 	.childpages-list .page_item a:hover, .childpages-list .current_page_item > a {
 		text-decoration: none;
+		color: #23527c;
 	}
 
 	.childpages-list .current_page_item > a,
 	.childpages-list .current_page_parent > a {
-		font-weight: bold;
+		color: #23527c;
 	}
 
 	.childpages-list > .page_item > .children {
