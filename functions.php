@@ -6,6 +6,8 @@
  */
 namespace WordPress\Themes\YulaiFederation;
 
+require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
+
 /**
  * Just to make sure, if this line is not in wp-config, that our environment
  * variable is still set right.
@@ -29,54 +31,53 @@ if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
 /**
  * Theme Addons
  */
-//require_once(\get_template_directory() .'/addons/BootstrapMenuWalker.php');
-require_once(\get_theme_file_path('/addons/BootstrapMenuWalker.php'));
-require_once(\get_theme_file_path('/addons/Cron.php'));
+//require_once(\get_theme_file_path('/addons/BootstrapMenuWalker.php'));
+//require_once(\get_theme_file_path('/addons/Cron.php'));
 
 /**
  * Loading Helper Classes
  */
-require_once(\get_theme_file_path('/helper/ThemeHelper.php'));
-require_once(\get_theme_file_path('/helper/NavigationHelper.php'));
-require_once(\get_theme_file_path('/helper/PostHelper.php'));
-require_once(\get_theme_file_path('/helper/EveApiHelper.php'));
-require_once(\get_theme_file_path('/helper/StringHelper.php'));
-require_once(\get_theme_file_path('/helper/ImageHelper.php'));
-require_once(\get_theme_file_path('/helper/FilesystemHelper.php'));
-require_once(\get_theme_file_path('/helper/CacheHelper.php'));
-require_once(\get_theme_file_path('/helper/CommentHelper.php'));
+//require_once(\get_theme_file_path('/helper/ThemeHelper.php'));
+//require_once(\get_theme_file_path('/helper/NavigationHelper.php'));
+//require_once(\get_theme_file_path('/helper/PostHelper.php'));
+//require_once(\get_theme_file_path('/helper/EveApiHelper.php'));
+//require_once(\get_theme_file_path('/helper/StringHelper.php'));
+//require_once(\get_theme_file_path('/helper/ImageHelper.php'));
+//require_once(\get_theme_file_path('/helper/FilesystemHelper.php'));
+//require_once(\get_theme_file_path('/helper/CacheHelper.php'));
+//require_once(\get_theme_file_path('/helper/CommentHelper.php'));
 
 /**
  * Loading Plugins
  */
-require_once(\get_theme_file_path('/plugins/Metaslider.php'));
-require_once(\get_theme_file_path('/plugins/Shortcodes.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapImageGallery.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapVideoGallery.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapContentGrid.php'));
-require_once(\get_theme_file_path('/plugins/Corppage.php'));
-require_once(\get_theme_file_path('/plugins/Whitelabel.php'));
-require_once(\get_theme_file_path('/plugins/MoCache.php'));
-require_once(\get_theme_file_path('/plugins/EncodeEmailAddresses.php'));
-require_once(\get_theme_file_path('/plugins/helper/EdkKillboardHelper.php'));
-require_once(\get_theme_file_path('/plugins/helper/ZkbKillboardHelper.php'));
-require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
-require_once(\get_theme_file_path('/plugins/Killboard.php'));
-require_once(\get_theme_file_path('/plugins/ChildpageMenu.php'));
-require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
-require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
-require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
+//require_once(\get_theme_file_path('/plugins/Metaslider.php'));
+//require_once(\get_theme_file_path('/plugins/Shortcodes.php'));
+//require_once(\get_theme_file_path('/plugins/BootstrapImageGallery.php'));
+//require_once(\get_theme_file_path('/plugins/BootstrapVideoGallery.php'));
+//require_once(\get_theme_file_path('/plugins/BootstrapContentGrid.php'));
+//require_once(\get_theme_file_path('/plugins/Corppage.php'));
+//require_once(\get_theme_file_path('/plugins/Whitelabel.php'));
+//require_once(\get_theme_file_path('/plugins/MoCache.php'));
+//require_once(\get_theme_file_path('/plugins/EncodeEmailAddresses.php'));
+//require_once(\get_theme_file_path('/plugins/helper/EdkKillboardHelper.php'));
+//require_once(\get_theme_file_path('/plugins/helper/ZkbKillboardHelper.php'));
+//require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
+//require_once(\get_theme_file_path('/plugins/Killboard.php'));
+//require_once(\get_theme_file_path('/plugins/ChildpageMenu.php'));
+//require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
+//require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
+//require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
 
 /**
  * Loading Security Classes
  */
-require_once(\get_theme_file_path('/security/WordPressCoreUpdateCleaner.php'));
+//require_once(\get_theme_file_path('/security/WordPressCoreUpdateCleaner.php'));
 
 /**
  * Theme Options
  */
-require_once(\get_theme_file_path('/admin/SettingsApi.php'));
-require_once(\get_theme_file_path('/admin/ThemeSettings.php'));
+//require_once(\get_theme_file_path('/admin/SettingsApi.php'));
+//require_once(\get_theme_file_path('/admin/ThemeSettings.php'));
 
 /**
  * WP Filesystem API

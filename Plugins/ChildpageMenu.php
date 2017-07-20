@@ -9,7 +9,7 @@ class ChildpageMenu {
 	 * constructor
 	 */
 	public function __construct() {
-		require_once(\get_theme_file_path('/plugins/widgets/ChildpageMenuWidget.php'));
+//		require_once(\get_theme_file_path('/plugins/widgets/ChildpageMenuWidget.php'));
 
 		$this->initPlugin();
 	} // END public function __construct()
