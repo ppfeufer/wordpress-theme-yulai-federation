@@ -6,7 +6,7 @@ defined('ABSPATH') or die();
 
 <div class="container container-main">
 	<?php
-	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getBreadcrumbNavigation();
+	$breadcrumbNavigation = \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getInstance()->getBreadcrumbNavigation();
 	if(!empty($breadcrumbNavigation)) {
 		?>
 		<!--
@@ -22,7 +22,7 @@ defined('ABSPATH') or die();
 	?>
 
 	<div class="row main-top">
-		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getMainContentColClasses(); ?>">
+		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getMainContentColClasses(); ?>">
 			<header>
 				<h1>
 					<a href="<?php \the_permalink() ?>" rel="bookmark" title="<?php \the_title(); ?>"><?php \the_title(); ?></a>
@@ -32,7 +32,7 @@ defined('ABSPATH') or die();
 	</div><!--/.row -->
 
 	<div class="row main-content">
-		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getMainContentColClasses(); ?> content-wrapper">
+		<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getMainContentColClasses(); ?> content-wrapper">
 			<div class="content content-inner content-404">
 				<header class="page-title">
 					<h1><?php \_e('This is Embarrassing', 'yulai-federation'); ?></h1>
@@ -70,21 +70,21 @@ defined('ABSPATH') or die();
 		</div> <!-- /.col -->
 
 		<?php
-		if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
+		if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 			?>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
 				<?php
-				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page')) {
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page')) {
 					\get_sidebar('page');
-				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page'))
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page'))
 
-				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
+				if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 					\get_sidebar('general');
-				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general'))
+				} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general'))
 				?>
 			</div><!--/.col -->
 			<?php
-		} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::hasSidebar('sidebar-general')) {
+		} // END if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page') || \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
 		?>
 	</div> <!--/.row -->
 </div><!-- container -->

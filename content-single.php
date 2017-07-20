@@ -10,8 +10,8 @@
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
-				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
+				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostMetaInformation();
+				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostCategoryAndTags();
 				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 			</p>
@@ -67,7 +67,7 @@
 	} // END if(get_the_author_meta('description'))
 	?>
 	<hr/>
-	<?php \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getArticleNavigation(true); ?>
+	<?php \WordPress\Themes\YulaiFederation\Helper\NavigationHelper::getInstance()->getArticleNavigation(true); ?>
 	<hr/>
 	<?php \comments_template(); ?>
 </article><!-- /.post-->

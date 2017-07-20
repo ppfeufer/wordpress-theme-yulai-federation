@@ -6,6 +6,8 @@
  */
 namespace WordPress\Themes\YulaiFederation;
 
+require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
+
 /**
  * Just to make sure, if this line is not in wp-config, that our environment
  * variable is still set right.
@@ -18,96 +20,40 @@ namespace WordPress\Themes\YulaiFederation;
 \defined('APPLICATION_ENV') || \define('APPLICATION_ENV', (\preg_match('/development/', \getenv('APPLICATION_ENV')) || \preg_match('/staging/', \getenv('APPLICATION_ENV'))) ? \getenv('APPLICATION_ENV') : 'production');
 
 /**
- * Yulai Federation THeme only works in WordPress 4.7 or later.
- */
-if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
-	require_once(\get_template_directory() . '/addons/Compatibility.php');
-
-	return false;
-} // END if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<'))
-
-/**
- * Theme Addons
- */
-//require_once(\get_template_directory() .'/addons/BootstrapMenuWalker.php');
-require_once(\get_theme_file_path('/addons/BootstrapMenuWalker.php'));
-require_once(\get_theme_file_path('/addons/Cron.php'));
-
-/**
- * Loading Helper Classes
- */
-require_once(\get_theme_file_path('/helper/ThemeHelper.php'));
-require_once(\get_theme_file_path('/helper/NavigationHelper.php'));
-require_once(\get_theme_file_path('/helper/PostHelper.php'));
-require_once(\get_theme_file_path('/helper/EveApiHelper.php'));
-require_once(\get_theme_file_path('/helper/StringHelper.php'));
-require_once(\get_theme_file_path('/helper/ImageHelper.php'));
-require_once(\get_theme_file_path('/helper/FilesystemHelper.php'));
-require_once(\get_theme_file_path('/helper/CacheHelper.php'));
-require_once(\get_theme_file_path('/helper/CommentHelper.php'));
-
-/**
- * Loading Plugins
- */
-require_once(\get_theme_file_path('/plugins/Metaslider.php'));
-require_once(\get_theme_file_path('/plugins/Shortcodes.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapImageGallery.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapVideoGallery.php'));
-require_once(\get_theme_file_path('/plugins/BootstrapContentGrid.php'));
-require_once(\get_theme_file_path('/plugins/Corppage.php'));
-require_once(\get_theme_file_path('/plugins/Whitelabel.php'));
-require_once(\get_theme_file_path('/plugins/MoCache.php'));
-require_once(\get_theme_file_path('/plugins/EncodeEmailAddresses.php'));
-require_once(\get_theme_file_path('/plugins/helper/EdkKillboardHelper.php'));
-require_once(\get_theme_file_path('/plugins/helper/ZkbKillboardHelper.php'));
-require_once(\get_theme_file_path('/plugins/widgets/KillboardWidget.php'));
-require_once(\get_theme_file_path('/plugins/Killboard.php'));
-require_once(\get_theme_file_path('/plugins/ChildpageMenu.php'));
-require_once(\get_theme_file_path('/plugins/LatestBlogPosts.php'));
-require_once(\get_theme_file_path('/plugins/EveOnlineAvatar.php'));
-require_once(\get_theme_file_path('/plugins/HtmlMinify.php'));
-
-/**
- * Loading Security Classes
- */
-require_once(\get_theme_file_path('/security/WordPressCoreUpdateCleaner.php'));
-
-/**
- * Theme Options
- */
-require_once(\get_theme_file_path('/admin/SettingsApi.php'));
-require_once(\get_theme_file_path('/admin/ThemeSettings.php'));
-
-/**
  * WP Filesystem API
  */
-require_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
-require_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
+require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
+require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 
 /**
  * Initiate needed general Classes
  */
-new Addons\Cron(true);
-new Plugins\MoCache;
-new Plugins\Metaslider(true);
-new Plugins\Shortcodes;
-new Plugins\BootstrapImageGallery;
-new Plugins\BootstrapVideoGallery;
-new Plugins\BootstrapContentGrid;
-new Plugins\Corppage;
-new Plugins\EncodeEmailAddresses;
-new Plugins\Whitelabel;
-new Plugins\Killboard(true);
-new Plugins\ChildpageMenu;
-new Plugins\LatestBlogPosts;
-new Plugins\EveOnlineAvatar;
+$cron = new Addons\Cron;
+$moCache = new Plugins\MoCache;
+$metaSlider = new Plugins\Metaslider;
+$shortcodes = new Plugins\Shortcodes;
+$bootstrapImageGallery = new Plugins\BootstrapImageGallery;
+$bootstrapVideoGallery = new Plugins\BootstrapVideoGallery;
+$bootstrapContentGrid = new Plugins\BootstrapContentGrid;
+$corppage = new Plugins\Corppage;
+$encodeEmailAddresses = new Plugins\EncodeEmailAddresses;
+$whitelabel = new Plugins\Whitelabel;
+$killboard = new Plugins\Killboard;
+$childpageMenu = new Plugins\ChildpageMenu;
+$latestBlogPosts = new Plugins\LatestBlogPosts;
+$eveOnlineAvatar = new Plugins\EveOnlineAvatar;
+
+// initialize the classes that need to
+$cron->init();
+$metaSlider->init();
+$killboard->initPlugin();
 
 /**
  * Initiate needed Backend Classes
  */
 if(\is_admin()) {
-	new Admin\ThemeSettings;
-	new Security\WordPressCoreUpdateCleaner;
+	$themeSettings = new Admin\ThemeSettings;
+	$wordPressCoreUpdateCleaner = new Security\WordPressCoreUpdateCleaner;
 } // END if(\is_admin())
 
 /**
@@ -158,7 +104,7 @@ if(!isset($content_width)) {
 
 if(!function_exists('\WordPress\Themes\YulaiFederation\yf_get_javascripts')) {
 	function yf_get_javascripts() {
-		return Helper\ThemeHelper::getThemeJavaScripts();
+		return Helper\ThemeHelper::getInstance()->getThemeJavaScripts();
 	}
 }
 
@@ -193,13 +139,13 @@ function yf_enqueue_styles() {
 
 if(!function_exists('\WordPress\Themes\YulaiFederation\yf_get_stylesheets')) {
 	function yf_get_stylesheets() {
-		return Helper\ThemeHelper::getThemeStyleSheets();
+		return Helper\ThemeHelper::getInstance()->getThemeStyleSheets();
 	}
 }
 
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_enqueue_admin_styles')) {
 	function yf_enqueue_admin_styles() {
-		$enqueue_style = Helper\ThemeHelper::getThemeAdminStyleSheets();
+		$enqueue_style = Helper\ThemeHelper::getInstance()->getThemeAdminStyleSheets();
 
 		/**
 		 * Loop through the CSS array and load the styles
@@ -232,7 +178,7 @@ function yf_theme_setup() {
 	/**
 	 * Check if options need to be updated
 	 */
-	Helper\ThemeHelper::updateOptions('yulai_theme_options', 'yulai_theme_db_version', Helper\ThemeHelper::getThemeDbVersion(), Helper\ThemeHelper::getThemeDefaultOptions());
+	Helper\ThemeHelper::getInstance()->updateOptions('yulai_theme_options', 'yulai_theme_db_version', Helper\ThemeHelper::getInstance()->getThemeDbVersion(), Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 	/**
 	 * Loading out textdomain
@@ -300,12 +246,12 @@ function yf_theme_setup() {
 	));
 
 	// Setting up the image cache directories
-	Helper\CacheHelper::createCacheDirectory();
-	Helper\CacheHelper::createCacheDirectory('images');
-	Helper\CacheHelper::createCacheDirectory('images/corporation');
-	Helper\CacheHelper::createCacheDirectory('images/alliance');
-	Helper\CacheHelper::createCacheDirectory('images/character');
-	Helper\CacheHelper::createCacheDirectory('images/render');
+	Helper\CacheHelper::getInstance()->createCacheDirectory();
+	Helper\CacheHelper::getInstance()->createCacheDirectory('images');
+	Helper\CacheHelper::getInstance()->createCacheDirectory('images/corporation');
+	Helper\CacheHelper::getInstance()->createCacheDirectory('images/alliance');
+	Helper\CacheHelper::getInstance()->createCacheDirectory('images/character');
+	Helper\CacheHelper::getInstance()->createCacheDirectory('images/render');
 } // END function yf_theme_setup()
 \add_action('after_setup_theme', '\\WordPress\Themes\YulaiFederation\yf_theme_setup');
 
@@ -712,11 +658,11 @@ if(\preg_match('/development/', \APPLICATION_ENV)) {
  * Adding the custom style to the theme
  */
 function yf_get_theme_custom_style() {
-	$themeSettings = \get_option('yulai_theme_options', Helper\ThemeHelper::getThemeDefaultOptions());
+	$themeSettings = \get_option('yulai_theme_options', Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 	$themeCustomStyle = null;
 
 	// background image
-	$backgroundImage = Helper\ThemeHelper::getThemeBackgroundImage();
+	$backgroundImage = Helper\ThemeHelper::getInstance()->getThemeBackgroundImage();
 
 	if(!empty($backgroundImage) && (isset($themeSettings['use_background_image']['yes']) && $themeSettings['use_background_image']['yes'] === 'yes')) {
 		$themeCustomStyle .= 'body {background-image: url("' . $backgroundImage . '")}' . "\n";
@@ -787,7 +733,7 @@ function yf_move_comment_field_to_bottom($fields) {
  * @return string
  */
 function yf_metaslider_fly_image_urls($cropped_url, $orig_url) {
-	$attachmentImage = \fly_get_attachment_image_src(Helper\ImageHelper::getAttachmentId($orig_url), 'header-image');
+	$attachmentImage = \fly_get_attachment_image_src(Helper\ImageHelper::getInstance()->getAttachmentId($orig_url), 'header-image');
 
 	return str_replace('http://', '//', $attachmentImage['src']);
 } // END function yf_metaslider_fly_image_urls($cropped_url, $orig_url)

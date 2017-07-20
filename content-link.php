@@ -10,8 +10,8 @@
 		<aside class="entry-details">
 			<p class="meta">
 				<?php
-				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostMetaInformation();
-				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getPostCategoryAndTags();
+				echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostMetaInformation();
+				\WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getPostCategoryAndTags();
 				\edit_post_link(\__('Edit', 'yulai-federation'));
 				?>
 			</p>
@@ -32,7 +32,7 @@
 					?>
 					<div class="entry-content clearfix">
 						<?php
-						$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getThemeDefaultOptions());
+						$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
 						if(\has_post_thumbnail()) {
 							?>
