@@ -43,6 +43,21 @@ $childpageMenu = new Plugins\ChildpageMenu;
 $latestBlogPosts = new Plugins\LatestBlogPosts;
 $eveOnlineAvatar = new Plugins\EveOnlineAvatar;
 
+// Minify output if set in options
+$themeOptions = \get_option('yulai_theme_options', Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+function yf_html_compression_finish($html) {
+	return new Plugins\HtmlMinify($html);
+} // END function eve_html_compression_finish($html)
+
+function yf_html_compression_start() {
+	\ob_start('\\WordPress\Themes\YulaiFederation\yf_html_compression_finish');
+} // END function eve_html_compression_start()
+
+
+if(!empty($themeOptions['minify_html_output']['yes'])) {
+	\add_action('get_header', '\\WordPress\Themes\YulaiFederation\yf_html_compression_start');
+} // END if(!empty($themeOptions['minify_html_output']['yes']))
+
 // initialize the classes that need to
 $cron->init();
 $metaSlider->init();

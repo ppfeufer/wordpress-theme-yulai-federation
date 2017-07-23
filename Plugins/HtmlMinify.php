@@ -127,17 +127,3 @@ class HtmlMinify {
 		return $str;
 	} // END protected function removeWhiteSpace($str)
 } // END class HtmlMinify
-
-function yf_html_compression_finish($html) {
-	return new HtmlMinify($html);
-} // END function eve_html_compression_finish($html)
-
-function yf_html_compression_start() {
-	\ob_start('\\WordPress\\Themes\\YulaiFederation\\Plugins\\yf_html_compression_finish');
-} // END function eve_html_compression_start()
-
-$themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
-
-if(!empty($themeOptions['minify_html_output']['yes'])) {
-	\add_action('get_header', '\\WordPress\\Themes\\YulaiFederation\\Plugins\\yf_html_compression_start');
-} // END if(!empty($themeOptions['minify_html_output']['yes']))
