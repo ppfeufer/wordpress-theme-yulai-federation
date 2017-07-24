@@ -93,7 +93,7 @@ class Cron {
 	public function cronCleanupThemeImageCache() {
 		$imageCacheDirectory = YulaiFederation\Helper\CacheHelper::getInstance()->getImageCacheDir();
 
-		YulaiFederation\Helper\FilesystemHelper::getInstance()->deleteDirectoryRecursive($imageCacheDirectory, false);
+		YulaiFederation\Helper\FilesystemHelper::deleteDirectoryRecursive($imageCacheDirectory, false);
 	} // END public function cronCleanupCacheDirectories()
 
 	/**

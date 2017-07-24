@@ -17,13 +17,13 @@ class StringHelper {
 	 *
 	 * @var Singleton
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	public static function getInstance() {
-		if(null === self::$_instance) {
-			self::$_instance = new self;
+		if(null === self::$instance) {
+			self::$instance = new self;
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
