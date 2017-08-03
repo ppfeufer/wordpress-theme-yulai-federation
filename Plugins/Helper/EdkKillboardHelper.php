@@ -78,9 +78,9 @@ class EdkKillboardHelper {
 			 * Overwrite Victim Image if its a Structure
 			 */
 			if(\in_array($kill->shp_name, Plugins\Killboard::getStructureNames())) {
-				$kill->victimImage = $this->getStructureImage($kill->shp_id);
+				$kill->victimImage = $this->getStructureImage($kill->shp_id, 256);
 			} else {
-				$kill->victimImage = $this->getVictimImage($kill->plt_name, $kill->shp_id);
+				$kill->victimImage = $this->getVictimImage($kill->plt_name, $kill->shp_id, 256);
 			} // END if(\in_array($kill->shp_name, $citadelNames))
 		} // END foreach($resultLastKills as &$kill)
 
