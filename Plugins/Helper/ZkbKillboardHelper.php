@@ -3,83 +3,203 @@
  * Killboard Widget
  */
 
-namespace WordPress\Themes\EveOnline\Plugins\Helper;
-
-use WordPress\Themes\EveOnline;
+namespace WordPress\Themes\YulaiFederation\Plugins\Helper;
 
 class ZkbKillboardHelper {
 	private $plugin = null;
 	private $pluginSettings = null;
 	private $themeSettings = null;
 	private $eveApi = null;
+	private $entityID = null;
+	private $entityType = null;
+	private $zkbApiLink = null;
 
-	public $db = null;
+	/**
+	 * instance
+	 *
+	 * static variable to keep the current (and only!) instance of this class
+	 *
+	 * @var Singleton
+	 */
+	protected static $instance = null;
 
-	public function __construct() {
-		$this->plugin = new EveOnline\Plugins\Killboard;
-		$this->eveApi = new EveOnline\Helper\EveApiHelper;
+	public static function getInstance() {
+		if(null === self::$instance) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
 
-		$this->pluginSettings = \get_option('eve_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
-		$this->themeSettings = \get_option('eve_theme_options', EveOnline\eve_get_options_default());
-	} // END public function __construct()
+	/**
+	 * clone
+	 *
+	 * no cloning allowed
+	 */
+	protected function __clone() {
+		;
+	}
 
-	public function getKillList($count) {
-		$query = 'SELECT kll.kll_id,
-						kll.kll_isk_loss AS isk_loss,
-						kll.kll_ship_id AS shp_id,
-						plt.plt_name,
-						plt.plt_externalid,
-						sys.sys_name,
-						fbplt.plt_name AS fbplt_name,
-						inv.typeName AS shp_name,
-						sys.sys_sec
-					FROM kb3_kills kll
-					INNER JOIN kb3_invtypes inv ON (inv.typeID = kll.kll_ship_id)
-					INNER JOIN kb3_pilots plt ON (plt.plt_id = kll.kll_victim_id)
-					INNER JOIN kb3_pilots fbplt ON (fbplt.plt_id = kll.kll_fb_plt_id)
-					INNER JOIN kb3_systems sys ON (sys.sys_id = kll.kll_system_id)
-					ORDER BY kll_timestamp DESC
-					LIMIT 0, ' . $count . ';';
-		$resultLastKills = $this->db->get_results($query, \OBJECT);
+	/**
+	 * constructor
+	 *
+	 * no external instanciation allowed
+	 */
+	protected function __construct() {
+		$this->plugin = new \WordPress\Themes\YulaiFederation\Plugins\Killboard;
+		$this->eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
 
-		// get the number of involved pilots
-		foreach($resultLastKills as &$kill) {
-			$kill->involved = $this->db->get_var('SELECT count(*) ipc FROM kb3_inv_detail WHERE ind_kll_id =' . $kill->kll_id . ';');
-			$kill->killboardLink = $this->getKillboardLinkToKill($kill->kll_id);
-			$kill->isk_loss_formatted = $this->sanitizeIskLoss($kill->isk_loss);
+		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
+		$this->themeSettings = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+
+		$this->entityID = $this->eveApi->getEveIdFromName($this->themeSettings['name']);
+		$this->entityType = $this->themeSettings['type'];
+
+		$this->zkbApiLink = 'https://zkillboard.com/api/' . $this->entityType . 'ID/' . $this->entityID . '/limit/';
+	} // END protected function __construct()
+
+	public function getKillList($killCount) {
+		$transientName = \sanitize_title('yf_theme_killboard.lastkills');
+		$data = \get_transient($transientName);
+
+		if($data === false) {
+			$get = \wp_remote_get($this->zkbApiLink . $killCount . '/');
+			$data = \json_decode(\wp_remote_retrieve_body($get));
 
 			/**
-			 * Overwrite Victim Image if its a Citadel
+			 * setting the transient caches
 			 */
-			if(\in_array($kill->shp_name, $this->plugin->getStructureNames())) {
-				$kill->victimImage = $this->getStructureImage($kill->shp_id);
-			} else {
-				$kill->victimImage = $this->getVictimImage($kill->plt_name, $kill->shp_id);
-			} // END if(\in_array($kill->shp_name, $citadelNames))
-		} // END foreach($resultLastKills as &$kill)
+			\set_transient($transientName, $data, 300);
+		} // END if($data === false)
 
-		return $resultLastKills;
-	} // END public function getKillList($count)
+		return $data;
+	} // END public function getKillList($killCount)
 
-	private function getVictimImage($victimName, $shipID, $size = 512) {
-		if(\preg_match('/Control Tower/', $victimName)) {
-			$victimImage = "http://image.eveonline.com/Render/" . $shipID . "_" . $size . ".png";
-		} else {
-			$victimImage = $this->eveApi->getCharacterImageByName($victimName, true, $size);
-		} // END if(preg_match('/Control Tower/', $kill->shp_name))
+	/**
+	 * Getting the link to teh killmail on ZKB
+	 *
+	 * @param int $killID
+	 * @return string
+	 */
+	public function getKillboardLink($killID) {
+		return 'https://zkillboard.com/kill/' . $killID . '/';
+	} // END public function getKillboardLink($killID)
+
+	/**
+	 * Getting victims image
+	 *
+	 * @param \stdClass $victimData
+	 * @param int $size
+	 * @return string
+	 */
+	public function getVictimImage(\stdClass $victimData, $size = 256) {
+		$victimImage = null;
+
+		switch($victimData->characterID) {
+			case 0:
+				$victimImage = '<img src="' . \WordPress\Themes\YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('render', 'http://image.eveonline.com/Render/' . $victimData->shipTypeID . '_' . $size . '.png') . '" class="eve-structure-image eve-online-id-' . $victimData->shipTypeID . '">';
+				break;
+
+			default:
+				$victimImage = $this->eveApi->getCharacterImageById($victimData->characterID, false, $size);
+				break;
+		} // END switch($victimData->characterID)
 
 		return $victimImage;
-	} // END private function getVictimImage($victimName, $shipID, $size = 512)
+	} // END public function getVictimImage(\stdClass $victimData, $size = 256)
 
-	private function getStructureImage($shipID, $size = 512) {
-		$victimImage = "http://image.eveonline.com/Render/" . $shipID . "_" . $size . ".png";
+	/**
+	 * Getting the victims type
+	 *
+	 * @param \stdClass $victimData
+	 * @return string
+	 */
+	public function getVictimType(\stdClass $victimData) {
+		$victimType = \__('Pilot', 'yulai-federation');
 
-		return $victimImage;
-	} // END private function getCitadelImage($shipID, $size = 512)
+		if($victimData->characterID === 0) {
+			$victimType = \__('Corp', 'yulai-federation');
+		} // END if($victimData->characterID === 0)
 
-	private function getKillboardLinkToKill($killID) {
-		return $this->killboardUri . '?a=kill_detail&kll_id=' . $killID;
-	} // END private function getKillboardLinkToKill($killID)
+		return $victimType;
+	} // END public function getVictimType(\stdClass $victimData)
+
+	/**
+	 * Getting the victims name
+	 *
+	 * @param \stdClass $victimData
+	 * @return string
+	 */
+	public function getVictimName(\stdClass $victimData) {
+		$victimName = $victimData->characterName;
+
+		if(empty($victimName)) {
+			$victimName = $victimData->corporationName;
+		} // END if(empty($victimName))
+
+		return $victimName;
+	} // END public function getVictimName(\stdClass $victimData)
+
+	/**
+	 * Get the final blow
+	 *
+	 * @param array $attackerData
+	 * @return string
+	 */
+	public function getFinalBlow(array $attackerData) {
+		$finalBlow = null;
+
+		foreach($attackerData as $attacker) {
+			if($attacker->finalBlow === 1) {
+				$finalBlow = $attacker->characterName;
+			} // END if($attacker->finalBlow === 1)
+		} // END foreach($attackerData as $attacker)
+
+		return $finalBlow;
+	} // END public function getFinalBlow(array $attackerData)
+
+	public function getIskLoss(\stdClass $zkbData) {
+		return $this->sanitizeIskLoss($zkbData->totalValue);
+	} // END public function getIskLoss(\stdClass $zkbData)
+
+	/**
+	 * getting the victims ship type
+	 *
+	 * @param \stdClass $victimData
+	 * @return string
+	 */
+	public function getVictimShip(\stdClass $victimData) {
+		$typeNames = $this->eveApi->getTypeName($victimData->shipTypeID);
+
+		return $typeNames['0'];
+	} // END public function getVictimShip(\stdClass $victimData)
+
+	/**
+	 * Determine if the victim lost a ship or a structure
+	 *
+	 * @param \stdClass $victimData
+	 * @return string
+	 */
+	public function getVictimShipType(\stdClass $victimData) {
+		$victimShipType = \__('Ship', 'yulai-federation');
+
+		if($victimData->characterID === 0) {
+			$victimShipType = \__('Structure', 'yulai-federation');
+		} // END if($victimData->characterID === 0)
+
+		return $victimShipType;
+	} // END public function getVictimShipType(\stdClass $victimData)
+
+	/**
+	 * Getting the sytem name from ID
+	 *
+	 * @param type $systemID
+	 * @return string
+	 */
+	public function getSystem($systemID) {
+		$systemNames = $this->eveApi->getSystemNameFromId($systemID);
+
+		return $systemNames['0'];
+	} // END public function getSystem($systemID)
 
 	private function sanitizeIskLoss($isk) {
 		if($isk < 1000) {

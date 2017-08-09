@@ -12,7 +12,6 @@ use WordPress\Themes\YulaiFederation;
 class Killboard {
 	private $themeSettings = null;
 	private $pluginSettings = null;
-//	private $kbDB = null;
 
 	private $settingsApi = null;
 	private $settingsFilter = null;
@@ -33,11 +32,6 @@ class Killboard {
 			$this->fireSettingsApi();
 		} // END if(\is_admin())
 
-		// frontend actions
-//		if(!\is_admin()) {
-//			$this->addStyle();
-//		} // END if(!\is_admin())
-
 		// common actions
 		$this->initWidget();
 	} // END private function initPlugin()
@@ -46,32 +40,19 @@ class Killboard {
 		\add_action('widgets_init', \create_function('', 'return register_widget("WordPress\Themes\YulaiFederation\Plugins\Widgets\KillboardWidget");'));
 	} // END public function initWidget()
 
-//	public function addStyle() {
-//		if(!\is_admin()) {
-//			\add_action('wp_enqueue_scripts', array($this, 'enqueueStyle'));
-//		} // END if(!\is_admin())
-//	} // END public function addStyle()
-
-//	public function enqueueStyle() {
-//		if(\preg_match('/development/', \APPLICATION_ENV)) {
-//			\wp_enqueue_style('yulai-federation-killboard', \get_template_directory_uri() . '/plugins/css/killboard-widget.css');
-//		} else {
-//			\wp_enqueue_style('yulai-federation-killboard', \get_template_directory_uri() . '/plugins/css/killboard-widget.min.css');
-//		} // END if(\preg_match('/development/', \APPLICATION_ENV))
-//	} // END public function enqueueStyle()
-
 	public function getDefaultPluginOptions() {
 		$defaultOptions = array(
 			// generel settings tab
 			'number_of_kills' => 5,
-//			'show_losses' => array(
-//				'yes' => 'yes'
-//			),
+			'show_losses' => array(
+				'yes' => 'yes'
+			),
 			'killboard_db_host' => 'localhost',
 			'killboard_db_name' => '',
 			'killboard_db_user' => '',
 			'killboard_db_password' => '',
-			'killboard_domain' => ''
+			'killboard_domain' => '',
+			'killmail_source' => 'zkillboard'
 		);
 
 		return \apply_filters('yulai-federation_theme_killboard_plugin_options', $defaultOptions);
@@ -130,15 +111,24 @@ class Killboard {
 				'description' => \__('Number of kills to show', 'yulai-federation'),
 				'default' => 5
 			),
-//			'show_losses' => array(
-//				'type' => 'checkbox',
-//				'title' => \__('Show Losses', 'yulai-federation'),
-//				'choices' => array(
-//					'yes' => \__('Show your losses as well?', 'yulai-federation')
-//				),
-//				'default' => 'yes',
-//				'description' => 'Only if you are tough enough :-P'
-//			),
+			'show_losses' => array(
+				'type' => 'checkbox',
+				'title' => \__('Show Losses', 'yulai-federation'),
+				'choices' => array(
+					'yes' => \__('Show your losses as well? <small><b>(Works only with the zKillboard API)</b></small>', 'yulai-federation')
+				),
+				'default' => 'yes',
+				'description' => 'Only if you are tough enough :-P'
+			),
+			'killmail_source' => array(
+				'type' => 'radio',
+				'title' => \__('Source', 'yulai-federation'),
+				'choices' => array(
+					'zkillboard' => \__('zKillboard API', 'yulai-federation'),
+					'local' => \__('Local EDK Killboard Database', 'yulai-federation')
+				),
+				'default' => 'zkillboard'
+			)
 		);
 	} // END private function getGeneralTabFields()
 

@@ -28,18 +28,24 @@ class KillboardWidget extends \WP_Widget {
 
 	private $kbDB = null;
 
-//	private $themeSettings = null;
+	private $themeSettings = null;
 	private $plugin = null;
 	private $pluginHelper = null;
 	private $pluginSettings = null;
+	private $entityID = null;
+	private $eveApi = null;
 
 //	private $eveApi = null;
 
 	public function __construct() {
 		$this->plugin = new YulaiFederation\Plugins\Killboard;
 		$this->pluginHelper = new YulaiFederation\Plugins\Helper\EdkKillboardHelper;
+		$this->eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
 
 		$this->pluginSettings = \get_option('yulai_federation_theme_killboard_plugin_options', $this->plugin->getDefaultPluginOptions());
+		$this->themeSettings = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+		$this->entityID = $this->eveApi->getEveIdFromName($this->themeSettings['name']);
+
 		$this->kbDB = $this->pluginHelper->db;
 
 		$widget_options = array(
@@ -66,13 +72,13 @@ class KillboardWidget extends \WP_Widget {
 		$instance = \wp_parse_args((array) $instance, array(
 			'yulai-federation-killboard-widget-title' => '',
 			'yulai-federation-killboard-widget-number-of-kills' => (!empty($this->pluginSettings['number_of_kills'])) ? $this->pluginSettings['number_of_kills'] : 5,
-//			'yulai-federation-killboard-widget-show-losses' => ($this->pluginSettings['show_losses']['yes']) ? true : false
+			'yulai-federation-killboard-widget-show-losses' => ($this->pluginSettings['show_losses']['yes']) ? true : false
 		));
 
-//		$showLosses = $instance['yulai-federation-killboard-widget-show-losses'] ? 'checked="checked"' : '';
+		$showLosses = $instance['yulai-federation-killboard-widget-show-losses'] ? 'checked="checked"' : '';
 
 		// Database Warning
-		if(!$this->kbDB) {
+		if((isset($this->pluginSettings['killmail_source']) && $this->pluginSettings['killmail_source'] === 'local') && !$this->kbDB) {
 			echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Database Warning / Not Configured', 'yulai-federation') . '</strong></p>';
 			echo '<p>' . sprintf(\__('Please make sure you have your Killboard Database configured in your %1$s.', 'yulai-federation'), '<a href="' . admin_url('options-general.php?page=yulai-federation-theme-killboard-plugin-settings') . '">Plugin Settings</a>') . '</p>';
 			echo '<p style="clear:both;"></p>';
@@ -88,9 +94,11 @@ class KillboardWidget extends \WP_Widget {
 			echo '<p style="clear:both;"></p>';
 
 			// Show losses (not yet implemented)
-//			echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Losses', 'yulai-federation') . '</strong></p>';
-//			echo '<p><label><input class="checkbox" type="checkbox" ' . $showLosses . ' id="' . $this->get_field_id('yulai-federation-killboard-widget-show-losses') . '" name="' . $this->get_field_name('yulai-federation-killboard-widget-show-losses') . '"> <span>' . \__('Show losses as well?', 'yulai-federation') . '</span></label></p>';
-//			echo '<p style="clear:both;"></p>';
+			if(isset($this->pluginSettings['killmail_source']) && $this->pluginSettings['killmail_source'] === 'zkillboard') {
+				echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Losses', 'yulai-federation') . '</strong></p>';
+				echo '<p><label><input class="checkbox" type="checkbox" ' . $showLosses . ' id="' . $this->get_field_id('yulai-federation-killboard-widget-show-losses') . '" name="' . $this->get_field_name('yulai-federation-killboard-widget-show-losses') . '"> <span>' . \__('Show losses as well?', 'yulai-federation') . '</span></label></p>';
+				echo '<p style="clear:both;"></p>';
+			}
 		} // END if(!$this->kbDB)
 	} // END public function form($instance)
 
@@ -136,7 +144,6 @@ class KillboardWidget extends \WP_Widget {
 	 * @param type $instance
 	 */
 	public function widget($args, $instance) {
-		if($this->kbDB) {
 			echo $args['before_widget'];
 
 			$title = (empty($instance['yulai-federation-killboard-widget-title'])) ? '' : \apply_filters('yulai-federation-killboard-widget-title', $instance['yulai-federation-killboard-widget-title']);
@@ -145,25 +152,29 @@ class KillboardWidget extends \WP_Widget {
 				echo $args['before_title'] . $title . $args['after_title'];
 			} // END if(!empty($title))
 
-			echo $this->getWidgetData($instance);
+		if((isset($this->pluginSettings['killmail_source']) && $this->pluginSettings['killmail_source'] === 'local') && $this->kbDB) {
+			echo $this->getEdkWidgetData($instance);
+		} // END if((isset($this->pluginSettings['killmail_source']) && $this->pluginSettings['killmail_source'] === 'local') && $this->kbDB)
+
+		if(isset($this->pluginSettings['killmail_source']) && $this->pluginSettings['killmail_source'] === 'zkillboard') {
+			echo $this->getZkbWidgetData($instance);
+		}
 			echo $args['after_widget'];
-		} // END if($this->kbDB)
 	} // END public function widget($args, $instance)
 
-	private function getWidgetData($instance) {
+	private function getEdkWidgetData($instance) {
 		$killList = $this->pluginHelper->getKillList($instance['yulai-federation-killboard-widget-number-of-kills']);
 
 		if(!empty($killList) && is_array($killList)) {
 			$widgetHtml = null;
 
 			foreach($killList as $kill) {
-				$stringInvolved = ($kill->involved - 1 === 0) ? '' : ' (+' . ( $kill->involved - 1 ) . ')';
+				$stringInvolved = ($kill->involved - 1 === 0) ? '' : ' (+' . ($kill->involved - 1) . ')';
 
 				$widgetHtml .= '<div class="row killboard-entry">'
 							. '	<div class="col-xs-4 col-sm-12 col-md-12 col-lg-5">'
 							. '		<figure>'
 							. '			<a href="' . $kill->killboardLink . '" rel="external">'
-//							. '				<img src="' . $kill->victimImage . '" alt="' . $kill->plt_name . '">'
 							.				$kill->victimImage
 							. '			</a>'
 							. '		</figure>'
@@ -183,4 +194,43 @@ class KillboardWidget extends \WP_Widget {
 
 		return $widgetHtml;
 	} // END private function getWidgetData($instance)
+
+	private function getZkbWidgetData($instance) {
+		$killList = YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getKillList($instance['yulai-federation-killboard-widget-number-of-kills']);
+
+		if(!empty($killList) && is_array($killList)) {
+			$widgetHtml = null;
+
+			foreach($killList as $killmail) {
+				$countAttackers = \count($killmail->attackers);
+				$stringInvolved = ($countAttackers - 1 === 0) ? '' : ' (+' . ($countAttackers - 1) . ')';
+
+				$killType = ' kill-list-kill-mail';
+				if($killmail->victim->corporationID === (int) $this->entityID || $killmail->victim->allianceID === (int) $this->entityID) {
+					$killType = ' kill-list-loss-mail';
+				} // END if($killmail->victim->corporationID === $this->entityID || $killmail->victim->allianceID === $this->entityID)
+
+				$widgetHtml .= '<div class="row killboard-entry' . $killType . '">'
+							. '	<div class="col-xs-4 col-sm-12 col-md-12 col-lg-5">'
+							. '		<figure>'
+							. '			<a href="' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getKillboardLink($killmail->killID) . '" rel="external">'
+							.				YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getVictimImage($killmail->victim)
+							. '			</a>'
+							. '		</figure>'
+							. '	</div>'
+							. '	<div class="col-xs-8 col-sm-12 col-md-12 col-lg-7">'
+							. '		<ul>'
+							. '			<li>' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getVictimType($killmail->victim) . ': ' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getVictimName($killmail->victim) . '</li>'
+							. '			<li>' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getVictimShipType($killmail->victim) . ': ' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getVictimShip($killmail->victim) . '</li>'
+							. '			<li>ISK lost: ' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getIskLoss($killmail->zkb) . '</li>'
+							. '			<li>System: ' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getSystem($killmail->solarSystemID) . '</li>'
+							. '			<li>Killed by: ' . YulaiFederation\Plugins\Helper\ZkbKillboardHelper::getInstance()->getFinalBlow($killmail->attackers) . $stringInvolved . '</li>'
+							. '		</ul>'
+							. '	</div>'
+							. '</div>';
+			} // END foreach($array as $killmail)
+		} // END if(!empty($killList) && is_array($killList))
+
+		return $widgetHtml;
+	} // END private function getZkillboardWidgetData($instance)
 } // END class KillboardWidget extends \WP_Widgets
