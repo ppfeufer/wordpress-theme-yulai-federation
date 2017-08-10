@@ -38,7 +38,6 @@ $bootstrapContentGrid = new Plugins\BootstrapContentGrid;
 $corppage = new Plugins\Corppage;
 //$encodeEmailAddresses = new Plugins\EncodeEmailAddresses;
 $whitelabel = new Plugins\Whitelabel;
-$killboard = new Plugins\Killboard;
 $childpageMenu = new Plugins\ChildpageMenu;
 $latestBlogPosts = new Plugins\LatestBlogPosts;
 $eveOnlineAvatar = new Plugins\EveOnlineAvatar;
@@ -61,7 +60,6 @@ if(!empty($themeOptions['minify_html_output']['yes'])) {
 // initialize the classes that need to
 $cron->init();
 $metaSlider->init();
-$killboard->initPlugin();
 
 /**
  * Initiate needed Backend Classes
