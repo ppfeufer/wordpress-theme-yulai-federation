@@ -199,6 +199,62 @@ class EveApiHelper {
 		return $html;
 	} // END public function getCharacterImageByName($name, $imageOnly = true, $size = 128)
 
+	public function getTypeName($typeID) {
+		$transientName = \sanitize_title('get_eve.typeName_' . $typeID);
+		$data = $this->checkApiCache($transientName);
+		$typeName = null;
+
+		if($data === false) {
+			$endpoint = 'eve.typeName';
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('ids' => $typeID));
+
+			/**
+			 * setting the transient caches
+			 */
+			$this->setApiCache($transientName, $data);
+		} // END if($data === false)
+
+		if($this->isXml($data)) {
+			$xml = new \SimpleXMLElement($data);
+
+			if(!empty($xml->result->rowset)) {
+				foreach($xml->result->rowset->row as $row) {
+					$typeName[] = (string) $row->attributes()->typeName;
+				} // END foreach($xml->result->rowset->row as $row)
+			} // END if(!empty($xml->result->rowset))
+		} // END if($this->isXml($data))
+
+		return $typeName;
+	} // END public function getTypeName($typeID)
+
+	public function getSystemNameFromId($systemID) {
+		$transientName = \sanitize_title('get_eve.systemName_' . $systemID);
+		$data = $this->checkApiCache($transientName);
+		$systemName = null;
+
+		if($data === false) {
+			$endpoint = 'eve.characterName';
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('ids' => $systemID));
+
+			/**
+			 * setting the transient caches
+			 */
+			$this->setApiCache($transientName, $data);
+		} // END if($data === false)
+
+		if($this->isXml($data)) {
+			$xml = new \SimpleXMLElement($data);
+
+			if(!empty($xml->result->rowset)) {
+				foreach($xml->result->rowset->row as $row) {
+					$systemName[] = (string) $row->attributes()->name;
+				} // END foreach($xml->result->rowset->row as $row)
+			} // END if(!empty($xml->result->rowset))
+		} // END if($this->isXml($data))
+
+		return $systemName;
+	} // END public function getSystemNameFromId($systemID)
+
 	/**
 	 * get the EVE ID by it's name
 	 * @param type $name

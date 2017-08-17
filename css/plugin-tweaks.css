@@ -366,6 +366,14 @@
 	.yulai-federation-killboard-widget .killboard-entry:last-child {
 		margin-bottom: 0;
 	}
+
+	.yulai-federation-killboard-widget .kill-list-loss-mail {
+		border-right: 1px solid rgb(206,72,68);
+	}
+
+	.yulai-federation-killboard-widget .kill-list-kill-mail {
+		border-right: 1px solid rgb(0,255,0);
+	}
 }
 
 @media all and (min-width: 1200px) {
@@ -378,6 +386,10 @@
 	.yulai-federation-killboard-widget ul {
 		margin-top: 8px;
 		font-size: 80%;
+	}
+
+	.yulai-federation-killboard-widget .killboard-entry {
+		display: flex;
 	}
 }
 

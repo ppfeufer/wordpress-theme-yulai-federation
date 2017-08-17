@@ -33,7 +33,7 @@ class EncodeEmailAddresses {
 
 		// override encoding function with the 'yf-encode-email-address_metod' filter
 //		$method = \apply_filters('yf-encode-email-address_metod', array($this, 'encodeString'));
-		$method = \apply_filters('eve-encode-email-address_metod', array('WordPress\Themes\YulaiFederation\Helper\StringHelper', 'encodeMailString'));
+		$method = \apply_filters('yf-encode-email-address_metod', array('WordPress\Themes\YulaiFederation\Helper\StringHelper', 'encodeMailString'));
 
 		// override regex pattern with the 'yf-encode-email-address_regexp' filter
 		$regexp = \apply_filters(
@@ -58,7 +58,7 @@ class EncodeEmailAddresses {
 			$regexp,
 			\create_function(
 				'$matches',
-				'return ' . $method[0] . '::' . $method[1] . '($matches[0]);'
+				'return ' . $method[0] . '::getInstance()->' . $method[1] . '($matches[0]);'
 			),
 			$content
 		);

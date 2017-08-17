@@ -36,17 +36,30 @@ $bootstrapImageGallery = new Plugins\BootstrapImageGallery;
 $bootstrapVideoGallery = new Plugins\BootstrapVideoGallery;
 $bootstrapContentGrid = new Plugins\BootstrapContentGrid;
 $corppage = new Plugins\Corppage;
-$encodeEmailAddresses = new Plugins\EncodeEmailAddresses;
+//$encodeEmailAddresses = new Plugins\EncodeEmailAddresses;
 $whitelabel = new Plugins\Whitelabel;
-$killboard = new Plugins\Killboard;
 $childpageMenu = new Plugins\ChildpageMenu;
 $latestBlogPosts = new Plugins\LatestBlogPosts;
 $eveOnlineAvatar = new Plugins\EveOnlineAvatar;
 
+// Minify output if set in options
+$themeOptions = \get_option('yulai_theme_options', Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+function yf_html_compression_finish($html) {
+	return new Plugins\HtmlMinify($html);
+} // END function eve_html_compression_finish($html)
+
+function yf_html_compression_start() {
+	\ob_start('\\WordPress\Themes\YulaiFederation\yf_html_compression_finish');
+} // END function eve_html_compression_start()
+
+
+if(!empty($themeOptions['minify_html_output']['yes'])) {
+	\add_action('get_header', '\\WordPress\Themes\YulaiFederation\yf_html_compression_start');
+} // END if(!empty($themeOptions['minify_html_output']['yes']))
+
 // initialize the classes that need to
 $cron->init();
 $metaSlider->init();
-$killboard->initPlugin();
 
 /**
  * Initiate needed Backend Classes
@@ -229,10 +242,10 @@ function yf_theme_setup() {
 	 */
 	if(\function_exists('\fly_add_image_size')) {
 		\fly_add_image_size('header-image', 1680, 500, true);
-		\fly_add_image_size('post-loop-thumbnail', 705, 395, true);
+		\fly_add_image_size('post-loop-thumbnail', 768, 432, true);
 	} else {
 		\add_image_size('header-image', 1680, 500, true);
-		\add_image_size('post-loop-thumbnail', 705, 395, true);
+		\add_image_size('post-loop-thumbnail', 768, 432, true);
 	} // END if(\function_exists('\fly_add_image_size'))
 
 	/**
