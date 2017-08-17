@@ -19,9 +19,9 @@ class Metaslider {
 	}
 
 	public function registerMetaBox() {
-		\add_action('add_meta_boxes', array($this, 'addMetaBox'));
-		\add_action('save_post', array($this, 'saveMetaBox'));
-		\add_action('yf_render_header_slider', array($this, 'renderSlider'));
+		\add_action('add_meta_boxes', [$this, 'addMetaBox']);
+		\add_action('save_post', [$this, 'saveMetaBox']);
+		\add_action('yf_render_header_slider', [$this, 'renderSlider']);
 	} // END public function registerMetaBox()
 
 	/**
@@ -29,7 +29,7 @@ class Metaslider {
 	 */
 	public function addMetaBox() {
 		if($this->metasliderPluginExists()) {
-			\add_meta_box('yf-metaslider-page-slider', \__('Page Meta Slider', 'yulai-federation'), array($this, 'renderMetaBox'), 'page', 'side');
+			\add_meta_box('yf-metaslider-page-slider', \__('Page Meta Slider', 'yulai-federation'), [$this, 'renderMetaBox'], 'page', 'side');
 
 			return true;
 		} // END if($this->metasliderPluginExists())
@@ -107,13 +107,13 @@ class Metaslider {
 	 * @return string
 	 */
 	function metasliderGetOptions() {
-		$options = array('' => __('None', 'yulai-federation'));
+		$options = ['' => __('None', 'yulai-federation')];
 
 		if($this->metasliderPluginExists()) {
-			$sliders = \get_posts(array(
+			$sliders = \get_posts([
 				'post_type' => 'ml-slider',
 				'numberposts' => 200,
-			));
+			]);
 
 			foreach($sliders as $slider) {
 				$options[\sanitize_title('metaSlider_ID_' . $slider->ID)] = \__('Slider: ', 'yulai-federation') . $slider->post_title;

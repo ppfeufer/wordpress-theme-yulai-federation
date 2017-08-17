@@ -17,7 +17,7 @@ class BootstrapImageGallery {
 	} // END public function __construct()
 
 	public function init() {
-		\add_filter('post_gallery', array($this, 'imageGallery'), 10, 2);
+		\add_filter('post_gallery', [$this, 'imageGallery'], 10, 2);
 	} // END public function init()
 
 	public function imageGallery($content, $attr) {
@@ -34,7 +34,7 @@ class BootstrapImageGallery {
 			} // END if(!$attr['orderby'])
 		} // END if(isset($attr['orderby']))
 
-		$attributes = \shortcode_atts(array(
+		$attributes = \shortcode_atts([
 			'order' => 'ASC',
 			'orderby' => 'menu_order ID',
 			'id' => $post->ID,
@@ -45,7 +45,7 @@ class BootstrapImageGallery {
 			'size' => 'post-loop-thumbnail',
 			'include' => '',
 			'exclude' => ''
-		), $attr);
+		], $attr);
 
 		$order = $attributes['order'];
 		$orderby = $attributes['orderby'];
@@ -65,16 +65,16 @@ class BootstrapImageGallery {
 		if($include) {
 			$include = \preg_replace('/[^0-9,]+/', '', $include);
 
-			$_attachments = \get_posts(array(
+			$_attachments = \get_posts([
 				'include' => $include,
 				'post_status' => 'inherit',
 				'post_type' => 'attachment',
 				'post_mime_type' => 'image',
 				'order' => $order,
 				'orderby' => $orderby
-			));
+			]);
 
-			$attachments = array();
+			$attachments = [];
 
 			foreach($_attachments as $key => $val) {
 				$attachments[$val->ID] = $_attachments[$key];
@@ -82,7 +82,7 @@ class BootstrapImageGallery {
 		} elseif($exclude) {
 			$exclude = \preg_replace('/[^0-9,]+/', '', $exclude);
 
-			$attachments = \get_children(array(
+			$attachments = \get_children([
 				'post_parent' => $id,
 				'exclude' => $exclude,
 				'post_status' => 'inherit',
@@ -90,16 +90,16 @@ class BootstrapImageGallery {
 				'post_mime_type' => 'image',
 				'order' => $order,
 				'orderby' => $orderby
-			));
+			]);
 		} else {
-			$attachments = \get_children(array(
+			$attachments = \get_children([
 				'post_parent' => $id,
 				'post_status' => 'inherit',
 				'post_type' => 'attachment',
 				'post_mime_type' => 'image',
 				'order' => $order,
 				'orderby' => $orderby
-			));
+			]);
 		} // END if($include)
 
 		if(empty($attachments)) {
@@ -163,7 +163,7 @@ class BootstrapImageGallery {
 	 * @return array
 	 */
 	public function getGalleryPages() {
-		$args = array(
+		$args = [
 			'posts_per_page' => -1,
 			'category' => 0,
 			'post_type' => 'any',
@@ -171,7 +171,7 @@ class BootstrapImageGallery {
 			'orderby' => 'post_date',
 			'order' => 'DESC',
 			'suppress_filters' => true
-		);
+		];
 
 		$result = new \WP_Query($args);
 
@@ -233,12 +233,12 @@ class BootstrapImageGallery {
 					 * images in its gallery
 					 */
 					if(\is_array($atts) && \array_key_exists('ids', $atts)) {
-						$images = new \WP_Query(array(
+						$images = new \WP_Query([
 							'post_type' => 'attachment',
 							'post_status' => 'inherit',
 							'post__in' => \explode( ',', $atts['ids'] ),
 							'orderby' => 'post__in'
-						));
+						]);
 
 						if($images->have_posts()) {
 							foreach($images->posts as $image) {

@@ -15,8 +15,8 @@ class EncodeEmailAddresses {
 		 * Register filters to encode plain email addresses in posts, pages, excerpts,
 		 * comments and text widgets.
 		 */
-		foreach(array('the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt') as $filter) {
-			\add_filter($filter, array($this, 'encodeMails'), $this->filterPriority);
+		foreach(['the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt'] as $filter) {
+			\add_filter($filter, [$this, 'encodeMails'], $this->filterPriority);
 		} // END foreach(array('the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt') as $filter)
 	} // END public function __construct()
 
@@ -33,7 +33,7 @@ class EncodeEmailAddresses {
 
 		// override encoding function with the 'yf-encode-email-address_metod' filter
 //		$method = \apply_filters('yf-encode-email-address_metod', array($this, 'encodeString'));
-		$method = \apply_filters('yf-encode-email-address_metod', array('WordPress\Themes\YulaiFederation\Helper\StringHelper', 'encodeMailString'));
+		$method = \apply_filters('yf-encode-email-address_metod', ['WordPress\Themes\YulaiFederation\Helper\StringHelper', 'encodeMailString']);
 
 		// override regex pattern with the 'yf-encode-email-address_regexp' filter
 		$regexp = \apply_filters(

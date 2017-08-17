@@ -43,7 +43,7 @@
 								<div class="footer-menu-wrapper">
 									<?php
 									if(\has_nav_menu('footer-menu')) {
-										\wp_nav_menu(array(
+										\wp_nav_menu([
 											'menu' => '',
 											'theme_location' => 'footer-menu',
 											'depth' => 1,
@@ -51,7 +51,7 @@
 											'menu_class' => 'footer-menu footer-navigation',
 											'fallback_cb' => '\WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker::fallback',
 											'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
-										));
+										]);
 									} // END if(has_nav_menu('footer-menu'))
 									?>
 								</div>

@@ -201,7 +201,7 @@ function yf_theme_setup() {
 	\add_theme_support('automatic-feed-links');
 	\add_theme_support('post-thumbnails');
 	\add_theme_support('title-tag');
-	\add_theme_support('post-formats', array(
+	\add_theme_support('post-formats', [
 		'aside',
 		'image',
 		'gallery',
@@ -211,24 +211,24 @@ function yf_theme_setup() {
 		'video',
 		'audio',
 		'chat'
-	));
+	]);
 
 	/**
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
 	 */
-	\add_theme_support('html5', array(
+	\add_theme_support('html5', [
 		'comment-form',
 		'comment-list',
 		'gallery',
 		'caption',
-	));
+	]);
 
-	\register_nav_menus(array(
+	\register_nav_menus([
 		'main-menu' => __('Main Menu', 'yulai-federation'),
 		'footer-menu' => __('Footer Menu', 'yulai-federation'),
 		'header-menu' => __('Header Menu', 'yulai-federation'),
-	));
+	]);
 
 	/**
 	 * Define post thumbnail size.
@@ -252,11 +252,11 @@ function yf_theme_setup() {
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
 	 */
-	\add_editor_style(array(
+	\add_editor_style([
 		'css/editor-style.css',
 		'genericons/genericons.css',
 		yf_fonts_url()
-	));
+	]);
 
 	// Setting up the image cache directories
 	Helper\CacheHelper::getInstance()->createCacheDirectory();
@@ -312,7 +312,7 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_fonts_url')) {
 		$bitter = \_x('on', 'Bitter font: on or off', 'yulai-federation');
 
 		if('off' !== $source_sans_pro || 'off' !== $bitter) {
-			$font_families = array();
+			$font_families = [];
 
 			if('off' !== $source_sans_pro) {
 				$font_families[] = 'Source Sans Pro:300,400,700,300italic,400italic,700italic';
@@ -320,10 +320,10 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_fonts_url')) {
 				if('off' !== $bitter) {
 					$font_families[] = 'Bitter:400,700';
 
-					$query_args = array(
+					$query_args = [
 						'family' => \urlencode(\implode( '|', $font_families)),
 						'subset' => \urlencode('latin,latin-ext'),
-					);
+					];
 					$fonts_url = \add_query_arg($query_args, 'https://fonts.googleapis.com/css');
 				} // END if('off' !== $bitter)
 			} // END if('off' !== $source_sans_pro)
@@ -370,7 +370,7 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt'
  */
 function yf_widgets_init() {
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Page Sidebar', 'yulai-federation'),
 			'description' => \__('This sidebar will be displayed if the current is a page or your blog index.', 'yulai-federation'),
 			'id' => 'sidebar-page',
@@ -378,11 +378,11 @@ function yf_widgets_init() {
 			'after_widget' => "</div></aside>",
 			'before_title' => '<h4 class="widget-title">',
 			'after_title' => '</h4>',
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Post Sidebar', 'yulai-federation'),
 			'description' => \__('This sidebar will always be displayed if teh current is a post / blog article.', 'yulai-federation'),
 			'id' => 'sidebar-post',
@@ -390,11 +390,11 @@ function yf_widgets_init() {
 			'after_widget' => "</div></aside>",
 			'before_title' => '<h4 class="widget-title">',
 			'after_title' => '</h4>',
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('General Sidebar', 'yulai-federation'),
 			'id' => 'sidebar-general',
 			'description' => \__('General sidebar that is always right from the topic, below the side specific sidebars', 'yulai-federation'),
@@ -402,11 +402,11 @@ function yf_widgets_init() {
 			'after_widget' => "</div></aside>",
 			'before_title' => '<h4 class="widget-title">',
 			'after_title' => '</h4>',
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Home Column 1', 'yulai-federation'),
 			'id' => 'home-column-1',
 			'description' => \__('Home Column 1', 'yulai-federation'),
@@ -414,11 +414,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div>',
 			'before_title' => '<h2>',
 			'after_title' => '</h2>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Home Column 2', 'yulai-federation'),
 			'id' => 'home-column-2',
 			'description' => \__('Home Column 2', 'yulai-federation'),
@@ -426,11 +426,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div>',
 			'before_title' => '<h2>',
 			'after_title' => '</h2>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Home Column 3', 'yulai-federation'),
 			'id' => 'home-column-3',
 			'description' => \__('Home Column 3', 'yulai-federation'),
@@ -438,11 +438,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div>',
 			'before_title' => '<h2>',
 			'after_title' => '</h2>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Home Column 4', 'yulai-federation'),
 			'id' => 'home-column-4',
 			'description' => \__('Home Column 4', 'yulai-federation'),
@@ -450,11 +450,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div>',
 			'before_title' => '<h2>',
 			'after_title' => '</h2>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Footer Column 1', 'yulai-federation'),
 			'id' => 'footer-column-1',
 			'description' => \__('Footer Column 1', 'yulai-federation'),
@@ -462,11 +462,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div></aside>',
 			'before_title' => '<h4>',
 			'after_title' => '</h4>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Footer Column 2', 'yulai-federation'),
 			'id' => 'footer-column-2',
 			'description' => \__('Footer Column 2', 'yulai-federation'),
@@ -474,11 +474,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div></aside>',
 			'before_title' => '<h4>',
 			'after_title' => '</h4>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Footer Column 3', 'yulai-federation'),
 			'id' => 'footer-column-3',
 			'description' => \__('Footer Column 3', 'yulai-federation'),
@@ -486,11 +486,11 @@ function yf_widgets_init() {
 			'after_widget' => '</div></aside>',
 			'before_title' => '<h4>',
 			'after_title' => '</h4>'
-		)
+		]
 	);
 
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Footer Column 4', 'yulai-federation'),
 			'id' => 'footer-column-4',
 			'description' => \__('Footer Column 4', 'yulai-federation'),
@@ -498,12 +498,12 @@ function yf_widgets_init() {
 			'after_widget' => '</div></aside>',
 			'before_title' => '<h4>',
 			'after_title' => '</h4>'
-		)
+		]
 	);
 
 	// header widget sidebar
 	\register_sidebar(
-		array(
+		[
 			'name' => \__('Header Widget Area', 'yulai-federation'),
 			'id' => 'header-widget-area',
 			'description' => \__('Header Widget Area', 'yulai-federation'),
@@ -511,7 +511,7 @@ function yf_widgets_init() {
 			'after_widget' => '</div></aside>',
 			'before_title' => '<h4>',
 			'after_title' => '</h4>'
-		)
+		]
 	);
 } // END function yf_widgets_init()
 \add_action('init', '\\WordPress\Themes\YulaiFederation\yf_widgets_init');
@@ -598,8 +598,8 @@ function yf_wp_title($title, $sep) {
  * @return void
  * Modification of wp_link_pages() with an extra element to highlight the current page.
  */
-function yf_link_pages($args = array()) {
-	$defaults = array(
+function yf_link_pages($args = []) {
+	$defaults = [
 		'before' => '<p>' . __('Pages:', 'yulai-federation'),
 		'after' => '</p>',
 		'before_link' => '',
@@ -610,7 +610,7 @@ function yf_link_pages($args = array()) {
 		'link_after' => '',
 		'pagelink' => '%',
 		'echo' => 1
-	);
+	];
 
 	$r = \wp_parse_args($args, $defaults);
 	$r = \apply_filters('wp_link_pages_args', $r);
@@ -702,7 +702,7 @@ function yf_comment_form_fields($fields) {
 	$aria_req = ($req ? " aria-required='true' required" : '');
 	$html5 = \current_theme_supports('html5', 'comment-form') ? 1 : 0;
 
-	$fields =  array(
+	$fields =  [
 		'author' => '<div class="row"><div class="form-group comment-form-author col-md-4">'
 					. '	<input class="form-control" id="author" name="author" type="text" value="' . \esc_attr($commenter['comment_author']) . '" size="30"' . $aria_req . ' placeholder="' . \__('Name', 'yulai-federation') . ($req ? ' *' : '') . '" />'
 					. '</div>',
@@ -712,7 +712,7 @@ function yf_comment_form_fields($fields) {
 		'url' => '<div class="form-group comment-form-url col-md-4">'
 					. '	<input class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . \esc_attr($commenter['comment_author_url']) . '" size="30" placeholder="' . \__('Website', 'yulai-federation') . '" />'
 					. '</div></div>'
-	);
+	];
 
 	return $fields;
 } // END function yf_comment_form_fields($fields)

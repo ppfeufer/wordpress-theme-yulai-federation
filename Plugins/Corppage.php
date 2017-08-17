@@ -20,17 +20,17 @@ class Corppage {
 	} // END public function __construct()
 
 	public function registerShortcodes() {
-		\add_shortcode('corplist', array(
+		\add_shortcode('corplist', [
 			$this,
 			'shortcodeCorplist'
-		));
+		]);
 	} // END public function registerShortcodes()
 
 	public function shortcodeCorplist($attributes) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'type' => 'boxes'
-			),
+			],
 			$attributes
 		);
 
@@ -99,14 +99,14 @@ class Corppage {
 	private function getCorporationPages() {
 		$returnValue = false;
 
-		$result = new \WP_Query(array(
+		$result = new \WP_Query([
 			'post_type' => 'page',
 			'meta_key' => 'yf_page_is_corp_page',
 			'meta_value' => 1,
 			'posts_per_page' => -1,
 			'orderby' => 'post_title',
 			'order' => 'ASC'
-		));
+		]);
 
 		if($result) {
 			$returnValue =  $result->posts;
@@ -116,12 +116,12 @@ class Corppage {
 	} // END public function getCorporationPages()
 
 	public function registerMetaBoxes() {
-		\add_action('add_meta_boxes', array($this, 'addMetaBox'));
-		\add_action('save_post', array($this, 'savePageSettings'));
+		\add_action('add_meta_boxes', [$this, 'addMetaBox']);
+		\add_action('save_post', [$this, 'savePageSettings']);
 	} // END public function registerMetaBoxes()
 
 	public function addMetaBox() {
-		\add_meta_box('yf-corp-page-box', __('Corp Page?', 'yulai-federation'), array($this, 'renderMetaBox'), 'page', 'side');
+		\add_meta_box('yf-corp-page-box', __('Corp Page?', 'yulai-federation'), [$this, 'renderMetaBox'], 'page', 'side');
 	} // END public function addMetaBox()
 
 	public function renderMetaBox($post) {

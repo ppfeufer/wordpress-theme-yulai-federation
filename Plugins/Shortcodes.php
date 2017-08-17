@@ -15,22 +15,22 @@ class Shortcodes {
 	} // END public function __construct()
 
 	public function registerShortcodes() {
-		\add_shortcode('two_columns_one', array($this, 'shortcodeTwoColumnsOne'));
-		\add_shortcode('three_columns_one', array($this, 'shortcodeThreeColumnsOne'));
-		\add_shortcode('three_columns_two', array($this, 'shortcodeThreeColumnsTwo'));
-		\add_shortcode('four_columns_one', array($this, 'shortcodeFourColumnsOne'));
-		\add_shortcode('four_columns_two', array($this, 'shortcodeFourColumnsTwo'));
-		\add_shortcode('four_columns_three', array($this, 'shortcodeFourColumnsThree'));
-		\add_shortcode('divider', array($this, 'shortcodeDivider'));
+		\add_shortcode('two_columns_one', [$this, 'shortcodeTwoColumnsOne']);
+		\add_shortcode('three_columns_one', [$this, 'shortcodeThreeColumnsOne']);
+		\add_shortcode('three_columns_two', [$this, 'shortcodeThreeColumnsTwo']);
+		\add_shortcode('four_columns_one', [$this, 'shortcodeFourColumnsOne']);
+		\add_shortcode('four_columns_two', [$this, 'shortcodeFourColumnsTwo']);
+		\add_shortcode('four_columns_three', [$this, 'shortcodeFourColumnsThree']);
+		\add_shortcode('divider', [$this, 'shortcodeDivider']);
 //		\add_shortcode('button', array($this, 'shortcodeButton'));
-		\add_shortcode('credits', array($this, 'shortcodeCredits'));
+		\add_shortcode('credits', [$this, 'shortcodeCredits']);
 	} // END public function registerShortcodes()
 
 	public function shortcodeTwoColumnsOne($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -58,9 +58,9 @@ class Shortcodes {
 
 	public function shortcodeThreeColumnsOne($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -86,9 +86,9 @@ class Shortcodes {
 
 	public function shortcodeThreeColumnsTwo($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -114,9 +114,9 @@ class Shortcodes {
 
 	public function shortcodeFourColumnsOne($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -142,9 +142,9 @@ class Shortcodes {
 
 	public function shortcodeFourColumnsTwo($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -170,9 +170,9 @@ class Shortcodes {
 
 	public function shortcodeFourColumnsThree($atts, $content = null) {
 		$args = \shortcode_atts(
-			array(
+			[
 				'position' => ''
-			),
+			],
 			$atts
 		);
 
@@ -219,9 +219,9 @@ class Shortcodes {
 //	} // END public function shortcodeButton($atts, $content = null)
 
 	public function shortcodeCredits($atts, $content = null) {
-		$attributes = \shortcode_atts(array(
+		$attributes = \shortcode_atts([
 			'headline' => 'h4'
-		), $atts);
+		], $atts);
 
 		$headlineOpen = '<' . $attributes['headline'] . '>';
 		$headlineClose = '</' . $attributes['headline'] . '>';

@@ -63,9 +63,9 @@ function yf_upgrade_notice() {
  * @global string $wp_version WordPress version.
  */
 function yf_customize() {
-	\wp_die(\sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version')), '', array(
+	\wp_die(\sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version')), '', [
 		'back_link' => true,
-	));
+	]);
 } // END function yf_customize()
 
 /**
