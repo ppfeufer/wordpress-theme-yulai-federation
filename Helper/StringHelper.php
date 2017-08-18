@@ -23,6 +23,7 @@ class StringHelper {
 		if(null === self::$instance) {
 			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
@@ -68,7 +69,7 @@ class StringHelper {
 	 * @param array $noStrip
 	 * @return string
 	 */
-	public function camelCase($string, $ucFirst = false, $noStrip = array()) {
+	public function camelCase($string, $ucFirst = false, $noStrip = []) {
 		// First we make sure all is lower case
 		$string = \strtolower($string);
 

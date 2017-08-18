@@ -18,6 +18,7 @@ class CacheHelper {
 		if(null === self::$instance) {
 			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
@@ -45,7 +46,7 @@ class CacheHelper {
 	 * @return string absolute path for the cache directory
 	 */
 	public function getThemeCacheDir() {
-		return \trailingslashit(\WP_CONTENT_DIR) . 'cache/themes/' . \sanitize_title(ThemeHelper::getInstance()->getThemeName());
+		return \trailingslashit(\WP_CONTENT_DIR) . 'cache/themes/yulai-federation/';
 	} // END public static function getThemeCacheDir()
 
 	/**
@@ -54,7 +55,7 @@ class CacheHelper {
 	 * @return string URI for the cache directory
 	 */
 	public function getThemeCacheUri() {
-		return \trailingslashit(\WP_CONTENT_URL) . 'cache/themes/' . \sanitize_title(ThemeHelper::getInstance()->getThemeName());
+		return \trailingslashit(\WP_CONTENT_URL) . 'cache/themes/yulai-federation/';
 	} // END public static function getThemeCacheUri()
 
 	/**
@@ -76,35 +77,22 @@ class CacheHelper {
 	} // END public static function getImageCacheUri()
 
 	/**
-	 * Getting the URI for the EVE API cache directory
-	 *
-	 * @return string URI for the EVE API cache directory
-	 */
-	public function getEveApiCacheDir() {
-		return \trailingslashit($this->getThemeCacheDir() . '/eve-api');
-	} // END public static function getEveApiCacheDir()
-
-	/**
-	 * Getting the local EVE API cache URI
-	 *
-	 * @return string Local EVE API cache URI
-	 */
-	public function getEveApiCacheUri() {
-		return \trailingslashit($this->getThemeCacheUri() . '/eve-api');
-	} // END public static function getEveApiCacheUri()
-
-	/**
 	 * creating our needed cache directories under:
 	 *		/wp-content/cache/themes/«theme-name»/
 	 */
 	public function createCacheDirectory($directory = '') {
 		$wpFileSystem =  new \WP_Filesystem_Direct(null);
+		$dirToCreate = \trailingslashit($this->getThemeCacheDir() . $directory);
 
-		if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir())) {
-			if(!$wpFileSystem->is_dir(\trailingslashit($this->getThemeCacheDir()) . $directory)) {
-				$wpFileSystem->mkdir(\trailingslashit($this->getThemeCacheDir()) . $directory, 0755);
-			} // END if(!$wpFileSystem->is_dir(\trailingslashit($this->getThemeCacheDir()) . $directory))
-		} // END if($wpFileSystem->is_writable($wpFileSystem->wp_content_dir()))
+		\wp_mkdir_p($dirToCreate);
+
+		if(!$wpFileSystem->is_file($dirToCreate . '/index.php')) {
+			$wpFileSystem->put_contents(
+				$dirToCreate . '/index.php',
+				'',
+				0644
+			);
+		} // END if(!$wpFileSystem->is_file(\trailingslashit($this->getPluginCacheDir()) . $directory . '/index.php'))
 	} // END public static function createCacheDirectories()
 
 	/**

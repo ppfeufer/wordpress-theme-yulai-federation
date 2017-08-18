@@ -18,6 +18,7 @@ class ThemeHelper {
 		if(null === self::$instance) {
 			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
@@ -56,49 +57,49 @@ class ThemeHelper {
 	 * @return array Default Theme Options
 	 */
 	public function getThemeDefaultOptions() {
-		$defaultOptions = array(
+		$defaultOptions = [
 			// generel settings tab
 			'type' => '',
 			'name' => '',
-			'show_corp_logos' => array(
+			'show_corp_logos' => [
 				'show' => 'show'
-			),
-			'navigation_even_cells' => array(
+			],
+			'navigation_even_cells' => [
 				'yes' => ''
-			),
-			'show_post_meta' => array(
+			],
+			'show_post_meta' => [
 				'yes' => ''
-			),
+			],
 
 			// background settings tab
-			'use_background_image' => array(
+			'use_background_image' => [
 				'yes' => 'yes'
-			),
+			],
 			'background_image' => 'eve-citadel.jpg',
 			'background_image_upload' => '',
 			'background_color' => '',
 
 			// slider settings tab
 			'default_slider' => '',
-			'default_slider_on' => array(
+			'default_slider_on' => [
 				'frontpage_only' => 'frontpage_only'
-			),
+			],
 
 			// performance settings tab
-			'minifyHtmlOutput' => array(
+			'minifyHtmlOutput' => [
 				'yes' => ''
-			),
-			'cache' => array(
+			],
+			'cache' => [
 				'remote-image-cache' => 'remote-image-cache'
-			),
-			'cron' => array(
+			],
+			'cron' => [
 				'cleanupThemeImageCache' => '',
 				'cleanupTransientCache' => ''
-			),
+			],
 
 			// footer settings tab
 			'footertext' => '',
-		);
+		];
 
 		return \apply_filters('yulai_theme_options', $defaultOptions);
 	} // END public static function getThemeDefaultOptions()
@@ -123,91 +124,91 @@ class ThemeHelper {
 	 * @return array
 	 */
 	public function getThemeJavaScripts() {
-		$enqueue_script = array(
+		$enqueue_script = [
 			/* Html5Shiv */
-			'Html5Shiv' => array(
+			'Html5Shiv' => [
 				'handle' => 'html5shiv',
-				'condition' => array(
+				'condition' => [
 					'conditionKey' => 'conditional',
 					'conditionValue' => 'lt IE 9'
-				),
+				],
 				'source' => \get_theme_file_uri('/js/html5.min.js'),
 				'deps' => '',
 				'version' => '',
 				'in_footer' => false
-			),
+			],
 
 			/* Respond JS */
-			'Respond JS' => array(
+			'Respond JS' => [
 				'handle' => 'respondJS',
-				'condition' => array(
+				'condition' => [
 					'conditionKey' => 'conditional',
 					'conditionValue' => 'lt IE 9'
-				),
+				],
 				'source' => \get_theme_file_uri('/js/respond.min.js'),
 				'deps' => '',
 				'version' => '',
 				'in_footer' => false
-			),
+			],
 
 			/* Modernizr */
-			'Modernizr' => array(
+			'Modernizr' => [
 				'handle' => 'modernizr',
 				'source' => \get_theme_file_uri('/js/modernizr.min.js'),
 				'source-development' => \get_theme_file_uri('/js/modernizr.js'),
 				'deps' => '',
 				'version' => '',
 				'in_footer' => true
-			),
+			],
 
 			/* Bootstrap's JS */
-			'Bootstrap' => array(
+			'Bootstrap' => [
 				'handle' => 'bootstrap-js',
 				'source' => \get_theme_file_uri('/bootstrap/js/bootstrap.min.js'),
 				'source-development' => \get_theme_file_uri('/bootstrap/js/bootstrap.js'),
-				'deps' => array(
+				'deps' => [
 					'jquery'
-				),
+				],
 				'version' => '3.3.7',
 				'in_footer' => true
-			),
+			],
 
 			/* Bootstrap Toolkit */
-			'Bootstrap Toolkit' => array(
+			'Bootstrap Toolkit' => [
 				'handle' => 'bootstrap-toolkit-js',
 				'source' => \get_theme_file_uri('/bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'),
 				'source-development' => \get_theme_file_uri('/bootstrap/bootstrap-toolkit/bootstrap-toolkit.js'),
-				'deps' => array(
+				'deps' => [
 					'bootstrap-js'
-				),
+				],
 				'version' => '2.6.3',
 				'in_footer' => true
-			),
+			],
 
 			/* Bootstrap Gallery */
-			'Bootstrap Gallery' => array(
+			'Bootstrap Gallery' => [
 				'handle' => 'bootstrap-gallery-js',
 				'source' => \get_theme_file_uri('/Plugins/js/jquery.bootstrap-gallery.min.js'),
 				'source-development' => \get_theme_file_uri('/Plugins/js/jquery.bootstrap-gallery.js'),
-				'deps' => array(
+				'deps' => [
 					'jquery'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'in_footer' => true
-			),
+			],
 
 			/* The main JS */
-			'EVE Online' => array(
+			'EVE Online' => [
 				'handle' => 'eve-online-main-js',
 				'source' => \get_theme_file_uri('/js/yulai-federation.min.js'),
 				'source-development' => \get_theme_file_uri('/js/yulai-federation.js'),
-				'deps' => array(
+				'deps' => [
 					'jquery'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'in_footer' => true
-			)
-		);
+			]
+		];
 
 		return $enqueue_script;
 	} // END public static function getThemeJavaScripts()
@@ -218,90 +219,90 @@ class ThemeHelper {
 	 * @return array
 	 */
 	public function getThemeStyleSheets() {
-		$enqueue_style = array(
+		$enqueue_style = [
 			/* Normalize CSS */
-			'Normalize CSS' => array(
+			'Normalize CSS' => [
 				'handle' => 'normalize',
 				'source' => \get_theme_file_uri('/css/normalize.min.css'),
 				'source-development' => \get_theme_file_uri('/css/normalize.css'),
-				'deps' => array(),
+				'deps' => [],
 				'version' => '3.0.3',
 				'media' => 'all'
-			),
+			],
 
 			/* Google Font */
-			'Google Font' => array(
+			'Google Font' => [
 				'handle' => 'google-font',
 				'source' => '//fonts.googleapis.com/css?family=Amethysta',
-				'deps' => array(
+				'deps' => [
 					'normalize'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
-			),
+			],
 
 			/* Bootstrap */
-			'Bootstrap' => array(
+			'Bootstrap' => [
 				'handle' => 'bootstrap',
 				'source' => \get_theme_file_uri('/bootstrap/css/bootstrap.min.css'),
 				'source-development' => \get_theme_file_uri('/bootstrap/css/bootstrap.css'),
-				'deps' => array(
+				'deps' => [
 					'normalize'
-				),
+				],
 				'version' => '3.3.7',
 				'media' => 'all'
-			),
+			],
 
 			/* Bootstrap Addition */
-			'Bootstrap Addition' => array(
+			'Bootstrap Addition' => [
 				'handle' => 'bootstrap-addition',
 				'source' => \get_theme_file_uri('/css/bootstrap-addition.min.css'),
 				'source-development' => \get_theme_file_uri('/css/bootstrap-addition.css'),
-				'deps' => array(
+				'deps' => [
 					'bootstrap'
-				),
+				],
 				'version' => '3.3.7',
 				'media' => 'all'
-			),
+			],
 
 			/* Yulai Federation Theme Main CSS */
-			'Yulai Federation Theme Styles' => array(
+			'Yulai Federation Theme Styles' => [
 				'handle' => 'yulai-federation',
 				'source' => \get_theme_file_uri('/style.min.css'),
 				'source-development' => \get_theme_file_uri('/style.css'),
-				'deps' => array(
+				'deps' => [
 					'normalize',
 					'google-font',
 					'bootstrap'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
-			),
+			],
 
 			/* Yulai Federation Theme Responsive CSS */
-			'Yulai Federation Responsive Styles' => array(
+			'Yulai Federation Responsive Styles' => [
 				'handle' => 'yulai-federation-responsive-styles',
 				'source' => \get_theme_file_uri('/css/responsive.min.css'),
 				'source-development' => \get_theme_file_uri('/css/responsive.css'),
-				'deps' => array(
+				'deps' => [
 					'yulai-federation'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
-			),
+			],
 
 			/* Adjustment to Plugins */
-			'Yulai Federation Plugin Styles' => array(
+			'Yulai Federation Plugin Styles' => [
 				'handle' => 'yulai-federation-plugin-styles',
 				'source' => \get_theme_file_uri('/css/plugin-tweaks.min.css'),
 				'source-development' => \get_theme_file_uri('/css/plugin-tweaks.css'),
-				'deps' => array(
+				'deps' => [
 					'yulai-federation'
-				),
+				],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
-			),
-		);
+			],
+		];
 
 		return $enqueue_style;
 	} // END public static function getThemeStyleSheets()
@@ -312,17 +313,17 @@ class ThemeHelper {
 	 * @return array
 	 */
 	public function getThemeAdminStyleSheets() {
-		$enqueue_style = array(
+		$enqueue_style = [
 			/* Adjustment to the backends */
-			'Yulai Federation Admin Styles' => array(
+			'Yulai Federation Admin Styles' => [
 				'handle' => 'yulai-federation-admin-styles',
 				'source' => \get_theme_file_uri('/Admin/css/yulai-federation-admin-style.min.css'),
 				'source-development' => \get_theme_file_uri('/Admin/css/yulai-federation-admin-style.css'),
-				'deps' => array(),
+				'deps' => [],
 				'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
 				'media' => 'all'
-			),
-		);
+			],
+		];
 
 		return $enqueue_style;
 	} // END public static function getThemeAdminStyleSheets()

@@ -18,6 +18,7 @@ class PostHelper {
 		if(null === self::$instance) {
 			self::$instance = new self;
 		}
+
 		return self::$instance;
 	}
 
@@ -146,11 +147,11 @@ class PostHelper {
 						</p>
 						<p class="reply">
 							<?php
-							\comment_reply_link(\array_merge($args, array(
+							\comment_reply_link(\array_merge($args, [
 								'reply_text' => __('Reply <span>&darr;</span>', 'yulai-federation'),
 								'depth' => $depth,
 								'max_depth' => $args['max_depth']
-							)));
+							]));
 							?>
 						</p>
 					</div> <!--/.media-body -->

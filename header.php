@@ -54,7 +54,7 @@
 								<nav class="navbar navbar-default navbar-headermenu" role="navigation">
 									<?php
 									if(\has_nav_menu('header-menu')) {
-										\wp_nav_menu(array(
+										\wp_nav_menu([
 											'menu' => '',
 											'theme_location' => 'header-menu',
 											'depth' => 1,
@@ -62,7 +62,7 @@
 											'menu_class' => 'header-menu nav navbar-nav top-navigation',
 											'fallback_cb' => '\WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker::fallback',
 											'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
-										));
+										]);
 									} // END if(has_nav_menu('header-menu'))
 									?>
 								</nav>
@@ -113,7 +113,7 @@
 										<div class="collapse navbar-collapse navbar-ex1-collapse">
 											<?php
 											if(\has_nav_menu('main-menu')) {
-												\wp_nav_menu(array(
+												\wp_nav_menu([
 													'menu' => '',
 													'theme_location' => 'main-menu',
 													'depth' => 3,
@@ -121,14 +121,14 @@
 													'menu_class' => 'nav navbar-nav main-navigation',
 													'fallback_cb' => '\WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker::fallback',
 													'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
-												));
+												]);
 											} // END if(\has_nav_menu('main-menu'))
 											if(\has_nav_menu('header-menu')) {
 												$additionalMenuClass = null;
 												if(\has_nav_menu('main-menu')) {
 													$additionalMenuClass = ' secondary-mobile-menu';
 												} // END if(\has_nav_menu('main-menu'))
-												\wp_nav_menu(array(
+												\wp_nav_menu([
 													'menu' => '',
 													'theme_location' => 'header-menu',
 													'depth' => 1,
@@ -136,7 +136,7 @@
 													'menu_class' => 'visible-xs header-menu nav navbar-nav' . $additionalMenuClass,
 													'fallback_cb' => '\WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker::fallback',
 													'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
-												));
+												]);
 											} // END if(has_nav_menu('header-menu'))
 											?>
 										</div><!-- /.navbar-collapse -->

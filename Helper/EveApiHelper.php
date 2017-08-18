@@ -27,7 +27,7 @@ class EveApiHelper {
 		/**
 		 * Assigning API Endpoints
 		 */
-		$this->apiEndpoints = array(
+		$this->apiEndpoints = [
 			'api.callList' => 'api/CallList.xml.aspx',
 
 			// Account API Endpoints
@@ -110,24 +110,24 @@ class EveApiHelper {
 
 			// Server API Endpoints
 			'server.status' => 'server/ServerStatus.xml.aspx'
-		);
+		];
 
 		/**
 		 * Assigning Imagesever Endpoints
 		 */
-		$this->imageserverEndpoints = array(
+		$this->imageserverEndpoints = [
 			'alliance' => 'Alliance/',
 			'corporation' => 'Corporation/',
 			'character' => 'Character/',
 			'item' => 'Type/',
 			'inventory' => 'InventoryType/' // Ships and all the other stuff
-		);
+		];
 
-		$this->entityGroups = array(
+		$this->entityGroups = [
 			'1' => 'character',
 			'2' => 'corporation',
 			'32' => 'alliance'
-		);
+		];
 
 		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 	} // END public function __construct()
@@ -206,7 +206,7 @@ class EveApiHelper {
 
 		if($data === false) {
 			$endpoint = 'eve.typeName';
-			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('ids' => $typeID));
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], ['ids' => $typeID]);
 
 			/**
 			 * setting the transient caches
@@ -234,7 +234,7 @@ class EveApiHelper {
 
 		if($data === false) {
 			$endpoint = 'eve.characterName';
-			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('ids' => $systemID));
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], ['ids' => $systemID]);
 
 			/**
 			 * setting the transient caches
@@ -266,7 +266,7 @@ class EveApiHelper {
 
 		if($data === false) {
 			$endpoint = 'eve.owner';
-			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('names' => $name));
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], ['names' => $name]);
 
 			/**
 			 * setting the transient caches
@@ -295,7 +295,7 @@ class EveApiHelper {
 
 		if($data === false) {
 			$endpoint = 'eve.owner';
-			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], array('names' => $name));
+			$data = $this->curl($this->apiUrl . $this->apiEndpoints[$endpoint], ['names' => $name]);
 
 			/**
 			 * setting the transient caches
