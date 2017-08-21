@@ -59,7 +59,7 @@ class Whitelabel {
 	 * @return Ambigous <string, mixed, boolean>
 	 */
 	public function loginLogoUrl() {
-		return \get_bloginfo('wpurl');
+		return \site_url();
 	} // END public function loginLogoUrl()
 
 	/**
