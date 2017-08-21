@@ -30,9 +30,10 @@
 						<div class="<?php echo \WordPress\Themes\YulaiFederation\Helper\PostHelper::getInstance()->getHeaderColClasses(); ?> brand clearfix">
 							<?php
 							$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
-							if(!empty($options['name'])) {
-								$eveApi = new \WordPress\Themes\YulaiFederation\Helper\EveApiHelper;
-								$siteLogo = $eveApi->getEntityLogoByName($options['name']);
+							if(!empty($options['name']) && !empty($options['type'])) {
+								$eveApi = \WordPress\Themes\YulaiFederation\Helper\EsiHelper::getInstance();
+								$siteLogo = $eveApi->getEntityLogoByName($options['name'], $options['type']);
+
 								if($siteLogo !== false) {
 									?>
 									<div class="site-logo float-left">
@@ -40,7 +41,7 @@
 									</div>
 									<?php
 								} // END if($siteLogo !== false)
-							} // END if(!empty($options['name']))
+							} // END if(!empty($options['name']) && !empty($options['type']))
 							?>
 							<div class="site-title">
 								<span class="site-name"><?php echo \get_bloginfo('name'); ?></span>
@@ -123,11 +124,13 @@
 													'walker' => new \WordPress\Themes\YulaiFederation\Addons\BootstrapMenuWalker
 												]);
 											} // END if(\has_nav_menu('main-menu'))
+
 											if(\has_nav_menu('header-menu')) {
 												$additionalMenuClass = null;
 												if(\has_nav_menu('main-menu')) {
 													$additionalMenuClass = ' secondary-mobile-menu';
 												} // END if(\has_nav_menu('main-menu'))
+
 												\wp_nav_menu([
 													'menu' => '',
 													'theme_location' => 'header-menu',

@@ -15,13 +15,27 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class BootstrapMenuWalker extends \Walker_Nav_Menu {
+	/**
+	 * Theme Options
+	 *
+	 * @var array
+	 */
 	private $themeOptions = null;
+
+	/**
+	 * EVE API
+	 *
+	 * @var \WordPress\Themes\YulaiFederation\Helper\EsiHelper
+	 */
 	private $eveApi = null;
 
+	/**
+	 * constructor
+	 */
 	public function __construct() {
 		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
-		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
-	}
+		$this->eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
+	} // END public function __construct()
 
 	/**
 	 * @see Walker::start_lvl()
@@ -65,43 +79,43 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 		} else if(\strcasecmp($item->attr_title, 'disabled') == 0) {
 			$output .= $indent . '<li role="presentation" class="disabled"><a href="#">' . \esc_attr($item->title) . '</a>';
 		} else {
-			$class_names = $value = '';
+			$classNames = $value = '';
 			$classes = empty($item->classes) ? [] : (array) $item->classes;
 			$classes[] = 'menu-item-' . $item->ID;
 			$classes[] = 'post-item-' . $item->object_id;
-			$class_names = \join(' ', \apply_filters('nav_menu_css_class', \array_filter($classes), $item, $args));
+			$classNames = \join(' ', \apply_filters('nav_menu_css_class', \array_filter($classes), $item, $args));
 
 			if($args->has_children) {
 				switch($depth) {
 					// first level
 					case '0':
-						$class_names .= ' dropdown';
+						$classNames .= ' dropdown';
 						break;
 
 					// next levels
 					default:
-						$class_names .= ' dropdown-submenu';
+						$classNames .= ' dropdown-submenu';
 						break;
 				} // END switch($depth)
 			} // END if($args->has_children)
 
 			if(in_array('current-menu-item', $classes)) {
-				$class_names .= ' active';
+				$classNames .= ' active';
 			} // END if(in_array('current-menu-item', $classes))
 
 			// let's check if a page actually has content ...
 			$hasContent = true;
 			if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::getInstance()->hasContent($item->object_id) === false) {
 				$hasContent = false;
-				$class_names .= ' no-post-content';
+				$classNames .= ' no-post-content';
 			} // END if($item->post_parent !== 0 && YulaiFederation\Helper\PostHelper::getInstance()->hasContent($item->object_id) === false)
 
-			$class_names = $class_names ? ' class="' . \esc_attr($class_names) . '"' : '';
+			$classNames = $classNames ? ' class="' . \esc_attr($classNames) . '"' : '';
 
 			$id = \apply_filters('nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args);
 			$id = $id ? ' id="' . \esc_attr($id) . '"' : '';
 
-			$output .= $indent . '<li' . $id . $value . $class_names . '>';
+			$output .= $indent . '<li' . $id . $value . $classNames . '>';
 
 			$atts = [];
 			$atts['title'] = !empty($item->title) ? $item->title : '';
@@ -136,7 +150,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 					if($attr === 'title') {
 						// change the title if no description is available
 						if($hasContent === false) {
-							$value .= ' ' . __('(No description available)', 'yulai-federation');
+							$value .= ' ' . \__('(No description available)', 'yulai-federation');
 						} // END if($hasContent === false)
 					} // END if($attr === 'title')
 
@@ -144,7 +158,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 				} // END if(!empty($value))
 			} // END foreach($atts as $attr => $value)
 
-			$item_output = $args->before;
+			$itemOutput = $args->before;
 
 			/**
 			 * Corp Logos
@@ -154,9 +168,9 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 				if(isset($this->themeOptions['show_corp_logos']['show'])) {
 					$corpLogoPath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $yf_page_corp_eve_ID . '_32.png');
 
-					$item_output .= '<a' . $attributes . '><span class="corp-' . \sanitize_title($item->title) . ' ' . \esc_attr($item->attr_title) . ' corp-eveID-' . $yf_page_corp_eve_ID . '"><img src="' . $corpLogoPath . '" width="24" height="24" alt="' . $item->title . '"></span>&nbsp;';
+					$itemOutput .= '<a' . $attributes . '><span class="corp-' . \sanitize_title($item->title) . ' ' . \esc_attr($item->attr_title) . ' corp-eveID-' . $yf_page_corp_eve_ID . '"><img src="' . $corpLogoPath . '" width="24" height="24" alt="' . $item->title . '"></span>&nbsp;';
 				} else {
-					$item_output .= '<a' . $attributes . '>';
+					$itemOutput .= '<a' . $attributes . '>';
 				} // END if(isset($this->themeOptions['show_corp_logos']['show']))
 			} else {
 				/**
@@ -167,17 +181,17 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 				 * property is NOT null we apply it as the class name for the glyphicon.
 				 */
 				if(!empty($item->attr_title)) {
-					$item_output .= '<a' . $attributes . '><span class="glyphicon ' . \esc_attr($item->attr_title) . '"></span>&nbsp;';
+					$itemOutput .= '<a' . $attributes . '><span class="glyphicon ' . \esc_attr($item->attr_title) . '"></span>&nbsp;';
 				} else {
-					$item_output .= '<a' . $attributes . '>';
+					$itemOutput .= '<a' . $attributes . '>';
 				} // END if(!empty($item->attr_title))
 			} // END if($yf_page_corp_eve_ID)
 
-			$item_output .= $args->link_before . \apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
-			$item_output .= ( $args->has_children && 0 === $depth ) ? ' <span class="caret"></span></a>' : '</a>';
-			$item_output .= $args->after;
+			$itemOutput .= $args->link_before . \apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
+			$itemOutput .= ( $args->has_children && 0 === $depth ) ? ' <span class="caret"></span></a>' : '</a>';
+			$itemOutput .= $args->after;
 
-			$output .= \apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+			$output .= \apply_filters('walker_nav_menu_start_el', $itemOutput, $item, $depth, $args);
 		} // END if(strcasecmp($item->attr_title, 'divider') == 0 && $depth === 1)
 	} // END public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
 
@@ -206,11 +220,11 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 			return;
 		} // END if(!$element)
 
-		$id_field = $this->db_fields['id'];
+		$idField = $this->db_fields['id'];
 
 		// Display this element.
 		if(\is_object($args[0])) {
-			$args[0]->has_children = !empty($children_elements[$element->$id_field]);
+			$args[0]->has_children = !empty($children_elements[$element->$idField]);
 		} // END if(is_object($args[0]))
 
 		parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
@@ -232,41 +246,41 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
 
 			\extract($args);
 
-			$fb_output = null;
+			$fbOutput = null;
 
 			if($container) {
-				$fb_output = '<' . $container;
+				$fbOutput = '<' . $container;
 
 				if($container_id) {
-					$fb_output .= ' id="' . $container_id . '"';
+					$fbOutput .= ' id="' . $container_id . '"';
 				} // END if($container_id)
 
 				if($container_class) {
-					$fb_output .= ' class="' . $container_class . '"';
+					$fbOutput .= ' class="' . $container_class . '"';
 				} // END if($container_class)
 
-				$fb_output .= '>';
+				$fbOutput .= '>';
 			} // END if($container)
 
-			$fb_output .= '<ul';
+			$fbOutput .= '<ul';
 
 			if($menu_id) {
-				$fb_output .= ' id="' . $menu_id . '"';
+				$fbOutput .= ' id="' . $menu_id . '"';
 			} // END if($menu_id)
 
 			if($menu_class) {
-				$fb_output .= ' class="' . $menu_class . '"';
+				$fbOutput .= ' class="' . $menu_class . '"';
 			} // END if($menu_class)
 
-			$fb_output .= '>';
-			$fb_output .= '<li><a href="' . \admin_url('nav-menus.php') . '">' . __('Add a menu', 'yulai-federation') . '</a></li>';
-			$fb_output .= '</ul>';
+			$fbOutput .= '>';
+			$fbOutput .= '<li><a href="' . \admin_url('nav-menus.php') . '">' . __('Add a menu', 'yulai-federation') . '</a></li>';
+			$fbOutput .= '</ul>';
 
 			if($container) {
-				$fb_output .= '</' . $container . '>';
+				$fbOutput .= '</' . $container . '>';
 			} // END if($container)
 
-			echo $fb_output;
+			echo $fbOutput;
 		} // END if(current_user_can('manage_options'))
 	} // END public static function fallback($args)
 } // END class BootstrapMenuWalker extends \Walker_Nav_Menu

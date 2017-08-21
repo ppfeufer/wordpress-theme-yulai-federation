@@ -177,9 +177,8 @@ class NavigationHelper {
 			if(\is_category()) {
 				global $wp_query;
 
-				$cat_obj = $wp_query->get_queried_object();
-				$thisCat = $cat_obj->term_id;
-				$thisCat = \get_category($thisCat);
+				$categoryObject = $wp_query->get_queried_object();
+				$thisCat = \get_category($categoryObject->term_id);
 				$parentCat = \get_category($thisCat->parent);
 
 				if($thisCat->parent != 0) {
@@ -200,10 +199,10 @@ class NavigationHelper {
 				$breadcrumb .=  $before . \get_the_time('Y') . $after;
 			} elseif(\is_single() && !\is_attachment()) {
 				if(\get_post_type() != 'post') {
-					$post_type = \get_post_type_object(\get_post_type());
-					$slug = $post_type->rewrite;
+					$postType = \get_post_type_object(\get_post_type());
+					$slug = $postType->rewrite;
 
-					$breadcrumb .=  '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ';
+					$breadcrumb .=  '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $postType->labels->singular_name . '</a></li> ';
 					$breadcrumb .=  $before . \get_the_title() . $after;
 				} else {
 					$cat = \get_the_category();
@@ -213,9 +212,9 @@ class NavigationHelper {
 					$breadcrumb .=  $before . \get_the_title() . $after;
 				} // END if(get_post_type() != 'post')
 			} elseif(!\is_single() && !\is_page() && \get_post_type() != 'post' && !\is_404()) {
-				$post_type = \get_post_type_object(\get_post_type());
+				$postType = \get_post_type_object(\get_post_type());
 
-				$breadcrumb .=  $before . $post_type->labels->singular_name . $after;
+				$breadcrumb .=  $before . $postType->labels->singular_name . $after;
 			} elseif(\is_attachment()) {
 				$parent = \get_post($post->post_parent);
 				$cat = \get_the_category($parent->ID);
