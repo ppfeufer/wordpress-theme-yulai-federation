@@ -10,10 +10,15 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class Corppage {
+	/**
+	 * EVE API
+	 *
+	 * @var \WordPress\Themes\YulaiFederation\Helper\EsiHelper
+	 */
 	private $eveApi = null;
 
 	public function __construct() {
-		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
+		$this->eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
 
 		$this->registerMetaBoxes();
 		$this->registerShortcodes();
@@ -27,12 +32,9 @@ class Corppage {
 	} // END public function registerShortcodes()
 
 	public function shortcodeCorplist($attributes) {
-		$args = \shortcode_atts(
-			[
-				'type' => 'boxes'
-			],
-			$attributes
-		);
+		$args = \shortcode_atts([
+			'type' => 'boxes'
+		], $attributes);
 
 		/**
 		 * Not used at this moment
@@ -190,7 +192,7 @@ class Corppage {
 		if(!empty($isCorpPage)) {
 			$showCorpLogo = \filter_input(INPUT_POST, 'yf_page_show_corp_logo') === 'on';
 			$corpName = \filter_input(\INPUT_POST, 'yf_page_corp_name');
-			$corpID = $this->eveApi->getEveIdFromName(\stripslashes(\filter_input(\INPUT_POST, 'yf_page_corp_name')));
+			$corpID = $this->eveApi->getEveIdFromName(\stripslashes(\filter_input(\INPUT_POST, 'yf_page_corp_name')), 'corporation');
 		} // END if(!empty($isCorpPage))
 
 		\update_post_meta($postID, 'yf_page_corp_name', $corpName);
@@ -200,7 +202,7 @@ class Corppage {
 	} // END public function savePageSettings($postID)
 
 	public static function getCorprationLogo($corpPageID) {
-		$eveApi = new YulaiFederation\Helper\EveApiHelper;
+		$eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
 
 		$corpName = \get_post_meta($corpPageID, 'yf_page_corp_name', true);
 		$corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);

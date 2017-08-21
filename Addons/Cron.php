@@ -45,7 +45,10 @@ class Cron {
 			 * Only add the cron if the theme settings say so or else remove them
 			 */
 			if(!empty($this->themeOptions['cron'][$cronEvent['hook']])) {
-				\add_action($cronEvent['hook'], [$this, 'cron' . \ucfirst($cronEvent['hook'])]);
+				\add_action($cronEvent['hook'], [
+					$this,
+					'cron' . \ucfirst($cronEvent['hook'])
+				]);
 			} else {
 				$this->removeCron($cronEvent['hook']);
 			} // END if(!empty($this->themeOptions['cron'][$cronEvent['hook']]))
