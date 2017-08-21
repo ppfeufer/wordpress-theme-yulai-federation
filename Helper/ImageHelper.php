@@ -40,7 +40,6 @@ class ImageHelper {
 		;
 	}
 
-//	public static function getAttachmentId($url) {
 	public function getAttachmentId($url) {
 		$attachment_id = 0;
 		$dir = \wp_upload_dir();
@@ -87,7 +86,6 @@ class ImageHelper {
 	 * @param string $remoteImageUrl The URL for the remote image
 	 * @return string The cached Image URL
 	 */
-//	public static function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
 	public function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
 		$themeOptions = \get_option('yulai_theme_options', ThemeHelper::getInstance()->getThemeDefaultOptions());
 		$returnValue = $remoteImageUrl;

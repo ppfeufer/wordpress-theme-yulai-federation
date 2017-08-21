@@ -10,18 +10,44 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class ThemeSettings {
+	/**
+	 * EVE API
+	 *
+	 * @var \WordPress\Themes\YulaiFederation\Helper\EsiHelper
+	 */
 	private $eveApi = null;
+
+	/**
+	 * Meta Slider
+	 * @var \WordPress\Themes\YulaiFederation\Plugins\Metaslider
+	 */
 	private $metaSlider = null;
+
+	/**
+	 * Theme Options
+	 *
+	 * @var array
+	 */
 	private $themeOptions = null;
 
+	/**
+	 *
+	 * @var \WordPress\Themes\YulaiFederation\Admin\SettingsApi
+	 */
 	private $settingsApi = null;
+
+	/**
+	 * Settings Filter
+	 *
+	 * @var string
+	 */
 	private $settingsFilter = null;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->eveApi = new YulaiFederation\Helper\EveApiHelper;
+		$this->eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
 		$this->metaSlider = new YulaiFederation\Plugins\Metaslider(false);
 		$this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
@@ -144,7 +170,7 @@ class ThemeSettings {
 			'title' => \__('Entity Name', 'yulai-federation'),
 			'type' => 'text',
 			'description' => \sprintf(\__('The Name of your Corp/Alliance %1$s', 'yulai-federation'),
-				(!empty($this->themeOptions['name'])) ? '</p></td></tr><tr><th>' . \__('Your Logo', 'yulai-federation') . '</th><td>' . $this->eveApi->getEntityLogoByName($this->themeOptions['name'], false) : ''
+				(!empty($this->themeOptions['name']) && !empty($this->themeOptions['type'])) ? '</p></td></tr><tr><th>' . \__('Your Logo', 'yulai-federation') . '</th><td>' . $this->eveApi->getEntityLogoByName($this->themeOptions['name'], $this->themeOptions['type'], false) : ''
 			)
 		];
 	} // END private function getEntityNameField()
