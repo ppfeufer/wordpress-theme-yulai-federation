@@ -21,23 +21,11 @@
 						<div class="row copyright">
 							<div class="col-md-12">
 								<div class="pull-left copyright-text">
-									<?php
-//									$options = \get_option('yulai_theme_options', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
-//
-//									if($options['footertext'] != '') {
-//										echo '<p>';
-//										echo stripslashes($options['footertext']);
-//										echo '</p>';
-//									} else {
-										?>
-										<ul class="credit">
-											<li>&copy; <?php echo date('Y'); ?> <a href="<?php echo \esc_url(\home_url()); ?>"><?php \bloginfo(); ?></a></li>
-											<!--<li><?php \_e('Proudly powered by ', 'yulai-federation') ?> <a href="<?php echo \esc_url(\__('http://wordpress.org/', 'yulai-federation')); ?>" ><?php \_e('WordPress', 'yulai-federation') ?></a>.</li>-->
-											<li>(<?php \printf(\__('Design and Programming by Rounon Dax', 'yulai-federation')); ?>)</li>
-										</ul><!-- end .credit -->
-										<?php
-//									} // END if($options['footertext'] != '')
-									?>
+									<ul class="credit">
+										<li>&copy; <?php echo date('Y'); ?> <a href="<?php echo \esc_url(\home_url()); ?>"><?php \bloginfo(); ?></a></li>
+										<!--<li><?php \_e('Proudly powered by ', 'yulai-federation') ?> <a href="<?php echo \esc_url(\__('http://wordpress.org/', 'yulai-federation')); ?>" ><?php \_e('WordPress', 'yulai-federation') ?></a>.</li>-->
+										<li>(<?php \printf(\__('Design and Programming by Rounon Dax', 'yulai-federation')); ?>)</li>
+									</ul><!-- end .credit -->
 								</div>
 
 								<div class="footer-menu-wrapper">
