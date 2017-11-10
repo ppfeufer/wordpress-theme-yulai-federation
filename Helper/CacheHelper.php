@@ -64,7 +64,7 @@ class CacheHelper {
 	 * @return string Local image cache directory
 	 */
 	public function getImageCacheDir() {
-		return \trailingslashit($this->getThemeCacheDir() . '/images');
+		return \trailingslashit($this->getThemeCacheDir() . 'images');
 	} // END public static function getImageCacheDir()
 
 	/**
@@ -73,7 +73,7 @@ class CacheHelper {
 	 * @return string Local image cache URI
 	 */
 	public function getImageCacheUri() {
-		return \trailingslashit($this->getThemeCacheUri() . '/images');
+		return \trailingslashit($this->getThemeCacheUri() . 'images');
 	} // END public static function getImageCacheUri()
 
 	/**
