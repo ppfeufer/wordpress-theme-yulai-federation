@@ -199,7 +199,7 @@ class ThemeHelper {
 
 			/* The main JS */
 			'EVE Online' => [
-				'handle' => 'eve-online-main-js',
+				'handle' => 'yulai-federation-main-js',
 				'source' => \get_theme_file_uri('/js/yulai-federation.min.js'),
 				'source-development' => \get_theme_file_uri('/js/yulai-federation.js'),
 				'deps' => [

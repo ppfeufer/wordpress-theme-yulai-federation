@@ -65,7 +65,7 @@ class MoCache {
 	public function store() {
 		global $l10n;
 
-		$this->moCacheArray = \get_option('eve-online-theme-mo-cache');
+		$this->moCacheArray = \get_option('yulai-federation-theme-mo-cache');
 
 		foreach($this->miss as $domain => $key) {
 			if(isset($l10n[$domain])) {
@@ -83,7 +83,7 @@ class MoCache {
 			\set_transient($this->cacheGroup . '_' . $domain, $cache, $this->cacheExpire);
 		} // END foreach($this->miss as $domain => $key)
 
-		\update_option('eve-online-theme-mo-cache', $this->moCacheArray);
+		\update_option('yulai-federation-theme-mo-cache', $this->moCacheArray);
 
 		return;
 	} // END public function store()
