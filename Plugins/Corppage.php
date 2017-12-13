@@ -128,7 +128,7 @@ class Corppage {
 
 	public function renderMetaBox($post) {
 		$isCorpPage = \get_post_meta($post->ID, 'yf_page_is_corp_page', true);
-		$showCorpLogo = \get_post_meta($post->ID, 'yf_page_show_corp_logo', true);
+		$showCorpLogo = \get_post_meta($post->ID, 'yf_page_show_corp_info', true);
 		$corpName = \get_post_meta($post->ID, 'yf_page_corp_name', true);
 		$corpID = \get_post_meta($post->ID, 'yf_page_corp_eve_ID', true);
 		?>
@@ -138,8 +138,8 @@ class Corppage {
 			<label for="yf_page_is_corp_page"><?php _e('Is Corp Page?', 'yulai-federation'); ?></label>
 		</p>
 		<p class="checkbox-wrapper">
-			<input id="yf_page_show_corp_logo" name="yf_page_show_corp_logo" type="checkbox" <?php \checked($showCorpLogo); ?>>
-			<label for="yf_page_show_corp_logo"><?php \_e('Show Corp Logo at the beginning of your page\'s content?', 'yulai-federation'); ?></label>
+			<input id="yf_page_show_corp_info" name="yf_page_show_corp_info" type="checkbox" <?php \checked($showCorpLogo); ?>>
+			<label for="yf_page_show_corp_info"><?php \_e('Show Corp Information at the beginning of your page\'s content?', 'yulai-federation'); ?></label>
 		</p>
 		<p class="checkbox-wrapper">
 			<label for="yf_page_corp_name"><?php _e('Corporation Name:', 'yulai-federation'); ?></label><br>
@@ -181,8 +181,8 @@ class Corppage {
 			return false;
 		} // END if(defined('DOING_AJAX'))
 
-		$isCorpPage = \filter_input(INPUT_POST, 'yf_page_is_corp_page') === 'on';
-		$showCorpLogo = '';
+		$isCorpPage = \filter_input(\INPUT_POST, 'yf_page_is_corp_page') === 'on';
+		$showCorpInfo = '';
 		$corpName = '';
 		$corpID = '';
 
@@ -190,14 +190,14 @@ class Corppage {
 		 * only if we really have a corp page ....
 		 */
 		if(!empty($isCorpPage)) {
-			$showCorpLogo = \filter_input(INPUT_POST, 'yf_page_show_corp_logo') === 'on';
+			$showCorpInfo = \filter_input(\INPUT_POST, 'yf_page_show_corp_info') === 'on';
 			$corpName = \filter_input(\INPUT_POST, 'yf_page_corp_name');
 			$corpID = $this->eveApi->getEveIdFromName(\stripslashes(\filter_input(\INPUT_POST, 'yf_page_corp_name')), 'corporation');
 		} // END if(!empty($isCorpPage))
 
 		\update_post_meta($postID, 'yf_page_corp_name', $corpName);
 		\update_post_meta($postID, 'yf_page_is_corp_page', $isCorpPage);
-		\update_post_meta($postID, 'yf_page_show_corp_logo', $showCorpLogo);
+		\update_post_meta($postID, 'yf_page_show_corp_info', $showCorpInfo);
 		\update_post_meta($postID, 'yf_page_corp_eve_ID', $corpID);
 	} // END public function savePageSettings($postID)
 
@@ -207,11 +207,11 @@ class Corppage {
 		$corpName = \get_post_meta($corpPageID, 'yf_page_corp_name', true);
 		$corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);
 
-		$imagePath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+		$imagePath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $eveApi->getImageServerEndpoint('corporation') . $corpID . '_128.png');
 
 		if($imagePath !== false) {
-			$html = '<div class="eve-corp-page-corp-logo eve-image eve-corporation-logo-container"><figure><img src="' . $imagePath . '" class="eve-corporation-logo" alt="' . esc_html($corpName) . '" width="256">';
-			$html .= '<figcaption>' . esc_html($corpName) . '</figcaption>';
+			$html = '<div class="eve-corp-page-corp-logo eve-image eve-corporation-logo-container"><figure><img src="' . $imagePath . '" class="eve-corporation-logo" alt="' . \esc_html($corpName) . '" width="128">';
+//			$html .= '<figcaption>' . \esc_html($corpName) . '</figcaption>';
 			$html .= '</figure></div>';
 
 			return $html;
@@ -219,4 +219,18 @@ class Corppage {
 
 		return false;
 	} // END public static function getCorprationLogo($corpPageID)
+
+//	public static function getCorporationInformations($corpPageID) {
+//		$eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
+//
+//		$corpName = \get_post_meta($corpPageID, 'yf_page_corp_name', true);
+//		$corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);
+//		$corpInfo = \get_post_meta($corpPageID, 'yf_page_corp_informations', true);
+//		$corpInfoCacheTime = \get_post_meta($corpPageID, 'yf_page_corp_informations_cache_time', true);
+//		$now = \mktime();
+//
+//		if($now - $corpInfoCacheTime > 3600 * 24) {
+//
+//		}
+//	}
 } // END class Corppage
