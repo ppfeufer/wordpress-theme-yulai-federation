@@ -65,8 +65,8 @@
 								 * Let's see if we are by any chance in a Corp Page
 								 */
 								$isCorpPage = \get_post_meta($post->ID, 'yf_page_is_corp_page', true);
-								$showCorpLogo = \get_post_meta($post->ID, 'yf_page_show_corp_logo', true);
-								if($isCorpPage && $showCorpLogo) {
+								$showCorpInfo = \get_post_meta($post->ID, 'yf_page_show_corp_info', true);
+								if($isCorpPage && $showCorpInfo) {
 									echo \WordPress\Themes\YulaiFederation\Plugins\Corppage::getCorprationLogo(\get_the_ID());
 								} // END if($isCorpPage && $showCorpLogo)
 
