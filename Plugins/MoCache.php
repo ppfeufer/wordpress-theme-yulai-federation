@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Caches the language-files.
  *
@@ -8,83 +9,110 @@
 namespace WordPress\Themes\YulaiFederation\Plugins;
 
 class MoCache {
-	private $cacheGroup = 'eve-mo';
-	private $moCacheArray = null;
-	private $cacheExpire = 21600;
+    /**
+     * cache group key
+     *
+     * @var string
+     */
+    private $cacheGroup = 'yulai-federation-mo-cache';
 
-	private $hit = [];
-	private $miss = [];
+    /**
+     * cache array
+     *
+     * @var array
+     */
+    private $moCacheArray = null;
 
-	public function __construct() {
-		\add_filter('override_load_textdomain', [$this, 'load'], 10, 3);
-	} // END public function __construct()
+    /**
+     * cache expire time
+     * @var int
+     */
+    private $cacheExpire = 21600;
 
-	/**
-	 * Load MO object from cache
-	 *
-	 * @author ppfeufer
-	 */
-	public function load($override, $domain, $mofile) {
-		if(isset($this->hit[$domain])) {
-			return true;
-		} // END if(isset($this->hit[$domain]))
+    /**
+     * cache hits
+     *
+     * @var array
+     */
+    private $hit = [];
 
-		if(!\preg_match('/\w+(?=\.mo$)/', $mofile, $matches)) {
-			return;
-		} // END if(!\preg_match('/\w+(?=\.mo$)/', $mofile, $matches))
+    /**
+     * cache miss
+     *
+     * @var array
+     */
+    private $miss = [];
 
-		$key = $domain . ':' . $matches[0];
+    public function __construct() {
+        \add_filter('override_load_textdomain', [$this, 'load'], 10, 3);
+    }
 
-		if(($cache = \get_transient($this->cacheGroup . '_' . $domain)) !== false) {
-			if(\is_array($cache)) {
-				global $l10n;
+    /**
+     * Load MO object from cache
+     *
+     * @author ppfeufer
+     */
+    public function load($override, $domain, $mofile) {
+        if(isset($this->hit[$domain])) {
+            return true;
+        }
 
-				$mo = new \MO();
-				$mo->entries = $cache['entries'];
-				$mo->set_headers($cache['headers']);
-				$l10n[$domain] = $mo;
-			} // END if(\is_array($cache))
+        if(!\preg_match('/\w+(?=\.mo$)/', $mofile, $matches)) {
+            return;
+        }
 
-			$this->hit[$domain] = true;
+        $key = $domain . ':' . $matches[0];
 
-			return true;
-		} else {
-			\add_action('shutdown', [$this, 'store']);
+        if(($cache = \get_transient($this->cacheGroup . '_' . $domain)) !== false) {
+            if(\is_array($cache)) {
+                global $l10n;
 
-			$this->miss[$domain] = $key;
+                $mo = new \MO();
+                $mo->entries = $cache['entries'];
+                $mo->set_headers($cache['headers']);
+                $l10n[$domain] = $mo;
+            }
 
-			return false;
-		} // END if(($cache = \get_transient($this->cacheGroup . '_' . $domain)) !== false)
-	} // END public function load($override, $domain, $mofile)
+            $this->hit[$domain] = true;
 
-	/**
-	 * Store MO object in cache
-	 *
-	 * @author ppfeufer
-	 */
-	public function store() {
-		global $l10n;
+            return true;
+        } else {
+            \add_action('shutdown', [$this, 'store']);
 
-		$this->moCacheArray = \get_option('yulai-federation-theme-mo-cache');
+            $this->miss[$domain] = $key;
 
-		foreach($this->miss as $domain => $key) {
-			if(isset($l10n[$domain])) {
-				$mo = $l10n[$domain];
-				$cache = [
-					'entries' => $mo->entries,
-					'headers' => $mo->headers
-				];
-			} else {
-				continue;
-			} // END if(isset($l10n[$domain]))
+            return false;
+        }
+    }
 
-			$this->moCacheArray[$domain] = $this->cacheGroup . '_' . $domain;
+    /**
+     * Store MO object in cache
+     *
+     * @author ppfeufer
+     */
+    public function store() {
+        global $l10n;
 
-			\set_transient($this->cacheGroup . '_' . $domain, $cache, $this->cacheExpire);
-		} // END foreach($this->miss as $domain => $key)
+        $this->moCacheArray = \get_option('yulai-federation-theme-mo-cache');
 
-		\update_option('yulai-federation-theme-mo-cache', $this->moCacheArray);
+        foreach($this->miss as $domain => $key) {
+            if(isset($l10n[$domain])) {
+                $mo = $l10n[$domain];
+                $cache = [
+                    'entries' => $mo->entries,
+                    'headers' => $mo->headers
+                ];
+            } else {
+                continue;
+            }
 
-		return;
-	} // END public function store()
-} // END class MoCache
+            $this->moCacheArray[$domain] = $this->cacheGroup . '_' . $domain;
+
+            \set_transient($this->cacheGroup . '_' . $domain, $cache, $this->cacheExpire);
+        }
+
+        \update_option('yulai-federation-theme-mo-cache', $this->moCacheArray);
+
+        return;
+    }
+}

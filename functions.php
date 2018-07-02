@@ -38,7 +38,6 @@ $bootstrapImageGallery = new Plugins\BootstrapImageGallery;
 $bootstrapVideoGallery = new Plugins\BootstrapVideoGallery;
 $bootstrapContentGrid = new Plugins\BootstrapContentGrid;
 $corppage = new Plugins\Corppage;
-//$encodeEmailAddresses = new Plugins\EncodeEmailAddresses;
 $whitelabel = new Plugins\Whitelabel;
 $childpageMenu = new Plugins\ChildpageMenu;
 $latestBlogPosts = new Plugins\LatestBlogPosts;
@@ -338,7 +337,6 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_fonts_url')) {
  * Adding the clearfix CSS class to every paragraph in .entry-content
  */
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix')) {
-
     function yf_paragraph_clearfix($content) {
         return \preg_replace('/<p([^>]+)?>/', '<p$1 class="clearfix">', $content);
     }
@@ -349,7 +347,6 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_paragraph_clearfix'))
  * Picking up teh first paragraph from the_content
  */
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph')) {
-
     function yf_first_paragraph($content) {
         return \preg_replace('/<p([^>]+)?>/', '<p$1 class="intro">', $content, 1);
     }
@@ -362,7 +359,6 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_first_paragraph')) {
  * @return string
  */
 if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt')) {
-
     function yf_add_class_to_excerpt($excerpt) {
         return \str_replace('<p', '<p class="excerpt"', $excerpt);
     }
@@ -373,150 +369,126 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_add_class_to_excerpt'
  * Define theme's widget areas.
  */
 function yf_widgets_init() {
-    \register_sidebar(
-        [
-            'name' => \__('Page Sidebar', 'yulai-federation'),
-            'description' => \__('This sidebar will be displayed if the current is a page or your blog index.', 'yulai-federation'),
-            'id' => 'sidebar-page',
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => "</div></aside>",
-            'before_title' => '<h4 class="widget-title">',
-            'after_title' => '</h4>',
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Page Sidebar', 'yulai-federation'),
+        'description' => \__('This sidebar will be displayed if the current is a page or your blog index.', 'yulai-federation'),
+        'id' => 'sidebar-page',
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => "</div></aside>",
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Post Sidebar', 'yulai-federation'),
-            'description' => \__('This sidebar will always be displayed if teh current is a post / blog article.', 'yulai-federation'),
-            'id' => 'sidebar-post',
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => "</div></aside>",
-            'before_title' => '<h4 class="widget-title">',
-            'after_title' => '</h4>',
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Post Sidebar', 'yulai-federation'),
+        'description' => \__('This sidebar will always be displayed if teh current is a post / blog article.', 'yulai-federation'),
+        'id' => 'sidebar-post',
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => "</div></aside>",
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('General Sidebar', 'yulai-federation'),
-            'id' => 'sidebar-general',
-            'description' => \__('General sidebar that is always right from the topic, below the side specific sidebars', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => "</div></aside>",
-            'before_title' => '<h4 class="widget-title">',
-            'after_title' => '</h4>',
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('General Sidebar', 'yulai-federation'),
+        'id' => 'sidebar-general',
+        'description' => \__('General sidebar that is always right from the topic, below the side specific sidebars', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => "</div></aside>",
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Home Column 1', 'yulai-federation'),
-            'id' => 'home-column-1',
-            'description' => \__('Home Column 1', 'yulai-federation'),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div>',
-            'before_title' => '<h2>',
-            'after_title' => '</h2>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Home Column 1', 'yulai-federation'),
+        'id' => 'home-column-1',
+        'description' => \__('Home Column 1', 'yulai-federation'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Home Column 2', 'yulai-federation'),
-            'id' => 'home-column-2',
-            'description' => \__('Home Column 2', 'yulai-federation'),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div>',
-            'before_title' => '<h2>',
-            'after_title' => '</h2>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Home Column 2', 'yulai-federation'),
+        'id' => 'home-column-2',
+        'description' => \__('Home Column 2', 'yulai-federation'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Home Column 3', 'yulai-federation'),
-            'id' => 'home-column-3',
-            'description' => \__('Home Column 3', 'yulai-federation'),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div>',
-            'before_title' => '<h2>',
-            'after_title' => '</h2>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Home Column 3', 'yulai-federation'),
+        'id' => 'home-column-3',
+        'description' => \__('Home Column 3', 'yulai-federation'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Home Column 4', 'yulai-federation'),
-            'id' => 'home-column-4',
-            'description' => \__('Home Column 4', 'yulai-federation'),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div>',
-            'before_title' => '<h2>',
-            'after_title' => '</h2>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Home Column 4', 'yulai-federation'),
+        'id' => 'home-column-4',
+        'description' => \__('Home Column 4', 'yulai-federation'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Footer Column 1', 'yulai-federation'),
-            'id' => 'footer-column-1',
-            'description' => \__('Footer Column 1', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div></aside>',
-            'before_title' => '<h4>',
-            'after_title' => '</h4>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Footer Column 1', 'yulai-federation'),
+        'id' => 'footer-column-1',
+        'description' => \__('Footer Column 1', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div></aside>',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Footer Column 2', 'yulai-federation'),
-            'id' => 'footer-column-2',
-            'description' => \__('Footer Column 2', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div></aside>',
-            'before_title' => '<h4>',
-            'after_title' => '</h4>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Footer Column 2', 'yulai-federation'),
+        'id' => 'footer-column-2',
+        'description' => \__('Footer Column 2', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div></aside>',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Footer Column 3', 'yulai-federation'),
-            'id' => 'footer-column-3',
-            'description' => \__('Footer Column 3', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div></aside>',
-            'before_title' => '<h4>',
-            'after_title' => '</h4>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Footer Column 3', 'yulai-federation'),
+        'id' => 'footer-column-3',
+        'description' => \__('Footer Column 3', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div></aside>',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    ]);
 
-    \register_sidebar(
-        [
-            'name' => \__('Footer Column 4', 'yulai-federation'),
-            'id' => 'footer-column-4',
-            'description' => \__('Footer Column 4', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div></aside>',
-            'before_title' => '<h4>',
-            'after_title' => '</h4>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Footer Column 4', 'yulai-federation'),
+        'id' => 'footer-column-4',
+        'description' => \__('Footer Column 4', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div></aside>',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    ]);
 
     // header widget sidebar
-    \register_sidebar(
-        [
-            'name' => \__('Header Widget Area', 'yulai-federation'),
-            'id' => 'header-widget-area',
-            'description' => \__('Header Widget Area', 'yulai-federation'),
-            'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
-            'after_widget' => '</div></aside>',
-            'before_title' => '<h4>',
-            'after_title' => '</h4>'
-        ]
-    );
+    \register_sidebar([
+        'name' => \__('Header Widget Area', 'yulai-federation'),
+        'id' => 'header-widget-area',
+        'description' => \__('Header Widget Area', 'yulai-federation'),
+        'before_widget' => '<aside><div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div></aside>',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    ]);
 }
 \add_action('init', '\\WordPress\Themes\YulaiFederation\yf_widgets_init');
 
@@ -648,15 +620,15 @@ function yf_link_pages($args = []) {
 function yf_bootstrapDebug() {
     $script = '<script type="text/javascript">'
         . 'jQuery(function($) {'
-        . '		(function($, document, window, viewport) {'
-        . '			console.log(\'Current breakpoint:\', viewport.current());'
-        . '			$("footer").append("<span class=\"viewport-debug\"><span class=\"viewport-debug-inner\"></span></span>");'
-        . '			$(".viewport-debug-inner").html(viewport.current().toUpperCase());'
-        . '			$(window).resize(viewport.changed(function() {'
-        . '				console.log(\'Breakpoint changed to:\', viewport.current());'
-        . '				$(".viewport-debug-inner").html(viewport.current().toUpperCase());'
-        . '			}));'
-        . '		})(jQuery, document, window, ResponsiveBootstrapToolkit);'
+        . '     (function($, document, window, viewport) {'
+        . '         console.log(\'Current breakpoint:\', viewport.current());'
+        . '         $("footer").append("<span class=\"viewport-debug\"><span class=\"viewport-debug-inner\"></span></span>");'
+        . '         $(".viewport-debug-inner").html(viewport.current().toUpperCase());'
+        . '         $(window).resize(viewport.changed(function() {'
+        . '             console.log(\'Breakpoint changed to:\', viewport.current());'
+        . '             $(".viewport-debug-inner").html(viewport.current().toUpperCase());'
+        . '         }));'
+        . '     })(jQuery, document, window, ResponsiveBootstrapToolkit);'
         . '});'
         . '</script>';
 
@@ -690,8 +662,8 @@ function yf_get_theme_custom_style() {
     // main navigation
     if(isset($themeSettings['navigation_even_cells']['yes']) && $themeSettings['navigation_even_cells']['yes'] === 'yes') {
         $themeCustomStyle .= '@media all and (min-width: 768px) {' . "\n";
-        $themeCustomStyle .= '	ul.main-navigation {display:table; width:100%;}' . "\n";
-        $themeCustomStyle .= '	ul.main-navigation > li {display:table-cell; text-align:center; float:none;}' . "\n";
+        $themeCustomStyle .= '  ul.main-navigation {display:table; width:100%;}' . "\n";
+        $themeCustomStyle .= '  ul.main-navigation > li {display:table-cell; text-align:center; float:none;}' . "\n";
         $themeCustomStyle .= '}' . "\n";
     }
 

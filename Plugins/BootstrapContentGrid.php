@@ -7,55 +7,53 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class BootstrapContentGrid {
-	public function __construct() {
-		$this->registerShortcode();
-	} // END public function __construct()
 
-	public function registerShortcode() {
-		\add_shortcode('contentgrid', [$this, 'shortcodeContentGrid']);
-		\add_shortcode('gridelement', [$this, 'shortcodeContentGridElement']);
-	} // END public function registerShortcode()
+    public function __construct() {
+        $this->registerShortcode();
+    }
 
-	public function shortcodeContentGrid($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
-			],
-			$atts
-		);
+    public function registerShortcode() {
+        \add_shortcode('contentgrid', [$this, 'shortcodeContentGrid']);
+        \add_shortcode('gridelement', [$this, 'shortcodeContentGridElement']);
+    }
 
-		$uniqueID = \uniqid();
-		$gridHtml = null;
-		$gridHtml .= '<div class="content-grid-row row">';
-		$gridHtml .= '<ul class="bootstrap-content-grid bootstrap-content-grid-' . $uniqueID . ' clearfix">';
-		$gridHtml .= $this->removeAutopInShortcode($content);
-		$gridHtml .= '</ul>';
-		$gridHtml .= '</div>';
+    public function shortcodeContentGrid($atts, $content = null) {
+        $args = \shortcode_atts([
+            'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
+        ], $atts);
 
-		$gridHtml .= '<script type="text/javascript">
-						jQuery(document).ready(function() {
-							jQuery("ul.bootstrap-content-grid-' . $uniqueID . '").bootstrapGallery({
-								"classes" : "' . $args['classes'] . '",
-								"hasModal" : false
-							});
-						});
-						</script>';
+        $uniqueID = \uniqid();
+        $gridHtml = null;
+        $gridHtml .= '<div class="content-grid-row row">';
+        $gridHtml .= '<ul class="bootstrap-content-grid bootstrap-content-grid-' . $uniqueID . ' clearfix">';
+        $gridHtml .= $this->removeAutopInShortcode($content);
+        $gridHtml .= '</ul>';
+        $gridHtml .= '</div>';
 
-		return $gridHtml;
-	} // END public function shortcodeContentGrid($atts, $content = null)
+        $gridHtml .= '<script type="text/javascript">
+                        jQuery(document).ready(function() {
+                            jQuery("ul.bootstrap-content-grid-' . $uniqueID . '").bootstrapGallery({
+                                "classes" : "' . $args['classes'] . '",
+                                "hasModal" : false
+                            });
+                        });
+                        </script>';
 
-	public function shortcodeContentGridElement($atts, $content = null) {
-		$atts = null; // we don't need it here, but WP provides it anyways
+        return $gridHtml;
+    }
 
-		$gridHtml = '<li>' . $this->removeAutopInShortcode($content) . '</li>';
+    public function shortcodeContentGridElement($atts, $content = null) {
+        $atts = null; // we don't need it here, but WP provides it anyways
 
-		return $gridHtml;
-	}
+        $gridHtml = '<li>' . $this->removeAutopInShortcode($content) . '</li>';
 
-	public function removeAutopInShortcode($content) {
-		$content = \do_shortcode(\shortcode_unautop($content));
-		$content = \preg_replace('#^<\/p>|^<br \/>|<p>$#', '', $content);
+        return $gridHtml;
+    }
 
-		return $content;
-	} // END public function removeAutopInShortcode($content)
-} // END class BootstrapContentGrid
+    public function removeAutopInShortcode($content) {
+        $content = \do_shortcode(\shortcode_unautop($content));
+        $content = \preg_replace('#^<\/p>|^<br \/>|<p>$#', '', $content);
+
+        return $content;
+    }
+}
