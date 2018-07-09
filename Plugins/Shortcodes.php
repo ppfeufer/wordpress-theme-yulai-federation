@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Theme Shortcodes Plugin
  */
@@ -8,243 +9,207 @@ namespace WordPress\Themes\YulaiFederation\Plugins;
 \defined('ABSPATH') or die();
 
 class Shortcodes {
-	public function __construct() {
-//		$this->changeWpAuto();
-		$this->addShortcodesToWidgets();
-		$this->registerShortcodes();
-	} // END public function __construct()
 
-	public function registerShortcodes() {
-		\add_shortcode('two_columns_one', [$this, 'shortcodeTwoColumnsOne']);
-		\add_shortcode('three_columns_one', [$this, 'shortcodeThreeColumnsOne']);
-		\add_shortcode('three_columns_two', [$this, 'shortcodeThreeColumnsTwo']);
-		\add_shortcode('four_columns_one', [$this, 'shortcodeFourColumnsOne']);
-		\add_shortcode('four_columns_two', [$this, 'shortcodeFourColumnsTwo']);
-		\add_shortcode('four_columns_three', [$this, 'shortcodeFourColumnsThree']);
-		\add_shortcode('divider', [$this, 'shortcodeDivider']);
-//		\add_shortcode('button', array($this, 'shortcodeButton'));
-		\add_shortcode('credits', [$this, 'shortcodeCredits']);
-	} // END public function registerShortcodes()
+    public function __construct() {
+//        $this->changeWpAuto();
+        $this->addShortcodesToWidgets();
+        $this->registerShortcodes();
+    }
 
-	public function shortcodeTwoColumnsOne($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+    public function registerShortcodes() {
+        \add_shortcode('two_columns_one', [$this, 'shortcodeTwoColumnsOne']);
+        \add_shortcode('three_columns_one', [$this, 'shortcodeThreeColumnsOne']);
+        \add_shortcode('three_columns_two', [$this, 'shortcodeThreeColumnsTwo']);
+        \add_shortcode('four_columns_one', [$this, 'shortcodeFourColumnsOne']);
+        \add_shortcode('four_columns_two', [$this, 'shortcodeFourColumnsTwo']);
+        \add_shortcode('four_columns_three', [$this, 'shortcodeFourColumnsThree']);
+        \add_shortcode('divider', [$this, 'shortcodeDivider']);
+        \add_shortcode('credits', [$this, 'shortcodeCredits']);
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeTwoColumnsOne($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		$html = $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-		return $html;
-	} // END public function shortcodeTwoColumnsOne($atts, $content = null)
+        $html = $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
 
-	public function shortcodeThreeColumnsOne($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+        return $html;
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeThreeColumnsOne($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		return $prefix . '<div class="col-md-4">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
-	} // END public function shortcodeThreeColumnsOne($atts, $content = null)
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-	public function shortcodeThreeColumnsTwo($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+        return $prefix . '<div class="col-md-4">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeThreeColumnsTwo($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		return $prefix . '<div class="col-md-8">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
-	} // END public function shortcodeThreeColumnsTwo($atts, $content = null)
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-	public function shortcodeFourColumnsOne($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+        return $prefix . '<div class="col-md-8">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeFourColumnsOne($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		return $prefix . '<div class="col-md-3">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
-	} // END public function shortcodeFourColumnsOne($atts, $content = null)
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-	public function shortcodeFourColumnsTwo($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+        return $prefix . '<div class="col-md-3">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeFourColumnsTwo($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		return $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
-	} // END public function shortcodeFourColumnsTwo($atts, $content = null)
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-	public function shortcodeFourColumnsThree($atts, $content = null) {
-		$args = \shortcode_atts(
-			[
-				'position' => ''
-			],
-			$atts
-		);
+        return $prefix . '<div class="col-md-6">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+    }
 
-		switch($args['position']) {
-			case 'first':
-				$prefix = '<div class="row">';
-				$suffix = '';
-				break;
+    public function shortcodeFourColumnsThree($atts, $content = null) {
+        $args = \shortcode_atts([
+            'position' => ''
+        ], $atts);
 
-			case 'last':
-				$prefix = '';
-				$suffix = '</div>';
-				break;
+        switch($args['position']) {
+            case 'first':
+                $prefix = '<div class="row">';
+                $suffix = '';
+                break;
 
-			default:
-				$prefix = '';
-				$suffix = '';
-				break;
-		}
+            case 'last':
+                $prefix = '';
+                $suffix = '</div>';
+                break;
 
-		return $prefix . '<div class="col-md-9">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
-	} // END public function shortcodeFourColumnsThree($atts, $content = null)
+            default:
+                $prefix = '';
+                $suffix = '';
+                break;
+        }
 
-	public function shortcodeDivider($atts, $content = null) {
-		return '<div class="divider"></div>';
-	} // END public function shortcodeDivider($atts, $content = null)
+        return $prefix . '<div class="col-md-9">' . $this->removeAutopInShortcode($content) . '</div>' . $suffix;
+    }
 
-//	public function shortcodeButton($atts, $content = null) {
-//		$attributes = \shortcode_atts(array(
-//			'type' => 'standard',
-//			'link' => '#',
-//			'target' => '_self',
-//			'size' => '',
-//		), $atts);
-//
-//		$type = (!empty($attributes['type'])) ? ' btn-' . $attributes['type'] : '';
-//		$link = $attributes['link'];
-//		$target = $attributes['target'];
-//		$size = (!empty($attributes['size'])) ? ' btn-' . $attributes['size'] : '';
-//
-//		$output = '<a class="btn ' . $type . $size . '" href="' . $link . '" target="' . $target . '"><span>' . $this->removeAutopInShortcode($content) . '</span></a>';
-//
-//		return $output;
-//	} // END public function shortcodeButton($atts, $content = null)
+    public function shortcodeDivider($atts, $content = null) {
+        return '<div class="divider"></div>';
+    }
 
-	public function shortcodeCredits($atts, $content = null) {
-		$attributes = \shortcode_atts([
-			'headline' => 'h4'
-		], $atts);
+    public function shortcodeCredits($atts, $content = null) {
+        $attributes = \shortcode_atts([
+            'headline' => 'h4'
+        ], $atts);
 
-		$headlineOpen = '<' . $attributes['headline'] . '>';
-		$headlineClose = '</' . $attributes['headline'] . '>';
+        $headlineOpen = '<' . $attributes['headline'] . '>';
+        $headlineClose = '</' . $attributes['headline'] . '>';
 
-		$output = '<div class="article-credits clearfix"><header>' . $headlineOpen . \__('Credits:', 'yulai-federation') . $headlineClose . '</header>' . $this->removeAutopInShortcode($content) . '</div>';
+        $output = '<div class="article-credits clearfix"><header>' . $headlineOpen . \__('Credits:', 'yulai-federation') . $headlineClose . '</header>' . $this->removeAutopInShortcode($content) . '</div>';
 
-		return $output;
-	} // END public function shortcodeCredits($atts, $content = null)
+        return $output;
+    }
 
-	public function changeWpAuto() {
-		\remove_filter('the_content', 'wpautop');
-		\add_filter('the_content', 'wpautop', 99);
-		\add_filter('the_content', 'shortcode_unautop', 100);
-	} // END public function changeWpAuto()
+    public function changeWpAuto() {
+        \remove_filter('the_content', 'wpautop');
+        \add_filter('the_content', 'wpautop', 99);
+        \add_filter('the_content', 'shortcode_unautop', 100);
+    }
 
-	public function addShortcodesToWidgets() {
-		\add_filter('widget_text', 'do_shortcode');
-	} // END public function addShortcodesToWidgets()
+    public function addShortcodesToWidgets() {
+        \add_filter('widget_text', 'do_shortcode');
+    }
 
-	public function removeAutopInShortcode($content) {
-		$content = \do_shortcode(\shortcode_unautop($content));
-		$content = \preg_replace('#^<\/p>|^<br \/>|<p>$#', '', $content);
+    public function removeAutopInShortcode($content) {
+        $content = \do_shortcode(\shortcode_unautop($content));
+        $content = \preg_replace('#^<\/p>|^<br \/>|<p>$#', '', $content);
 
-		return $content;
-	} // END public function removeAutopInShortcode($content)
-} // END class Shortcodes
+        return $content;
+    }
+}

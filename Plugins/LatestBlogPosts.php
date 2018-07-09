@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Latest Blog Posts plugin
  * Displays the latest Blog Posts via Shortcode [latestblogposts number=""]
@@ -11,86 +12,84 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class LatestBlogPosts {
-	public function __construct() {
-		$this->registerShortcodes();
-	} // END public function __construct()
 
-	public function registerShortcodes() {
-		\add_shortcode('latestblogposts', [$this, 'shortcodeLatestBlogPosts']);
-	} // END public function registerShortcodes()
+    public function __construct() {
+        $this->registerShortcodes();
+    }
 
-	public function shortcodeLatestBlogPosts($attributes) {
-		$args = \shortcode_atts(
-			[
-				'number' => YulaiFederation\Helper\PostHelper::getInstance()->getContentColumnCount(),
-				'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
-				'headline_type' => 'h2',
-				'headline_text' => ''
-			],
-			$attributes
-		);
+    public function registerShortcodes() {
+        \add_shortcode('latestblogposts', [$this, 'shortcodeLatestBlogPosts']);
+    }
 
-		$number = $args['number'];
-		$classes = $args['classes'];
+    public function shortcodeLatestBlogPosts($attributes) {
+        $args = \shortcode_atts([
+            'number' => YulaiFederation\Helper\PostHelper::getInstance()->getContentColumnCount(),
+            'classes' => YulaiFederation\Helper\PostHelper::getInstance()->getLoopContentClasses(),
+            'headline_type' => 'h2',
+            'headline_text' => ''
+        ], $attributes);
 
-		$queryArgs = [
-			'posts_per_page' => $number,
-			'post_type' => 'post',
-			'post_status' => 'publish',
-			'orderby' => 'post_date',
-			'order' => 'DESC',
-			'suppress_filters' => true,
-			'ignore_sticky_posts' => true
-		];
+        $number = $args['number'];
+        $classes = $args['classes'];
 
-		/* @var $latestPosts object */
-		$latestPosts = new \WP_Query($queryArgs);
+        $queryArgs = [
+            'posts_per_page' => $number,
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'orderby' => 'post_date',
+            'order' => 'DESC',
+            'suppress_filters' => true,
+            'ignore_sticky_posts' => true
+        ];
 
-		if($latestPosts->have_posts()) {
-			\ob_start();
+        /* @var $latestPosts object */
+        $latestPosts = new \WP_Query($queryArgs);
 
-			if(!empty($args['headline_text'])) {
-				echo '<' . $args['headline_type'] . ' class="latest-blogposts-headline">' . $args['headline_text'] . '</' . $args['headline_type'] . '>';
-				echo '<div class="latest-blogposts-headline-decoration"><div class="latest-blogposts-headline-decoration-inside"></div></div>';
-			} // END if(!empty($args['headline_text']))
+        if($latestPosts->have_posts()) {
+            \ob_start();
 
-			$blogPage = \get_option('page_for_posts');
-			$uniqueID = \uniqid();
+            if(!empty($args['headline_text'])) {
+                echo '<' . $args['headline_type'] . ' class="latest-blogposts-headline">' . $args['headline_text'] . '</' . $args['headline_type'] . '>';
+                echo '<div class="latest-blogposts-headline-decoration"><div class="latest-blogposts-headline-decoration-inside"></div></div>';
+            }
 
-			echo '<div class="gallery-row row">';
-			echo '<ul class="bootstrap-gallery bootstrap-latest-post-loop bootstrap-latest-post-loop-' . $uniqueID . ' clearfix">';
+            $blogPage = \get_option('page_for_posts');
+            $uniqueID = \uniqid();
 
-			while($latestPosts->have_posts()) {
-				$latestPosts->the_post();
-				echo '<li class="latest-post-article">';
-				\get_template_part('content', \get_post_format($latestPosts->post_id));
-				echo '</li>';
-			} // END while($the_query->have_posts())
+            echo '<div class="gallery-row row">';
+            echo '<ul class="bootstrap-gallery bootstrap-latest-post-loop bootstrap-latest-post-loop-' . $uniqueID . ' clearfix">';
 
-			echo '</ul>';
-			echo '</div>';
-			echo '<div>'
-				. '	<a class="news-more-link" href="' . \esc_url(\get_permalink($blogPage)) . '">'
-				. '		<span class="news-show-all read-more">' . \__('Show all article', 'yulai-federation') . '</span>'
-				. '	</a>'
-				. '</div>';
+            while($latestPosts->have_posts()) {
+                $latestPosts->the_post();
+                echo '<li class="latest-post-article">';
+                \get_template_part('content', \get_post_format($latestPosts->post_id));
+                echo '</li>';
+            }
 
-			echo '<script type="text/javascript">
-					jQuery(document).ready(function() {
-						jQuery("ul.bootstrap-latest-post-loop-' . $uniqueID . '").bootstrapGallery({
-							"classes" : "' . $classes . '",
-							"hasModal" : false
-						});
-					});
-					</script>';
+            echo '</ul>';
+            echo '</div>';
+            echo '<div>'
+            . ' <a class="news-more-link" href="' . \esc_url(\get_permalink($blogPage)) . '">'
+            . '     <span class="news-show-all read-more">' . \__('Show all article', 'yulai-federation') . '</span>'
+            . ' </a>'
+            . '</div>';
 
-			$articleLoop = \ob_get_contents();
+            echo '<script type="text/javascript">
+                    jQuery(document).ready(function() {
+                        jQuery("ul.bootstrap-latest-post-loop-' . $uniqueID . '").bootstrapGallery({
+                            "classes" : "' . $classes . '",
+                            "hasModal" : false
+                        });
+                    });
+                    </script>';
 
-			\ob_end_clean();
-		} // END if($the_query->have_posts())
+            $articleLoop = \ob_get_contents();
 
-		\wp_reset_postdata();
+            \ob_end_clean();
+        }
 
-		return $articleLoop;
-	} // END public function shortcodeLatestBlogPosts($attributes, $content = null)
-} // END class LatestBlogPosts
+        \wp_reset_postdata();
+
+        return $articleLoop;
+    }
+}
