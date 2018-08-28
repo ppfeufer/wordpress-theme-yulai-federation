@@ -188,7 +188,7 @@ class ThemeHelper {
                 'in_footer' => true
             ],
             /* The main JS */
-            'EVE Online' => [
+            'Yulai Federation' => [
                 'handle' => 'yulai-federation-main-js',
                 'source' => \get_theme_file_uri('/js/yulai-federation.min.js'),
                 'source-development' => \get_theme_file_uri('/js/yulai-federation.js'),

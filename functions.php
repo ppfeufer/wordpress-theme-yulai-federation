@@ -111,6 +111,11 @@ function yf_enqueue_scripts() {
         if(!empty($script['condition'])) {
             \wp_script_add_data($script['handle'], $script['condition']['conditionKey'], $script['condition']['conditionValue']);
         }
+
+        // translations
+        if(!empty($script['l10n'])) {
+            \wp_localize_script($script['handle'], $script['l10n']['handle'], $script['l10n']['translations']);
+        }
     }
 }
 \add_action('wp_enqueue_scripts', '\\WordPress\Themes\YulaiFederation\yf_enqueue_scripts');
