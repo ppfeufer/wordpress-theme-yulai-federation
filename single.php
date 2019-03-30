@@ -43,12 +43,12 @@ defined('ABSPATH') or die();
             ?>
             <div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
                 <?php
-                if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
-                    \get_sidebar('post');
-                }
-
                 if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
                     \get_sidebar('general');
+                }
+
+                if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-post')) {
+                    \get_sidebar('post');
                 }
                 ?>
             </div><!--/.col -->
@@ -58,5 +58,5 @@ defined('ABSPATH') or die();
     </div> <!-- /.row -->
 </div> <!-- /.container -->
 
-<?php 
+<?php
 \get_footer();
