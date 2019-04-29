@@ -11,6 +11,30 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class Whitelabel {
+    protected $developerName = 'YF [TN-NT] Rounon Dax';
+    protected $developerEmailAddress = 'rounon.dax@yulaifederation.net';
+    protected $developerWebsite = 'https://yulaifederation.net';
+    protected $themeBackgroundUrl = '';
+
+    public function getDeveloperName() {
+        return $this->developerName;
+    }
+
+    public function getDeveloperEmailAddress() {
+        return $this->developerEmailAddress;
+    }
+
+    public function getDeveloperWebsite() {
+        return $this->developerWebsite;
+    }
+    public function getThemeBackgroundUrl() {
+        return $this->themeBackgroundUrl;
+    }
+
+    public function setThemeBackgroundUrl($themeBackgroundUrl) {
+        $this->themeBackgroundUrl = $themeBackgroundUrl;
+    }
+
     /**
      * Fire the actions to whitelabel WordPress
      *
@@ -18,14 +42,7 @@ class Whitelabel {
      *      RewriteRule ^login$ http://www.website.de/wp-login.php [NC,L]
      */
     function __construct() {
-        /**
-         * Setting Developer Information
-         */
-        $this->developerName = 'YF [TN-NT] Rounon Dax';
-        $this->developerEmailAddress = 'rounon.dax@yulaifederation.net';
-        $this->developerWebsite = 'https://yulaifederation.net';
-
-        $this->themeBackgroundUrl = $this->getBackgroundImage();
+        $this->themeBackgroundUrl = $this->setThemeBackgroundUrl($this->getBackgroundImage());
 
         /**
          * Actions
@@ -71,8 +88,14 @@ class Whitelabel {
     /**
      * Developer Info in Admin Footer
      */
-    public function modifyAdminFooter() {
-        echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s', \__('Customized by:', 'yulai-federation'), ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>');
+    public function modifyAdminFooter($content) {
+//        echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s', \__('Customized by:', 'yulai-federation'), ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>');
+        $content .= \sprintf(' | %1$s %2$s',
+            \__('Customized by:', 'yulai-federation'),
+            ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>'
+        );
+
+        return $content;
     }
 
     /**
