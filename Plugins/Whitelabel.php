@@ -31,10 +31,6 @@ class Whitelabel {
         return $this->themeBackgroundUrl;
     }
 
-    public function setThemeBackgroundUrl($themeBackgroundUrl) {
-        $this->themeBackgroundUrl = $themeBackgroundUrl;
-    }
-
     /**
      * Fire the actions to whitelabel WordPress
      *
@@ -42,7 +38,7 @@ class Whitelabel {
      *      RewriteRule ^login$ http://www.website.de/wp-login.php [NC,L]
      */
     function __construct() {
-        $this->themeBackgroundUrl = $this->setThemeBackgroundUrl($this->getBackgroundImage());
+        $this->themeBackgroundUrl = $this->getBackgroundImage();
 
         /**
          * Actions
@@ -89,7 +85,6 @@ class Whitelabel {
      * Developer Info in Admin Footer
      */
     public function modifyAdminFooter($content) {
-//        echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s', \__('Customized by:', 'yulai-federation'), ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>');
         $content .= \sprintf(' | %1$s %2$s',
             \__('Customized by:', 'yulai-federation'),
             ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>'
