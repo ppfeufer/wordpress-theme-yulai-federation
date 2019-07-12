@@ -30,8 +30,9 @@ require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 /**
  * Initiate needed general Classes
  */
+$updateHelper = new Helper\UpdateHelper;
 $cron = new Addons\Cron;
-$moCache = new Plugins\MoCache;
+//$moCache = new Plugins\MoCache;
 $metaSlider = new Plugins\Metaslider;
 $shortcodes = new Plugins\Shortcodes;
 $bootstrapImageGallery = new Plugins\BootstrapImageGallery;
