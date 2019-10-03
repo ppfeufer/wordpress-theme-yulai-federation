@@ -82,12 +82,12 @@
             ?>
             <div class="col-lg-3 col-md-3 col-sm-3 col-3 sidebar-wrapper">
                 <?php
-                if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page')) {
-                    \get_sidebar('page');
-                }
-
                 if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-general')) {
                     \get_sidebar('general');
+                }
+
+                if(\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->hasSidebar('sidebar-page')) {
+                    \get_sidebar('page');
                 }
                 ?>
             </div><!--/.col -->

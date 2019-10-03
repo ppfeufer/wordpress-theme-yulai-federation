@@ -188,7 +188,7 @@ class ThemeHelper {
                 'in_footer' => true
             ],
             /* The main JS */
-            'EVE Online' => [
+            'Yulai Federation' => [
                 'handle' => 'yulai-federation-main-js',
                 'source' => \get_theme_file_uri('/js/yulai-federation.min.js'),
                 'source-development' => \get_theme_file_uri('/js/yulai-federation.js'),
@@ -220,15 +220,15 @@ class ThemeHelper {
                 'media' => 'all'
             ],
             /* Google Font */
-            'Google Font' => [
-                'handle' => 'google-font',
-                'source' => '//fonts.googleapis.com/css?family=Amethysta',
-                'deps' => [
-                    'normalize'
-                ],
-                'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
-                'media' => 'all'
-            ],
+//            'Google Font' => [
+//                'handle' => 'google-font',
+//                'source' => '//fonts.googleapis.com/css?family=Amethysta',
+//                'deps' => [
+//                    'normalize'
+//                ],
+//                'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),
+//                'media' => 'all'
+//            ],
             /* Bootstrap */
             'Bootstrap' => [
                 'handle' => 'bootstrap',
@@ -258,7 +258,6 @@ class ThemeHelper {
                 'source-development' => \get_theme_file_uri('/style.css'),
                 'deps' => [
                     'normalize',
-                    'google-font',
                     'bootstrap'
                 ],
                 'version' => \sanitize_title($this->getThemeData('Name')) . '-' . $this->getThemeData('Version'),

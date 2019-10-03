@@ -11,6 +11,26 @@ use WordPress\Themes\YulaiFederation;
 \defined('ABSPATH') or die();
 
 class Whitelabel {
+    protected $developerName = 'YF [TN-NT] Rounon Dax';
+    protected $developerEmailAddress = 'rounon.dax@yulaifederation.net';
+    protected $developerWebsite = 'https://yulaifederation.net';
+    protected $themeBackgroundUrl = '';
+
+    public function getDeveloperName() {
+        return $this->developerName;
+    }
+
+    public function getDeveloperEmailAddress() {
+        return $this->developerEmailAddress;
+    }
+
+    public function getDeveloperWebsite() {
+        return $this->developerWebsite;
+    }
+    public function getThemeBackgroundUrl() {
+        return $this->themeBackgroundUrl;
+    }
+
     /**
      * Fire the actions to whitelabel WordPress
      *
@@ -18,13 +38,6 @@ class Whitelabel {
      *      RewriteRule ^login$ http://www.website.de/wp-login.php [NC,L]
      */
     function __construct() {
-        /**
-         * Setting Developer Information
-         */
-        $this->developerName = 'YF [TN-NT] Rounon Dax';
-        $this->developerEmailAddress = 'rounon.dax@yulaifederation.net';
-        $this->developerWebsite = 'https://yulaifederation.net';
-
         $this->themeBackgroundUrl = $this->getBackgroundImage();
 
         /**
@@ -38,7 +51,12 @@ class Whitelabel {
          */
         \add_filter('admin_footer_text', [$this, 'modifyAdminFooter']);
         \add_filter('login_headerurl', [$this, 'loginLogoUrl']);
-        \add_filter('login_headertitle', [$this, 'loginLogoTitle']);
+
+        if(\version_compare(\floatval(\get_bloginfo('version')), '5.2', '<')) {
+            \add_filter('login_headertitle', [$this, 'loginLogoTitle']);
+        } else {
+            \add_filter('login_headertext', [$this, 'loginLogoTitle']);
+        }
     }
 
     private function getBackgroundImage() {
@@ -66,8 +84,13 @@ class Whitelabel {
     /**
      * Developer Info in Admin Footer
      */
-    public function modifyAdminFooter() {
-        echo sprintf('<span id="footer-thankyou">%1$s</span> %2$s', \__('Customized by:', 'yulai-federation'), ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>');
+    public function modifyAdminFooter($content) {
+        $content .= \sprintf(' | %1$s %2$s',
+            \__('Customized by:', 'yulai-federation'),
+            ' <a href="' . $this->developerWebsite . '" target="_blank">' . $this->developerName . '</a>'
+        );
+
+        return $content;
     }
 
     /**

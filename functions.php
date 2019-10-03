@@ -30,8 +30,9 @@ require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 /**
  * Initiate needed general Classes
  */
+$updateHelper = new Helper\UpdateHelper;
 $cron = new Addons\Cron;
-$moCache = new Plugins\MoCache;
+//$moCache = new Plugins\MoCache;
 $metaSlider = new Plugins\Metaslider;
 $shortcodes = new Plugins\Shortcodes;
 $bootstrapImageGallery = new Plugins\BootstrapImageGallery;
@@ -110,6 +111,11 @@ function yf_enqueue_scripts() {
         // conditional scripts
         if(!empty($script['condition'])) {
             \wp_script_add_data($script['handle'], $script['condition']['conditionKey'], $script['condition']['conditionValue']);
+        }
+
+        // translations
+        if(!empty($script['l10n'])) {
+            \wp_localize_script($script['handle'], $script['l10n']['handle'], $script['l10n']['translations']);
         }
     }
 }
@@ -281,7 +287,11 @@ if(!\function_exists('\WordPress\Themes\YulaiFederation\yf_title_separator')) {
  * Remove integrated gallery styles in the content area of standard gallery shortcode.
  * style in css.
  */
-\add_filter('gallery_style', \create_function('$a', 'return "<div class=\'gallery\'>";'));
+function yf_gallery_style_filter($a) {
+    return "<div class=\"gallery\">";
+}
+//\add_filter('gallery_style', \create_function('$a', 'return "<div class=\'gallery\'>";'));
+\add_filter('gallery_style', '\\WordPress\Themes\YulaiFederation\yf_gallery_style_filter');
 
 /**
  * Return the Google font stylesheet URL, if available.
