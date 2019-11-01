@@ -80,12 +80,15 @@ class Corppage {
     private function getCorporationPageLoopItem($page) {
         $corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
 
-        $corpLogo = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+        $corpLogo = \sprintf(
+            $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
+            $corpID
+        );
 
         $corplistHTML = '<li>';
         $corplistHTML .= '<figure><a href="' . \get_permalink($page->ID) . '"><img src="' . $corpLogo . '" alt="' . $page->post_title . '"></a></figure>';
         $corplistHTML .= '<header><h2 class="corporationlist-title"><a href="' . \get_permalink($page->ID) . '">' . $page->post_title . '</a></h2></header>';
-        $corplistHTML .= '<p>' . YulaiFederation\Helper\StringHelper::getInstance()->cutString(strip_shortcodes($page->post_content), '200') . '</p>';
+        $corplistHTML .= '<p>' . YulaiFederation\Helper\StringHelper::getInstance()->cutString(\strip_shortcodes($page->post_content), '200') . '</p>';
         $corplistHTML .= '</li>';
 
         return $corplistHTML;
@@ -154,7 +157,10 @@ class Corppage {
                 <label><strong><?php _e('Corporation Logo', 'yulai-federation'); ?></strong></label>
                 <br>
                 <?php
-                $corpLogoPath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $this->eveApi->getImageServerEndpoint('corporation') . $corpID . '_256.png');
+                $corpLogoPath = \sprintf(
+                    $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
+                    $corpID
+                );
                 ?>
                 <img src="<?php echo $corpLogoPath; ?>" alt="<?php echo $corpName; ?>">
             </p>
@@ -200,16 +206,16 @@ class Corppage {
     }
 
     public static function getCorprationLogo($corpPageID) {
-        $eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
-
         $corpName = \get_post_meta($corpPageID, 'yf_page_corp_name', true);
         $corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);
 
-        $imagePath = YulaiFederation\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', $eveApi->getImageServerEndpoint('corporation') . $corpID . '_128.png');
+        $imagePath = \sprintf(
+            $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=128',
+            $corpID
+        );
 
         if($imagePath !== false) {
             $html = '<div class="eve-corp-page-corp-logo eve-image eve-corporation-logo-container"><figure><img src="' . $imagePath . '" class="eve-corporation-logo" alt="' . \esc_html($corpName) . '" width="128">';
-//            $html .= '<figcaption>' . \esc_html($corpName) . '</figcaption>';
             $html .= '</figure></div>';
 
             return $html;
