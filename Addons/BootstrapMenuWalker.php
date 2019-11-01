@@ -169,7 +169,7 @@ class BootstrapMenuWalker extends \Walker_Nav_Menu {
             if($yf_page_corp_eve_ID) {
                 if(isset($this->themeOptions['show_corp_logos']['show'])) {
                     $corpLogoPath = \sprintf(
-                        $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=32',
+                        $this->eveApi->getImageServerEndpoint('corporation') . '?size=32',
                         $yf_page_corp_eve_ID
                     );
 

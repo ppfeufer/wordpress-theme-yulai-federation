@@ -81,7 +81,7 @@ class Corppage {
         $corpID = \get_post_meta($page->ID, 'yf_page_corp_eve_ID', true);
 
         $corpLogo = \sprintf(
-            $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
+            $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
             $corpID
         );
 
@@ -158,7 +158,7 @@ class Corppage {
                 <br>
                 <?php
                 $corpLogoPath = \sprintf(
-                    $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
+                    $this->eveApi->getImageServerEndpoint('corporation') . '?size=256',
                     $corpID
                 );
                 ?>
@@ -210,7 +210,7 @@ class Corppage {
         $corpID = \get_post_meta($corpPageID, 'yf_page_corp_eve_ID', true);
 
         $imagePath = \sprintf(
-            $this->eveApi->getImageServerUrl() . $this->eveApi->getImageServerEndpoint('corporation') . '?size=128',
+            $this->eveApi->getImageServerEndpoint('corporation') . '?size=128',
             $corpID
         );
 
