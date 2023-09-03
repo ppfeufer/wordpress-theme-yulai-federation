@@ -2,39 +2,37 @@
 
 namespace WordPress\Themes\YulaiFederation\Plugins;
 
-use WordPress\Themes\YulaiFederation;
-
 class HtmlMinify {
     /**
      * compress css
      *
      * @var boolean
      */
-    protected $compress_css = true;
+    protected bool $compress_css = true;
 
     /**
      * compress javascript
      *
      * @var boolean
      */
-    protected $compress_js = true;
+    protected bool $compress_js = true;
 
     /**
      * add info comment
      *
      * @var boolean
      */
-    protected $info_comment = true;
+    protected bool $info_comment = true;
 
     /**
      * remove comments
      *
      * @var boolean
      */
-    protected $remove_comments = true;
+    protected bool $remove_comments = true;
 
     /**
-     * the html
+     * The html
      *
      * @var string
      */

@@ -7,13 +7,20 @@
 namespace WordPress\Themes\YulaiFederation\Addons;
 
 use WordPress\Themes\YulaiFederation;
+use function add_action;
+use function get_option;
+use function time;
+use function ucfirst;
+use function wp_clear_scheduled_hook;
+use function wp_next_scheduled;
+use function wp_schedule_event;
 
 class Cron {
-    private $themeOptions = null;
-    public $cronEvents = [];
+    public array $cronEvents = [];
+    private $themeOptions;
 
     public function __construct() {
-        $this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+        $this->themeOptions = get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
         $this->cronEvents = $this->getThemeCronEvents();
     }
 
@@ -22,7 +29,7 @@ class Cron {
      *
      * @return array Themes Cron Events with their respective hooks
      */
-    public function getThemeCronEvents() {
+    public function getThemeCronEvents(): array {
         return [
             // Daily Image Cache Cleanup
             'Cleanup Image Cache' => [
@@ -39,54 +46,54 @@ class Cron {
     /**
      * Initializing all the stuff
      */
-    public function init() {
+    public function init(): void {
         // Managing the crons action hooks
-        foreach($this->cronEvents as $cronEvent) {
+        foreach ($this->cronEvents as $cronEvent) {
             /**
              * Only add the cron if the theme settings say so or else remove them
              */
-            if(!empty($this->themeOptions['cron'][$cronEvent['hook']])) {
-                \add_action($cronEvent['hook'], [
+            if (!empty($this->themeOptions['cron'][$cronEvent['hook']])) {
+                add_action($cronEvent['hook'], [
                     $this,
-                    'cron' . \ucfirst($cronEvent['hook'])
+                    'cron' . ucfirst($cronEvent['hook'])
                 ]);
             } else {
                 $this->removeCron($cronEvent['hook']);
             }
         }
 
-        \add_action('switch_theme', [$this, 'removeAllCrons'], 10, 2);
+        add_action('switch_theme', [$this, 'removeAllCrons'], 10, 2);
 
         $this->scheduleCronEvents();
     }
 
     /**
-     * Removing all known theme crons
+     * Remove a single cron job
+     *
+     * @param string|null $cronEvent Hook of the cron to remove
      */
-    public function removeAllCrons() {
-        foreach($this->cronEvents as $cronEvent) {
-            // removing $cronEvent
-            $this->removeCron($cronEvent['hook']);
+    public function removeCron(string $cronEvent = null): void {
+        wp_clear_scheduled_hook($cronEvent);
+    }
+
+    /**
+     * Schedule the cron jobs
+     */
+    public function scheduleCronEvents(): void {
+        foreach ($this->cronEvents as $cronEvent) {
+            if (!empty($this->themeOptions['cron'][$cronEvent['hook']]) && !wp_next_scheduled($cronEvent['hook'])) {
+                wp_schedule_event(time(), $cronEvent['recurrence'], $cronEvent['hook']);
+            }
         }
     }
 
     /**
-     * Remove a single cron job
-     *
-     * @param string $cronEvent Hook of the cron to remove
+     * Removing all known theme crons
      */
-    public function removeCron($cronEvent = null) {
-        \wp_clear_scheduled_hook($cronEvent);
-    }
-
-    /**
-     * schedule the cron jobs
-     */
-    public function scheduleCronEvents() {
-        foreach($this->cronEvents as $cronEvent) {
-            if(!\wp_next_scheduled($cronEvent['hook']) && !empty($this->themeOptions['cron'][$cronEvent['hook']])) {
-                \wp_schedule_event(\time(), $cronEvent['recurrence'], $cronEvent['hook']);
-            }
+    public function removeAllCrons(): void {
+        foreach ($this->cronEvents as $cronEvent) {
+            // removing $cronEvent
+            $this->removeCron($cronEvent['hook']);
         }
     }
 
@@ -94,7 +101,7 @@ class Cron {
      * Cron Job: cronCleanupImageCache
      * Schedule: Daily
      */
-    public function cronCleanupThemeImageCache() {
+    public function cronCleanupThemeImageCache(): void {
         $imageCacheDirectory = YulaiFederation\Helper\CacheHelper::getInstance()->getImageCacheDir();
 
         YulaiFederation\Helper\FilesystemHelper::getInstance()->deleteDirectoryRecursive($imageCacheDirectory, false);
@@ -104,9 +111,9 @@ class Cron {
      * Cron Job: cleanupTransientCache
      * Schedule: Daily
      *
-     * @global type $wpdb
+     * @global $wpdb
      */
-    public function cronCleanupTransientCache() {
+    public function cronCleanupTransientCache(): void {
         global $wpdb;
 
         $wpdb->query('DELETE FROM `' . $wpdb->prefix . 'options' . '` WHERE `option_name` LIKE (\'_transient_%\');');

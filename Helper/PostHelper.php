@@ -6,16 +6,16 @@ namespace WordPress\Themes\YulaiFederation\Helper;
 
 class PostHelper {
     /**
-     * instance
+     * Instance
      *
      * static variable to keep the current (and only!) instance of this class
      *
-     * @var Singleton
+     * @var ?PostHelper
      */
-    protected static $instance = null;
+    protected static ?PostHelper $instance = null;
 
-    public static function getInstance() {
-        if(null === self::$instance) {
+    public static function getInstance(): ?PostHelper {
+        if(self::$instance === null) {
             self::$instance = new self;
         }
 
@@ -23,7 +23,7 @@ class PostHelper {
     }
 
     /**
-     * clone
+     * Clone
      *
      * no cloning allowed
      */
@@ -32,9 +32,9 @@ class PostHelper {
     }
 
     /**
-     * constructor
+     * Constructor
      *
-     * no external instanciation allowed
+     * no external instantiation allowed
      */
     protected function __construct() {
         ;
@@ -51,7 +51,7 @@ class PostHelper {
     }
 
     /**
-     * Display template for post categories and tags
+     * Display template for post-categories and tags
      */
     public function getPostCategoryAndTags() {
         $options = \get_option('yulai_theme_options', ThemeHelper::getInstance()->getThemeDefaultOptions());

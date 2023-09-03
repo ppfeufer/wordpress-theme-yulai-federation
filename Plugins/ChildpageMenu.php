@@ -13,20 +13,20 @@ class ChildpageMenu {
     }
 
     /**
-     * initialze the plugin
+     * Initialize the plugin
      */
     private function initPlugin() {
         $this->initWidget();
     }
 
     /**
-     * initialze the widget
+     * Initialize the widget
      */
     public function initWidget() {
         \add_action('widgets_init', [$this, 'registerWidget']);
     }
 
     public function registerWidget() {
-        return \register_widget("WordPress\Themes\YulaiFederation\Plugins\Widgets\ChildpageMenuWidget");
+        register_widget("WordPress\Themes\YulaiFederation\Plugins\Widgets\ChildpageMenuWidget");
     }
 }

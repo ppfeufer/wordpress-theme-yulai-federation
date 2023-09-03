@@ -2,8 +2,8 @@
 
 <section class="sidebar-general">
     <?php
-    if(\function_exists('\dynamic_sidebar')) {
-        \dynamic_sidebar('sidebar-general');
+    if (function_exists('dynamic_sidebar')) {
+        dynamic_sidebar('sidebar-general');
     }
     ?>
 </section>

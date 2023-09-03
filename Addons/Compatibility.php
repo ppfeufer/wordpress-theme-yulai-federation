@@ -2,7 +2,16 @@
 
 namespace WordPress\Themes\YulaiFederation\Addons;
 
-use WordPress\Themes\YulaiFederation;
+use function __;
+use function add_action;
+use function filter_input;
+use function get_bloginfo;
+use function printf;
+use function sprintf;
+use function switch_theme;
+use function version_compare;
+use function wp_die;
+use const WP_DEFAULT_THEME;
 
 /**
  * Yulai Federation Theme back compat functionality
@@ -15,10 +24,10 @@ use WordPress\Themes\YulaiFederation;
  * @subpackage Eve_Online
  * @since Yulai Federation Theme 0.1-r20170324
  */
-if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
-    \add_action('after_switch_theme', '\\WordPress\Themes\YulaiFederation\Addons\yf_switch_theme');
-    \add_action('load-customize.php', '\\WordPress\Themes\YulaiFederation\Addons\yf_customize');
-    \add_action('template_redirect', '\\WordPress\Themes\YulaiFederation\Addons\yf_preview');
+if (version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
+    add_action('after_switch_theme', '\\WordPress\Themes\YulaiFederation\Addons\yf_switch_theme');
+    add_action('load-customize.php', '\\WordPress\Themes\YulaiFederation\Addons\yf_customize');
+    add_action('template_redirect', '\\WordPress\Themes\YulaiFederation\Addons\yf_preview');
 
     return false;
 }
@@ -31,11 +40,11 @@ if(\version_compare($GLOBALS['wp_version'], '4.7-alpha', '<')) {
  * @since Yulai Federation Theme 0.1-r20170324
  */
 function yf_switch_theme() {
-    \switch_theme(\WP_DEFAULT_THEME);
+    switch_theme(WP_DEFAULT_THEME);
 
     unset($_GET['activated']);
 
-    \add_action('admin_notices', '\\WordPress\Themes\YulaiFederation\Addons\yf_upgrade_notice');
+    add_action('admin_notices', '\\WordPress\Themes\YulaiFederation\Addons\yf_upgrade_notice');
 }
 
 /**
@@ -49,9 +58,9 @@ function yf_switch_theme() {
  * @global string $wp_version WordPress version.
  */
 function yf_upgrade_notice() {
-    $message = \sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version'));
+    $message = sprintf(__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), get_bloginfo('version'));
 
-    \printf('<div class="error"><p>%s</p></div>', $message);
+    printf('<div class="error"><p>%s</p></div>', $message);
 }
 
 /**
@@ -62,9 +71,14 @@ function yf_upgrade_notice() {
  * @global string $wp_version WordPress version.
  */
 function yf_customize() {
-    \wp_die(\sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version')), '', [
-        'back_link' => true,
-    ]);
+    wp_die(sprintf(
+        __(
+            'Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.',
+            'yulai-federation'
+        ),
+        get_bloginfo('version')
+    ),
+    '', ['back_link' => true]);
 }
 
 /**
@@ -75,9 +89,15 @@ function yf_customize() {
  * @global string $wp_version WordPress version.
  */
 function yf_preview() {
-    $preview = \filter_input('get', 'preview');
+    $preview = filter_input('get', 'preview');
 
-    if(!empty($preview)) {
-        \wp_die(\sprintf(\__('Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'yulai-federation'), \get_bloginfo('version')));
+    if (!empty($preview)) {
+        wp_die(sprintf(
+            __(
+                'Yulai Federation Theme requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.',
+                'yulai-federation'
+            ),
+            get_bloginfo('version'))
+        );
     }
 }

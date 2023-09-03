@@ -7,20 +7,30 @@
 namespace WordPress\Themes\YulaiFederation\Admin;
 
 use WordPress\Themes\YulaiFederation;
+use WordPress\Themes\YulaiFederation\Helper\EsiHelper;
+use WordPress\Themes\YulaiFederation\Plugins\Metaslider;
+use function __;
+use function add_filter;
+use function defined;
+use function get_option;
+use function preg_match;
+use function print_r;
+use function sprintf;
+use const APPLICATION_ENV;
 
-\defined('ABSPATH') or die();
+defined('ABSPATH') or die();
 
 class ThemeSettings {
     /**
      * EVE API
      *
-     * @var \WordPress\Themes\YulaiFederation\Helper\EsiHelper
+     * @var EsiHelper
      */
     private $eveApi = null;
 
     /**
      * Meta Slider
-     * @var \WordPress\Themes\YulaiFederation\Plugins\Metaslider
+     * @var Metaslider
      */
     private $metaSlider = null;
 
@@ -33,7 +43,7 @@ class ThemeSettings {
 
     /**
      *
-     * @var \WordPress\Themes\YulaiFederation\Admin\SettingsApi
+     * @var SettingsApi
      */
     private $settingsApi = null;
 
@@ -48,9 +58,9 @@ class ThemeSettings {
      * Constructor
      */
     public function __construct() {
-        $this->eveApi = YulaiFederation\Helper\EsiHelper::getInstance();
-        $this->metaSlider = new YulaiFederation\Plugins\Metaslider(false);
-        $this->themeOptions = \get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
+        $this->eveApi = EsiHelper::getInstance();
+        $this->metaSlider = new Metaslider(false);
+        $this->themeOptions = get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
 
         // trigger the settings API
         $this->fireSettingsApi();
@@ -64,7 +74,7 @@ class ThemeSettings {
         $this->settingsApi = new SettingsApi($this->settingsFilter, YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions());
         $this->settingsApi->init();
 
-        \add_filter($this->settingsFilter, [$this, 'renderSettingsPage']);
+        add_filter($this->settingsFilter, [$this, 'renderSettingsPage']);
     }
 
     /**
@@ -75,8 +85,8 @@ class ThemeSettings {
     public function renderSettingsPage() {
         $themeOptionsPage['yulai-federation-theme-settings'] = [
             'type' => 'theme',
-            'menu_title' => \__('Options', 'yulai-federation'),
-            'page_title' => \__('Yulai Federation Theme Settings', 'yulai-federation'),
+            'menu_title' => __('Options', 'yulai-federation'),
+            'page_title' => __('Yulai Federation Theme Settings', 'yulai-federation'),
             'option_name' => 'yulai_theme_options',
             'tabs' => [
                 /**
@@ -101,16 +111,16 @@ class ThemeSettings {
             ]
         ];
 
-        if($this->metaSlider->metasliderPluginExists() === false) {
+        if ($this->metaSlider->metasliderPluginExists() === false) {
             $themeOptionsPage['yulai-federation-theme-settings']['tabs']['slider-settings']['fields']['slider-warning'] = [
-                'title' => \__('Meta Slider Warning', 'yulai-federation'),
+                'title' => __('Meta Slider Warning', 'yulai-federation'),
                 'type' => 'custom',
-                'content' => \sprintf(\__('Please make sure you have the %1$s plugin installed and activated.', 'yulai-federation'), '<a href="https://de.wordpress.org/plugins/ml-slider/" target="_blank">Meta Slider</a>'),
+                'content' => sprintf(__('Please make sure you have the %1$s plugin installed and activated.', 'yulai-federation'), '<a href="https://de.wordpress.org/plugins/ml-slider/" target="_blank">Meta Slider</a>'),
                 'callback' => null
             ];
         }
 
-        if(\preg_match('/development/', \APPLICATION_ENV)) {
+        if (YulaiFederation\is_dev_environment()) {
             $themeOptionsPage['yulai-federation-theme-settings']['tabs']['development'] = $this->getDevelopmentSettings();
         }
 
@@ -124,8 +134,8 @@ class ThemeSettings {
      */
     private function getGeneralSettings() {
         return [
-            'tab_title' => \__('General Settings', 'yulai-federation'),
-            'tab_description' => \__('General Theme Settings', 'yulai-federation'),
+            'tab_title' => __('General Settings', 'yulai-federation'),
+            'tab_description' => __('General Theme Settings', 'yulai-federation'),
             'fields' => $this->getGeneralSettingsFields()
         ];
     }
@@ -151,13 +161,13 @@ class ThemeSettings {
      */
     private function getEntityTypeField() {
         return [
-            'title' => \__('Entity Type', 'yulai-federation'),
+            'title' => __('Entity Type', 'yulai-federation'),
             'type' => 'select',
             'choices' => [
-                'alliance' => \__('Alliance', 'yulai-federation'),
-                'corporation' => \__('Corporation', 'yulai-federation')
+                'alliance' => __('Alliance', 'yulai-federation'),
+                'corporation' => __('Corporation', 'yulai-federation')
             ],
-            'empty' => \__('Please Select', 'yulai-federation'),
+            'empty' => __('Please Select', 'yulai-federation'),
             'description' => 'Is it a Corporation or an Alliance?'
         ];
     }
@@ -168,10 +178,10 @@ class ThemeSettings {
      */
     private function getEntityNameField() {
         return [
-            'title' => \__('Entity Name', 'yulai-federation'),
+            'title' => __('Entity Name', 'yulai-federation'),
             'type' => 'text',
-            'description' => \sprintf(
-                \__('The Name of your Corp/Alliance %1$s', 'yulai-federation'), (!empty($this->themeOptions['name']) && !empty($this->themeOptions['type'])) ? '</p></td></tr><tr><th>' . \__('Your Logo', 'yulai-federation') . '</th><td>' . $this->eveApi->getEntityLogoByName($this->themeOptions['name'], $this->themeOptions['type'], false) : ''
+            'description' => sprintf(
+                __('The Name of your Corp/Alliance %1$s', 'yulai-federation'), (!empty($this->themeOptions['name']) && !empty($this->themeOptions['type'])) ? '</p></td></tr><tr><th>' . __('Your Logo', 'yulai-federation') . '</th><td>' . $this->eveApi->getEntityLogoByName($this->themeOptions['name'], $this->themeOptions['type'], false) : ''
             )
         ];
     }
@@ -183,12 +193,12 @@ class ThemeSettings {
      */
     private function getShowCorpLogosField() {
         return [
-            'title' => \__('Corp Logos', 'yulai-federation'),
+            'title' => __('Corp Logos', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'show' => \__('Show corp logos in menu for corp pages.', 'yulai-federation')
+                'show' => __('Show corp logos in menu for corp pages.', 'yulai-federation')
             ],
-            'description' => \__('Only available if you are running an alliance website, so you can have the corp logos in your "Our Corporations" menu.', 'yulai-federation')
+            'description' => __('Only available if you are running an alliance website, so you can have the corp logos in your "Our Corporations" menu.', 'yulai-federation')
         ];
     }
 
@@ -199,28 +209,28 @@ class ThemeSettings {
      */
     private function getEvenNavigationField() {
         return [
-            'title' => \__('Navigation', 'yulai-federation'),
+            'title' => __('Navigation', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'yes' => \__('Even navigation cells in main navigation', 'yulai-federation')
+                'yes' => __('Even navigation cells in main navigation', 'yulai-federation')
             ],
-            'description' => \__('Transforms the main navigation into even cells instead of random width cells. (only looks good with enough navigation items though ...)', 'yulai-federation')
+            'description' => __('Transforms the main navigation into even cells instead of random width cells. (only looks good with enough navigation items though ...)', 'yulai-federation')
         ];
     }
 
     /**
-     * general setting "Show Post Meta"
+     * General setting "Show Post Meta"
      *
-     * @return arrays
+     * @return array
      */
     private function getShowPostMetaField() {
         return [
-            'title' => \__('Post Meta', 'yulai-federation'),
+            'title' => __('Post Meta', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'yes' => \__('Show post meta (categories and all that stuff) in article loop and article view.', 'yulai-federation')
+                'yes' => __('Show post meta (categories and all that stuff) in article loop and article view.', 'yulai-federation')
             ],
-            'description' => \__('If checked the post meta information, such as categories, publish time and author will be displayed in article loop and article view. (Default: on)', 'yulai-federation')
+            'description' => __('If checked the post meta information, such as categories, publish time and author will be displayed in article loop and article view. (Default: on)', 'yulai-federation')
         ];
     }
 
@@ -231,8 +241,8 @@ class ThemeSettings {
      */
     private function getBackgroundSettings() {
         return [
-            'tab_title' => \__('Background Settings', 'yulai-federation'),
-            'tab_description' => \__('Background Settings', 'yulai-federation'),
+            'tab_title' => __('Background Settings', 'yulai-federation'),
+            'tab_description' => __('Background Settings', 'yulai-federation'),
             'fields' => $this->getBackgroundSettingsFields()
         ];
     }
@@ -257,12 +267,12 @@ class ThemeSettings {
      */
     private function getUseBackgroundImageField() {
         return [
-            'title' => \__('Use Background Image', 'yulai-federation'),
+            'title' => __('Use Background Image', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'yes' => \__('Yes, I want to use background images on this website.', 'yulai-federation')
+                'yes' => __('Yes, I want to use background images on this website.', 'yulai-federation')
             ],
-            'description' => \__('If this option is checked, the website will use your selected (down below) background image instead of a simple colored background.', 'yulai-federation')
+            'description' => __('If this option is checked, the website will use your selected (down below) background image instead of a simple colored background.', 'yulai-federation')
         ];
     }
 
@@ -272,11 +282,11 @@ class ThemeSettings {
      */
     private function getThemeBackgroundImagesField() {
         return [
-            'title' => \__('Background Image', 'yulai-federation'),
+            'title' => __('Background Image', 'yulai-federation'),
             'type' => 'radio',
             'choices' => YulaiFederation\Helper\ThemeHelper::getInstance()->getDefaultBackgroundImages(true),
-            'empty' => \__('Please Select', 'yulai-federation'),
-            'description' => \__('Select one of the default Background images ...', 'yulai-federation'),
+            'empty' => __('Please Select', 'yulai-federation'),
+            'description' => __('Select one of the default Background images ...', 'yulai-federation'),
             'align' => 'horizontal'
         ];
     }
@@ -288,9 +298,9 @@ class ThemeSettings {
      */
     private function getBackgroundImageUploadField() {
         return [
-            'title' => \__('', 'yulai-federation'),
+            'title' => __('', 'yulai-federation'),
             'type' => 'image',
-            'description' => \__('... or upload your own', 'yulai-federation')
+            'description' => __('... or upload your own', 'yulai-federation')
         ];
     }
 
@@ -301,8 +311,8 @@ class ThemeSettings {
      */
     private function getSliderSettings() {
         return [
-            'tab_title' => \__('Slider Settings', 'yulai-federation'),
-            'tab_description' => \__('Slider Settings', 'yulai-federation'),
+            'tab_title' => __('Slider Settings', 'yulai-federation'),
+            'tab_description' => __('Slider Settings', 'yulai-federation'),
             'fields' => $this->getSliderSettingsFields()
         ];
     }
@@ -321,41 +331,41 @@ class ThemeSettings {
              * !!!
              */
             'default_slider' => [
-                'title' => \__('Default Slider on Front Page', 'yulai-federation'),
+                'title' => __('Default Slider on Front Page', 'yulai-federation'),
                 'type' => 'select',
                 'choices' => $this->metaSlider->metasliderGetOptions(),
-                'description' => ($this->metaSlider->metasliderPluginExists()) ? \__('Select the default slider for your front page', 'yulai-federation') : \sprintf(\__('Please make sure you have the %1$s plugin installed and activated.', 'yulai-federation'), '<a href="https://wordpress.org/plugins/ml-slider/">Meta Slider</a>')
+                'description' => ($this->metaSlider->metasliderPluginExists()) ? __('Select the default slider for your front page', 'yulai-federation') : sprintf(__('Please make sure you have the %1$s plugin installed and activated.', 'yulai-federation'), '<a href="https://wordpress.org/plugins/ml-slider/">Meta Slider</a>')
             ],
             'default_slider_on' => [
-                'title' => \__('Pages with Slider', 'yulai-federation'),
+                'title' => __('Pages with Slider', 'yulai-federation'),
                 'type' => 'checkbox',
                 'choices' => [
-                    'frontpage_only' => \__('Show only on front page.', 'yulai-federation')
+                    'frontpage_only' => __('Show only on front page.', 'yulai-federation')
                 ],
-                'description' => \__('Show this slider only on front page in case no other slider is defined.', 'yulai-federation')
+                'description' => __('Show this slider only on front page in case no other slider is defined.', 'yulai-federation')
             ],
         ];
     }
 
     /**
-     * performance settings tab
+     * Performance settings tab
      *
      * @return array
      */
-    private function getPerformanceSettings() {
+    private function getPerformanceSettings(): array {
         return [
-            'tab_title' => \__('Performance Settings', 'yulai-federation'),
-            'tab_description' => \__('Performance Settings', 'yulai-federation'),
+            'tab_title' => __('Performance Settings', 'yulai-federation'),
+            'tab_description' => __('Performance Settings', 'yulai-federation'),
             'fields' => $this->getPerformanceSettingsFields()
         ];
     }
 
     /**
-     * performance tab fields
+     * Performance tab fields
      *
      * @return array
      */
-    private function getPerformanceSettingsFields() {
+    private function getPerformanceSettingsFields(): array {
         return [
             'minify_html_output' => $this->getMinifyHtmlOutputField(),
             'cache' => $this->getCacheField(),
@@ -364,18 +374,18 @@ class ThemeSettings {
     }
 
     /**
-     * performance tab field "HTML Output"
+     * Performance tab field "HTML Output"
      *
      * @return array
      */
     private function getMinifyHtmlOutputField() {
         return [
-            'title' => \__('HTML Output', 'yulai-federation'),
+            'title' => __('HTML Output', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'yes' => \__('Minify HTML output?', 'yulai-federation')
+                'yes' => __('Minify HTML output?', 'yulai-federation')
             ],
-            'description' => \__('By minifying the HTML output you might boost your websites performance. NOTE: this may not work on every server, so if you experience issues, turn this option off again!', 'yulai-federation')
+            'description' => __('By minifying the HTML output you might boost your websites performance. NOTE: this may not work on every server, so if you experience issues, turn this option off again!', 'yulai-federation')
         ];
     }
 
@@ -386,12 +396,12 @@ class ThemeSettings {
      */
     private function getCacheField() {
         return [
-            'title' => \__('Image Cache', 'yulai-federation'),
+            'title' => __('Image Cache', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'remote-image-cache' => \__('Use imagecache for images fetched from CCP\'s image server', 'yulai-federation')
+                'remote-image-cache' => __('Use imagecache for images fetched from CCP\'s image server', 'yulai-federation')
             ],
-            'description' => \__('If checked the images from CCP\'s image server will be cached locally. (Default: on)', 'yulai-federation')
+            'description' => __('If checked the images from CCP\'s image server will be cached locally. (Default: on)', 'yulai-federation')
         ];
     }
 
@@ -402,13 +412,13 @@ class ThemeSettings {
      */
     private function getCronField() {
         return [
-            'title' => \__('Cron Jobs', 'yulai-federation'),
+            'title' => __('Cron Jobs', 'yulai-federation'),
             'type' => 'checkbox',
             'choices' => [
-                'cleanupThemeImageCache' => \__('Use a cronjob to clear the image cache once a day.', 'yulai-federation'),
-                'cleanupTransientCache' => \__('Use a cronjob to clear the database transient cache once a day.', 'yulai-federation')
+                'cleanupThemeImageCache' => __('Use a cronjob to clear the image cache once a day.', 'yulai-federation'),
+                'cleanupTransientCache' => __('Use a cronjob to clear the database transient cache once a day.', 'yulai-federation')
             ],
-            'description' => \__('If checked a WordPress cron will be initialized to run te selected task(s). (Default: off)', 'yulai-federation')
+            'description' => __('If checked a WordPress cron will be initialized to run te selected task(s). (Default: off)', 'yulai-federation')
         ];
     }
 
@@ -419,8 +429,8 @@ class ThemeSettings {
      */
     private function getDevelopmentSettings() {
         return [
-            'tab_title' => \__('Development Infos', 'yulai-federation'),
-            'tab_description' => \__('Delevopment Information', 'yulai-federation'),
+            'tab_title' => __('Development Infos', 'yulai-federation'),
+            'tab_description' => __('Delevopment Information', 'yulai-federation'),
             'fields' => $this->getDevelopmentSettingsFields()
         ];
     }
@@ -433,25 +443,25 @@ class ThemeSettings {
     private function getDevelopmentSettingsFields() {
         return [
             'yf_theme_options_sane' => [
-                'title' => \__('Options Array<br>(sane from functions.php)', 'yulai-federation'),
+                'title' => __('Options Array<br>(sane from functions.php)', 'yulai-federation'),
                 'type' => 'custom',
-                'content' => '<pre>' . \print_r(YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions(), true) . '</pre>',
+                'content' => '<pre>' . print_r(YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions(), true) . '</pre>',
                 'callback' => null,
-                'description' => \__('This are the sane options defined in functions.php via <code>\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions()</code>', 'yulai-federation')
+                'description' => __('This are the sane options defined in functions.php via <code>\WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions()</code>', 'yulai-federation')
             ],
             'yf_theme_options_from_db' => [
-                'title' => \__('Options Array<br>(from DB)', 'yulai-federation'),
+                'title' => __('Options Array<br>(from DB)', 'yulai-federation'),
                 'type' => 'custom',
-                'content' => '<pre>' . \print_r(\get_option('yulai_theme_options'), true) . '</pre>',
+                'content' => '<pre>' . print_r(get_option('yulai_theme_options'), true) . '</pre>',
                 'callback' => null,
-                'description' => \__('This are the options from our database via <code>\get_option(\'yulai_theme_options\')</code>', 'yulai-federation')
+                'description' => __('This are the options from our database via <code>\get_option(\'yulai_theme_options\')</code>', 'yulai-federation')
             ],
             'yf_theme_options_merged' => [
-                'title' => \__('Options Array<br>(merged / used for Theme)', 'yulai-federation'),
+                'title' => __('Options Array<br>(merged / used for Theme)', 'yulai-federation'),
                 'type' => 'custom',
-                'content' => '<pre>' . \print_r(\get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions()), true) . '</pre>',
+                'content' => '<pre>' . print_r(get_option('yulai_theme_options', YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions()), true) . '</pre>',
                 'callback' => null,
-                'description' => \__('This are the options used for the theme via <code>\get_option(\'yulai_theme_options\', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions())</code>', 'yulai-federation')
+                'description' => __('This are the options used for the theme via <code>\get_option(\'yulai_theme_options\', \WordPress\Themes\YulaiFederation\Helper\ThemeHelper::getInstance()->getThemeDefaultOptions())</code>', 'yulai-federation')
             ]
         ];
     }
